@@ -1,0 +1,62 @@
+{% extends 'JamboBundle:admin:_template.html.twig' %}
+{% import 'JamboBundle:admin:_macro.html.twig' as macro %}
+
+{% block content %}
+    <a href="{{ path('admin_participant_list') }}" class="btn btn-primary btn-small">{{ 'admin.get_list'|trans }}</a>
+    <h1>
+        <a href="{{ path('admin_participant_index') }}">{{ 'admin.participants'|trans }}</a>
+        {% if criteria.districtId is defined %}
+            ({{ 'admin.district'|trans }} {{ criteria.districtId|districtname }})
+        {% endif %}
+        - {{ 'admin.people_number'|transchoice(participants.count) }}
+    </h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>{{ 'admin.name'|trans }}</th>
+                <th>{{ 'admin.district'|trans }}</th>
+                <th>{{ 'form.status'|trans }}</th>
+                <th>{{ 'admin.created_at'|trans }}</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for participant in participants %}
+                <tr>
+                    <td>
+                        <a href="{{ path('admin_participant_show', {id: participant.id}) }}">{{ participant.name }}</a>
+                        {% if participant.troop %}
+                            (<a href="{{ path('admin_troop_show', {id: participant.troop.id}) }}">
+                                {{- participant.troop.name -}}
+                            </a>)
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{{ path('admin_participant_index', {districtId: participant.districtId}) }}">
+                            {{ participant.districtId|districtname }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{ path('admin_troop_index', {status: participant.troop.status}) }}">
+                            {{ participant.troop.status|statusname }}
+                        </a>
+                    </td>
+                    <td>{{ participant.createdAt|date('Y-m-d') }}</td>
+                    <td>
+                        <a href="{{ path('admin_participant_show', {id: participant.id}) }}" class="btn btn-default btn-xs"
+                            title="{{ 'admin.show'|trans }}">
+                            <i class="glyphicon glyphicon-file"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">
+                        {{ 'admin.list.empty'|trans }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {{ macro.pagination(participants, criteria|changekeys({serviceMainId: 'serviceId'})) }}
+{% endblock %}

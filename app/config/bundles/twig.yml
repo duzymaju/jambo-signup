@@ -1,0 +1,22 @@
+twig:
+    debug:                              "%kernel.debug%"
+    globals:
+        age_limit:                      "%jambo.age_limit.date%"
+        defaultLocale:                  "%locale%"
+        facebook_event:                 "%jambo.facebook_event%"
+        locales:                        "%locales%"
+        main_email:                     "%jambo.email.reply_to%"
+        main_page:                      "%jambo.main_page%"
+        min_age_adult:                  "%jambo.age_limit.adult%"
+    strict_variables:                   "%kernel.debug%"
+
+services:
+    twig.extension.intl:
+        class:                          Twig_Extensions_Extension_Intl
+        tags:
+            - name:                     twig.extension
+
+    twig.extension.text:
+        class:                          Twig_Extensions_Extension_Text
+        tags:
+            - name:                     twig.extension

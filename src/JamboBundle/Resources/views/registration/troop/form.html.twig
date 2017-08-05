@@ -1,0 +1,40 @@
+{% extends 'JamboBundle:registration:_template.html.twig' %}
+{% import 'JamboBundle:registration:_macro.html.twig' as macro %}
+{% import 'JamboBundle::_macro.html.twig' as globalMacro %}
+
+{% set pageTitle = 'troop.form.title'|trans %}
+
+{% block content %}
+    {{ globalMacro.flashBagMessages('error', true) }}
+    <h1>{{ 'troop.form.title'|trans }}</h1>
+    <p>{{ 'troop.form.description'|trans({'%age%': min_age_member, '%date%': age_limit, '%range%': min_size == max_size ? min_size : 'troop.form.range'|trans({'%min_size%': min_size, '%max_size%': max_size})}) }}</p>
+    {{ form_start(form, {'attr': {'class': 'registration-form registration-form-troop'}}) }}
+        {{ macro.formRow(form.name) }}
+        {{ macro.formRow(form.districtId) }}
+        {{ macro.formRow(form.comments) }}
+        <div data-item-name="member" data-max-size="{{ max_size }}" data-prototype="{{ macro.troopMember(form.members.vars.prototype, '__no__')|e }}">
+            <div class="row">
+                {% for member in form.members %}
+                    {% if loop.index0 > 0 and loop.index0 is even %}
+                        </div><div class="row">
+                    {% endif %}
+                    {{ macro.troopMember(member, loop.index, form.vars.data.leader) }}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="form-group" style="display:none">
+            <span id="add-member" class="btn btn-default btn-lg" style="width:100%">
+                {{ 'troop.form.add_member'|trans }}
+            </span>
+        </div>
+        {{ macro.formCheckboxRow(form.personalData) }}
+        <div class="form-group form-checkbox">
+            {{ form_widget(form.rules) }}
+            <label for="{{ form.rules.vars.id }}">{{ 'form.rules'|trans({'%url%': macro.mainPage('rules_participant')})|raw }}</label>
+            {{ form_errors(form.rules) }}
+        </div>
+        <div class="form-group">
+            {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
+        </div>
+    {{ form_end(form) }}
+{% endblock %}

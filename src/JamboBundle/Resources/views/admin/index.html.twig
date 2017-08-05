@@ -1,0 +1,28 @@
+{% extends 'JamboBundle:admin:_template.html.twig' %}
+
+{% block content %}
+    {% for list in lists %}
+        {% if loop.index is odd %}
+            <div class="row">
+        {% endif %}
+        <div class="col-sm-6">
+            <h3>
+                <a href="{{ path(list.routeIndex) }}">{{ list.title|trans }}</a>
+                {{ list.counter|trans({'%limit%': limit > list.totalNumber ? list.totalNumber : limit, '%totalNumber%': list.totalNumber}) }}
+            </h3>
+            <table class="table table-striped">
+                <tbody>
+                    {% for item in list.items %}
+                        <tr>
+                            <td><a href="{{ path(list.routeShow, {id: item.id}) }}">{{ item.name }}</a></td>
+                            <td>{{ item.createdAt|date('Y-m-d') }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% if loop.index is even %}
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endblock %}

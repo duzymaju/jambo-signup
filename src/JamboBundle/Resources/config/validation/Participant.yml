@@ -1,0 +1,77 @@
+JamboBundle\Entity\Participant:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields:                     pesel
+            ignoreNull:                 true
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: email
+    properties:
+        firstName:
+            - Length:
+                groups:
+                    -                   troopMember
+                max:                    50
+                min:                    2
+            - NotBlank:
+                groups:
+                    -                   troopMember
+        lastName:
+            - Length:
+                groups:
+                    -                   troopMember
+                max:                    50
+                min:                    2
+            - NotBlank:
+                groups:
+                    -                   troopMember
+        address:
+            - Length:
+                groups:
+                    -                   troopMember
+                max:                    255
+                min:                    10
+            - NotBlank:
+                groups:
+                    -                   troopMember
+        phone:
+            - Length:
+                groups:
+                    -                   troopMember
+                max:                    15
+                min:                    8
+            - NotBlank:
+                groups:
+                    -                   troopMember
+            - Regex:
+                groups:
+                    -                   troopMember
+                pattern:                "/^[0-9 \\(\\)\\+-]{8,15}$/"
+        email:
+            - Email:
+                groups:
+                    -                   troopMember
+            - Length:
+                groups:
+                    -                   troopMember
+                max:                    40
+                min:                    3
+            - NotBlank:
+                groups:
+                    -                   troopMember
+        pesel:
+            - JamboBundle\Validator\Constraints\ContainsPesel:
+                groups:
+                    -                   troopMember
+        fatherName:
+            - Length:
+                groups:
+                    -                   troopMember
+                max:                    50
+                min:                    2
+            - NotBlank:
+                groups:
+                    -                   troopMember
+        comments:
+            - Length:
+                groups:
+                    -                   troopMember
+                max:                    255

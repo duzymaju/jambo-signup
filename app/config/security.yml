@@ -1,24 +1,50 @@
-# To get started with security, check out the documentation:
-# https://symfony.com/doc/current/security.html
 security:
-
-    # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
-    providers:
-        in_memory:
-            memory: ~
-
+    access_control:
+        # internal
+        -
+            path:                       ^/(_(profiler|wdt)|css|images|js)/
+            requires_channel:           "%requires_channel%"
+            role:                       IS_AUTHENTICATED_ANONYMOUSLY
+        # admin
+        -
+            path:                       ^/%locales_pattern%/admin/(login|zaloguj)$
+            requires_channel:           "%requires_channel%"
+            role:                       IS_AUTHENTICATED_ANONYMOUSLY
+        -
+            path:                       ^/%locales_pattern%/admin
+            requires_channel:           "%requires_channel%"
+            role:                       ROLE_ADMIN
+        # default
+        -
+            path:                       ^/
+            requires_channel:           "%requires_channel%"
+            role:                       IS_AUTHENTICATED_ANONYMOUSLY
+    encoders:
+        FOS\UserBundle\Model\UserInterface: sha512
     firewalls:
-        # disables authentication for assets and the profiler, adapt it according to your needs
-        dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
-            security: false
-
-        main:
-            anonymous: ~
-            # activate different ways to authenticate
-
-            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-            #http_basic: ~
-
-            # https://symfony.com/doc/current/security/form_login_setup.html
-            #form_login: ~
+        internal:
+            pattern:                    ^/(_(profiler|wdt)|css|images|js)/
+            security:                   false
+        admin:
+            anonymous:                  true
+            form_login:
+                check_path:             fos_user_security_check
+                csrf_token_generator:   security.csrf.token_manager
+                default_target_path:    admin_index
+                login_path:             fos_user_security_login
+                provider:               fos_userbundle
+                remember_me:            false
+                use_referer:            true
+            logout:
+                path:                   fos_user_security_logout
+                target:                 fos_user_security_login
+            pattern:                    ^/%locales_pattern%/admin
+        default:
+            anonymous:                  true
+            pattern:                    ^/
+    providers:
+        fos_userbundle:
+            id:                         fos_user.user_provider.username
+    role_hierarchy:
+        ROLE_ADMIN:                     ROLE_USER
+        ROLE_SUPER_ADMIN:               ROLE_ADMIN

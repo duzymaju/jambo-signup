@@ -1,0 +1,7 @@
+registration_participant_confirm:
+    defaults:
+        _controller:                    JamboBundle:Registration:participantConfirm
+    methods:                            [GET]
+    path:                               /participant/{hash}/confirm
+    requirements:
+        hash:                           "[0-9a-f]{32}$"

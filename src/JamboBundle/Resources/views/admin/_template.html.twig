@@ -1,0 +1,76 @@
+{% extends 'JamboBundle::_layout.html.twig' %}
+
+{% block title %}
+    {{ pageTitle is defined ? pageTitle ~ ' - ' }}{{ 'admin.title'|trans }}
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+    {% stylesheets output='css/x-admin.min.css'
+        'css/main.css'
+        'css/messages.css'
+        'css/admin/main.css'
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+    {% javascripts output='js/x-admin.min.js'
+        'js/admin/main.js'
+    %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-menu" aria-expanded="false">
+                        <span class="sr-only">{{ 'layout.navigation.toggle'|trans }}</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="{{ path('admin_index') }}" class="navbar-brand navbar-brand-logo">
+                        {{ 'admin.header'|trans }}
+                    </a>
+                </div>
+                {% if app.user %}
+                    <div class="collapse navbar-collapse" id="navbar-collapse-menu">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <a href="{{ path('admin_participant_index') }}" class="navbar-link">
+                                    {{ 'admin.participants'|trans }}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ path('admin_troop_index') }}" class="navbar-link">
+                                    {{ 'admin.troops'|trans }}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ path('admin_search_index') }}" class="navbar-link">
+                                    {{ 'admin.search'|trans }}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ path('fos_user_security_logout') }}" class="navbar-link">
+                                    {{ 'admin.logout.link'|trans({'%login%': app.user.username})|raw }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                {% endif %}
+            </div>
+        </nav>
+        {% block content %}{% endblock %}
+    </div>
+{% endblock %}

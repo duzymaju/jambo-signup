@@ -1,0 +1,29 @@
+services:
+    jambo_bundle.alias.manager_service:
+        alias:                          doctrine
+
+    jambo_bundle.repository.action:
+        arguments:
+            -                           JamboBundle\Entity\Action
+        class:                          JamboBundle\Entity\Repository\ActionRepository
+        factory:                        ["@jambo_bundle.alias.manager_service", getRepository]
+
+    jambo_bundle.repository.participant:
+        arguments:
+            -                           JamboBundle\Entity\Participant
+        calls:
+            -                           [setRegistrationLists, ["@jambo_bundle.registration.lists"]]
+        class:                          JamboBundle\Entity\Repository\ParticipantRepository
+        factory:                        ["@jambo_bundle.alias.manager_service", getRepository]
+
+    jambo_bundle.repository.troop:
+        arguments:
+            -                           JamboBundle\Entity\Troop
+        class:                          JamboBundle\Entity\Repository\TroopRepository
+        factory:                        ["@jambo_bundle.alias.manager_service", getRepository]
+
+    jambo_bundle.repository.user:
+        arguments:
+            -                           JamboBundle\Entity\User
+        class:                          JamboBundle\Entity\Repository\UserRepository
+        factory:                        ["@jambo_bundle.alias.manager_service", getRepository]

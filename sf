@@ -1,0 +1,24 @@
+#!/bin/bash
+
+<<COMMENT
+
+bin/console assetic:dump --env=prod
+
+bin/console assets:install public_html
+
+bin/console doctrine:migrations:diff
+bin/console doctrine:migrations:migrate
+bin/console doctrine:migrations:status
+bin/console doctrine:schema:update --force
+bin/console doctrine:fixtures:load -vvv
+
+bin/console fos:user:create user email password --super-admin
+bin/console fos:user:promote user ROLE_ADMIN
+bin/console fos:user:change-password user newpassword
+
+bin/console translation:extract --config=routes --keep pl en
+bin/console translation:update --output-format=yml --dump-messages en JamboBundle
+
+COMMENT
+
+bin/console $@

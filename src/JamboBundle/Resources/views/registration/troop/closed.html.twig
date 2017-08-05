@@ -1,0 +1,10 @@
+{% extends 'JamboBundle:registration:_template.html.twig' %}
+{% import 'JamboBundle:registration:_macro.html.twig' as macro %}
+{% import 'JamboBundle::_macro.html.twig' as globalMacro %}
+
+{% set pageTitle = 'troop.closed.title'|trans %}
+
+{% block content %}
+    {{ globalMacro.message('troop.closed.message', 'message', true) }}
+    {{ macro.nextStepsBox(participantsLimitsExceeded) }}
+{% endblock %}

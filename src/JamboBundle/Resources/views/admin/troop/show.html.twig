@@ -1,0 +1,45 @@
+{% extends 'JamboBundle:admin:_template.html.twig' %}
+{% import 'JamboBundle:admin:_macro.html.twig' as macro %}
+{% import 'JamboBundle::_macro.html.twig' as globalMacro %}
+
+{% block content %}
+    {{ globalMacro.flashBagMessages('success', true) }}
+    {{ globalMacro.flashBagMessages('error', true) }}
+    {% if isReminderSendingPossible %}
+        <a href="{{ path('admin_troop_show', {id: troop.id, sendReminder: 'true'}) }}" class="btn btn-primary btn-small">{{ 'admin.reminder.button'|trans }}</a>
+    {% elseif not troop.confirmed and troop.createdAt != troop.updatedAt %}
+        {{ globalMacro.message('admin.reminder.sent_date'|trans({'%date%': troop.updatedAt|date('Y-m-d')}), 'message') }}
+    {% endif %}
+    {{ macro.showHeader('admin.troop'|trans, path('admin_troop_edit', {id: troop.id})) }}
+    <dl class="list">
+        <dt>{{ 'form.status'|trans }}:</dt>
+        <dd>
+            <a href="{{ path('admin_troop_index', {status: troop.status}) }}">
+                {{ troop.status|statusname }}
+            </a>
+        </dd>
+        <dt>{{ 'form.troop_name'|trans }}:</dt>
+        <dd>{{ troop.name }}</dd>
+        {% if troop.districtId > 0 %}
+            <dt>{{ 'form.district'|trans }}:</dt>
+            <dd>
+                <a href="{{ path('admin_troop_index', {districtId: troop.districtId}) }}">
+                    {{ troop.districtId|districtname }}
+                </a>
+            </dd>
+        {% endif %}
+        <dt>{{ 'form.comments'|trans }}:</dt>
+        <dd>{{ troop.comments is empty ? '-' : troop.comments }}</dd>
+        {% if troop.members.count > 0 %}
+            <dt>{{ 'admin.troop_members'|trans({'%count%': troop.members.count}) }}:</dt>
+            <dd>
+                {% for member in troop.members %}
+                    <a href="{{ path('admin_participant_show', {id: member.id}) }}">{{ member.firstName }} {{ member.lastName }}</a>{% if troop.leader.id == member.id %} ({{ 'admin.troop_leader'|trans }}){% endif %}{{ not loop.last ? ',' : '' }}
+                {% endfor %}
+            </dd>
+        {% endif %}
+        <dt>{{ 'admin.created_at'|trans }}:</dt>
+        <dd>{{ troop.createdAt|date('Y-m-d') }}</dd>
+    </dl>
+    {{ macro.editFormModal() }}
+{% endblock %}

@@ -1,0 +1,11 @@
+.messages,
+form ul {
+    list-style: none;
+}
+.messages .message-success {
+    color: darkgreen;
+}
+.messages .message-error,
+form li {
+    color: red;
+}

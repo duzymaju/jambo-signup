@@ -1,0 +1,7 @@
+admin_participant_show:
+    defaults:
+        _controller:                    JamboBundle:Admin/Participant:show
+    methods:                            [GET]
+    path:                               /admin/participant/{id}
+    requirements:
+        id:                             \d+

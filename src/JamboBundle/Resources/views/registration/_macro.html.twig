@@ -1,0 +1,72 @@
+{% macro nextStepsBox(participantsLimitsExceeded) %}
+    {% import _self as macros %}
+    <h1>{{ 'next_steps.title'|trans }}:</h1>
+    <div class="btn-group-vertical btn-group-lg">
+        {% if not participantsLimitsExceeded %}
+            <a href="{{ path('registration_troop_form') }}" class="btn btn-default">
+                {{ 'next_steps.register_troop'|trans }}
+            </a>
+        {% endif %}
+        <a href="{{ macros.mainPage() }}" target="_blank" class="btn btn-default">
+            {{ 'next_steps.regions_page'|trans }}
+        </a>
+    </div>
+{% endmacro %}
+
+{% macro formCheckboxRow(element) %}
+    <div class="form-group form-checkbox">
+        {{ form_widget(element) }}
+        {{ form_label(element) }}
+        {{ form_errors(element) }}
+    </div>
+{% endmacro %}
+
+{% macro formRow(element, options = {}) %}
+    {% import _self as macros %}
+    <div class="form-group{% if options.info is defined %} form-info{% endif %}"
+        {% if options.locale is defined %} data-specific-locale="{{ options.locale }}"{% endif %}>
+        {{ form_label(element) }}
+        {% if options.date is defined %}
+            <div class="input-group date">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                {{ form_widget(element, {attr: {class: 'span2 form-control', maxlength: 10, pattern: '[0-9]{4}-[0-9]{2}-[0-9]{2}', placeholder: 'YYYY-MM-DD'}}) }}
+            </div>
+        {% else %}
+            {{ form_widget(element, {attr: {class: 'form-control'}}) }}
+        {% endif %}
+        {% if options.info is defined %}{{ macros.formInfo(options.info) }}{% endif %}
+        {{ form_errors(element) }}
+    </div>
+{% endmacro %}
+
+{% macro troopMember(member, no = 1, leaderData = null) %}
+    {% import _self as macros %}
+    {% set isLeader = leaderData and leaderData is same as (member.vars.data) %}
+    <div class="col-sm-6 member">
+        <h2>{{ isLeader ? 'troop.form.leader'|trans : 'troop.form.member'|trans({'%no%': no}) }}</h2>
+        {{ macros.formRow(member.firstName) }}
+        {{ macros.formRow(member.lastName) }}
+        {{ macros.formRow(member.address) }}
+        {{ macros.formRow(member.phone) }}
+        {{ macros.formRow(member.email, isLeader ? {info: 'form.tip.email'|trans} : {}) }}
+        {{ macros.formRow(member.pesel) }}
+        {{ macros.formRow(member.fatherName) }}
+        {{ macros.formRow(member.emergencyPhone) }}
+        {{ macros.formRow(member.gradeId) }}
+        {{ macros.formRow(member.shirtSize) }}
+    </div>
+{% endmacro %}
+
+{% macro mainPage(type = 'url') %}{% spaceless %}
+    {% import _self as macros %}
+    {{ macros.externalPage(main_page, type) }}
+{% endspaceless %}{% endmacro %}
+
+{% macro externalPage(data, type = 'url') %}{% spaceless %}
+    {% set currentLocale = app.request.locale in locales ? app.request.locale : defaultLocale %}
+    {{ data.url[currentLocale] }}{{ type != 'url' ? data[type][currentLocale] : '' }}
+{% endspaceless %}{% endmacro %}
+
+{% macro formInfo(text, tooltipPlacement = 'left') %}
+    <div class="info" data-toggle="tooltip" data-placement="{{ tooltipPlacement }}" title="{{ text }}"></div>
+{% endmacro %}

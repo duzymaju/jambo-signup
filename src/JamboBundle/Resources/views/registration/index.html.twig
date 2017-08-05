@@ -1,0 +1,17 @@
+{% extends 'JamboBundle:registration:_template.html.twig' %}
+{% import 'JamboBundle::_macro.html.twig' as globalMacro %}
+
+{% block content %}
+    {% if participantsLimitsExceeded %}
+        {{ globalMacro.message('index.closed.message', 'message', true) }}
+    {% else %}
+        <h1>{{ 'index.title'|trans }}:</h1>
+        <div class="btn-group-vertical btn-group-lg">
+            {% if not participantsLimitsExceeded %}
+                <a href="{{ path('registration_troop_form') }}" class="btn btn-default">
+                    {{ 'index.troop'|trans }}
+                </a>
+            {% endif %}
+        </div>
+    {% endif %}
+{% endblock %}

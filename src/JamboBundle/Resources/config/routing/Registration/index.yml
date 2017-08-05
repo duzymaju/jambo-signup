@@ -1,0 +1,5 @@
+registration_index:
+    defaults:
+        _controller:                    JamboBundle:Registration:index
+    methods:                            [GET]
+    path:                               /

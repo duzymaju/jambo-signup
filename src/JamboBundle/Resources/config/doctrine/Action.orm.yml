@@ -1,0 +1,32 @@
+JamboBundle\Entity\Action:
+    options:
+        collate:                        utf8_general_ci
+    repositoryClass:                    JamboBundle\Entity\Repository\ActionRepository
+    table:                              action
+    type:                               entity
+
+    id:
+        id:
+            generator:
+                strategy:               AUTO
+            type:                       integer
+    fields:
+        type:
+            length:                     40
+            type:                       string
+        objectId:
+            nullable:                   true
+            type:                       integer
+        createdAt:
+            name:                       created_at
+            type:                       datetime
+        updatedAt:
+            name:                       updated_at
+            type:                       datetime
+
+    manyToOne:
+        user:
+            cascade:
+                -                       persist
+            inversedBy:                 actions
+            targetEntity:               JamboBundle\Entity\User

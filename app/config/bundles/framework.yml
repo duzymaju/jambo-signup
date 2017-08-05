@@ -1,0 +1,32 @@
+framework:
+    assets:                             ~
+    csrf_protection:                    true
+    default_locale:                     "%locale%"
+#    esi:                                ~
+    form:                               ~
+    fragments:                          ~
+    http_method_override:               true
+    php_errors:
+        log:                            true
+    router:
+        resource:                       "%kernel.project_dir%/app/config/routing.yml"
+        strict_requirements:            ~
+    secret:                             "%secret%"
+#    serializer:
+#        enable_annotations:             true
+    session:
+#        handler_id set to null will use default session handler from php.ini
+        handler_id:                     ~
+#        handler_id:                     session.handler.native_file
+#        save_path:                      "%kernel.project_dir%/var/sessions/%kernel.environment%"
+    templating:
+#        assets_version:                 "%assets_version%"
+#        assets_version_format:          static/%%2$s/%%1$s
+        engines:
+            -                           twig
+    translator:
+        fallback:                       "%locale%"
+    trusted_hosts:                      ~
+    validation:
+        enable_annotations:             false
+        enabled:                        true

@@ -1,0 +1,7 @@
+registration_troop_confirm:
+    defaults:
+        _controller:                    JamboBundle:Registration:troopConfirm
+    methods:                            [GET]
+    path:                               /troop/{hash}/confirm
+    requirements:
+        hash:                           "[0-9a-f]{32}$"

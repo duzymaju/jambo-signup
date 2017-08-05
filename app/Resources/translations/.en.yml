@@ -1,0 +1,8 @@
+email:
+    link: email.link   # FIXME
+
+    troop:
+        reminder_text: email.troop.reminder_text   # FIXME
+
+    volunteers:
+        footer: email.volunteers.footer   # FIXME

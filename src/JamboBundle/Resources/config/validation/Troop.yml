@@ -1,0 +1,14 @@
+JamboBundle\Entity\Troop:
+    properties:
+        name:
+            - Length:
+                min:                    2
+                max:                    50
+        members:
+            - JamboBundle\Validator\Constraints\UniqueEntities:
+                field:                  pesel
+            - JamboBundle\Validator\Constraints\UniqueEntities:
+                field:                  email
+        comments:
+            - Length:
+                max:                    255

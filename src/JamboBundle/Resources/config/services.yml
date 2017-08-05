@@ -1,0 +1,69 @@
+services:
+    jambo_bundle.form_type.participant_edit:
+        arguments:
+            -                           "@translator"
+            -                           "@jambo_bundle.registration.lists"
+        class:                          JamboBundle\Form\Type\ParticipantEditType
+        tags:
+            - name:                     form.type
+
+    jambo_bundle.form_type.search:
+        arguments:
+            -                           "@translator"
+            -                           "@jambo_bundle.registration.lists"
+        class:                          JamboBundle\Form\Type\SearchType
+        tags:
+            - name:                     form.type
+
+    jambo_bundle.form_type.troop:
+        arguments:
+            -                           "@translator"
+            -                           "@jambo_bundle.registration.lists"
+            -                           "%jambo.region_id%"
+        class:                          JamboBundle\Form\Type\TroopType
+        tags:
+            - name:                     form.type
+
+    jambo_bundle.form_type.troop_edit:
+        arguments:
+            -                           "@translator"
+            -                           "@jambo_bundle.registration.lists"
+        class:                          JamboBundle\Form\Type\TroopEditType
+        tags:
+            - name:                     form.type
+
+    jambo_bundle.form_type.troop_member:
+        arguments:
+            -                           "@translator"
+            -                           "@jambo_bundle.registration.lists"
+        class:                          JamboBundle\Form\Type\TroopMemberType
+        tags:
+            - name:                     form.type
+
+    jambo_bundle.manager.action:
+        calls:
+            -                           [setActionRepository, ["@jambo_bundle.repository.action"]]
+        class:                          JamboBundle\Manager\ActionManager
+
+    jambo_bundle.registration.lists:
+        arguments:
+            -                           "@translator"
+        class:                          JamboBundle\Form\RegistrationLists
+
+    jambo_bundle.twig_extension.jambo:
+        arguments:
+            -                           "@translator"
+            -                           "%jambo.age_limit.date%"
+        class:                          JamboBundle\Twig\JamboExtension
+        tags:
+            -
+                name:                   twig.extension
+
+    jambo_bundle.validator.unique_entities:
+        calls:
+            -                           [addRepository, ["@jambo_bundle.repository.participant", Participant]]
+        class:                          JamboBundle\Validator\Constraints\UniqueEntitiesValidator
+        tags:
+            -
+                alias:                  unique_entities
+                name:                   validator.constraint_validator

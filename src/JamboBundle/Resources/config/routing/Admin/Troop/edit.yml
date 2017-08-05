@@ -1,0 +1,7 @@
+admin_troop_edit:
+    defaults:
+        _controller:                    JamboBundle:Admin/Troop:edit
+    methods:                            [GET|POST]
+    path:                               /admin/troop/{id}/edit
+    requirements:
+        id:                             \d+

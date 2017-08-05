@@ -1,0 +1,101 @@
+JamboBundle\Entity\Participant:
+    options:
+        collate:                        utf8_general_ci
+    repositoryClass:                    JamboBundle\Entity\Repository\ParticipantRepository
+    table:                              participant
+    type:                               entity
+
+    id:
+        id:
+            generator:
+                strategy:               AUTO
+            type:                       integer
+    fields:
+        firstName:
+            length:                     50
+            name:                       first_name
+            type:                       string
+        lastName:
+            length:                     50
+            name:                       last_name
+            type:                       string
+        status:
+            type:                       smallint
+        activationHash:
+            length:                     32
+            name:                       activation_hash
+            options:
+                fixed:                  true
+            type:                       string
+            unique:                     true
+        address:
+            length:                     255
+            type:                       string
+        phone:
+            length:                     15
+            type:                       string
+        email:
+            length:                     40
+            type:                       string
+            unique:                     true
+        shirtSize:
+            name:                       shirt_size
+            nullable:                   true
+            type:                       smallint
+        sex:
+            length:                     1
+            options:
+                fixed:                  true
+            type:                       string
+        birthDate:
+            name:                       birth_date
+            type:                       date
+        gradeId:
+            name:                       grade_id
+            nullable:                   true
+            type:                       smallint
+        districtId:
+            name:                       district_id
+            nullable:                   true
+            options:
+                unsigned:               true
+            type:                       smallint
+        pesel:
+            nullable:                   true
+            type:                       bigint
+        fatherName:
+            length:                     50
+            name:                       father_name
+            nullable:                   true
+            type:                       string
+        comments:
+            length:                     255
+            nullable:                   true
+            type:                       string
+        emergencyInfo:
+            length:                     100
+            name:                       emergency_info
+            nullable:                   true
+            type:                       string
+        emergencyPhone:
+            length:                     15
+            name:                       emergency_phone
+            nullable:                   true
+            type:                       string
+        createdAt:
+            name:                       created_at
+            type:                       datetime
+        updatedAt:
+            name:                       updated_at
+            type:                       datetime
+
+    manyToOne:
+        troop:
+            cascade:
+                -                       persist
+            inversedBy:                 members
+            targetEntity:               JamboBundle\Entity\Troop
+
+    indexes:
+        p_index_1:
+            columns:                    status

@@ -1,0 +1,89 @@
+.header-locales.navbar-right {
+    float: right;
+    margin: 7px -5px;
+}
+@media all and (min-width: 768px) {
+    .header-locales.navbar-right {
+        margin: 15px;
+    }
+}
+.header-locale {
+    float: left;
+}
+.header-locale-item {
+    background-position: center center;
+    background-repeat: no-repeat;
+    display: block !important;
+    float: left;
+    height: 20px;
+    overflow: hidden;
+    padding: 5px !important;
+    text-indent: 200%;
+    white-space: nowrap;
+    width: 26px;
+}
+span.header-locale-item {
+    opacity: 0.6;
+}
+.header-locale-en {
+    background-image: url('../img/flags/en.png');
+}
+.header-locale-es {
+    background-image: url('../img/flags/es.png');
+}
+.header-locale-pl {
+    background-image: url('../img/flags/pl.png');
+}
+
+.registration-form .form-control {
+    display: inline-block;
+}
+.registration-form div.form-control {
+    height: auto;
+}
+.registration-form .form-control input {
+    clear: left;
+    float: left;
+}
+.registration-form .form-control label {
+    float: left;
+    font-weight: normal;
+    margin: 0 6px;
+}
+.registration-form .form-info > .form-control {
+    width: calc(100% - 35px);
+}
+.registration-form .form-info .info {
+    background: lightblue;
+    border-radius: 10px;
+    cursor: help;
+    display: inline-block;
+    height: 20px;
+    line-height: 20px;
+    margin: 0 5px;
+    text-align: center;
+    width: 20px;
+}
+.registration-form .form-info .info:before {
+    content: '?';
+}
+.registration-form dd > div {
+    display: inline-block;
+}
+.registration-form .form-checkbox {
+    overflow: hidden;
+}
+.registration-form .form-checkbox input {
+    float: left;
+    height: 20px;
+    margin: 0;
+    width: 20px;
+}
+.registration-form .form-checkbox label {
+    float: left;
+    margin-left: 5px;
+    width: calc(100% - 25px);
+}
+.registration-form .input-group.date * {
+    cursor: pointer;
+}

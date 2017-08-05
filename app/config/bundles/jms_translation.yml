@@ -1,0 +1,12 @@
+jms_translation:
+    configs:
+        routes:
+            dirs:
+                -                       "%kernel.root_dir%/../src"
+            output_dir:                 "%kernel.root_dir%/Resources/translations"
+            output_format:              yml
+            ignored_domains:
+                -                       validators
+                -                       messages
+            extractors:
+                -                       jms_i18n_routing

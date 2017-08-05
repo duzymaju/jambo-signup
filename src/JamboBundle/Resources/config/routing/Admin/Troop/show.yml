@@ -1,0 +1,7 @@
+admin_troop_show:
+    defaults:
+        _controller:                    JamboBundle:Admin/Troop:show
+    methods:                            [GET]
+    path:                               /admin/troop/{id}
+    requirements:
+        id:                             \d+

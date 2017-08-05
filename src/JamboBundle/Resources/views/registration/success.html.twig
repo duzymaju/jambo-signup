@@ -1,0 +1,10 @@
+{% extends 'JamboBundle:registration:_template.html.twig' %}
+{% import 'JamboBundle:registration:_macro.html.twig' as macro %}
+{% import 'JamboBundle::_macro.html.twig' as globalMacro %}
+
+{% set pageTitle = 'success.title'|trans %}
+
+{% block content %}
+    {{ globalMacro.flashBagMessages('success') }}
+    {{ macro.nextStepsBox(participantsLimitsExceeded) }}
+{% endblock %}

@@ -1,0 +1,5 @@
+registration_success:
+    defaults:
+        _controller:                    JamboBundle:Registration:success
+    methods:                            [GET]
+    path:                               /success

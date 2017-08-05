@@ -1,0 +1,50 @@
+# Desc: /admin
+admin_index: /admin
+
+# Desc: /admin/participant/{id}/edit
+admin_participant_edit: '/admin/participant/{id}/edit'
+
+# Desc: /admin/participants/{pageNo}
+admin_participant_index: '/admin/participants/{pageNo}'
+
+# Desc: /admin/participants/list
+admin_participant_list: /admin/participants/list
+
+# Desc: /admin/participant/{id}
+admin_participant_show: '/admin/participant/{id}'
+
+# Desc: /admin/search
+admin_search_index: /admin/search
+
+# Desc: /admin/troop/{id}/edit
+admin_troop_edit: '/admin/troop/{id}/edit'
+
+# Desc: /admin/troops/{pageNo}
+admin_troop_index: '/admin/troops/{pageNo}'
+
+# Desc: /admin/troop/{id}
+admin_troop_show: '/admin/troop/{id}'
+
+# Desc: /admin/login_check
+fos_user_security_check: /admin/login_check
+
+# Desc: /admin/login
+fos_user_security_login: /admin/login
+
+# Desc: /admin/logout
+fos_user_security_logout: /admin/logout
+
+# Desc: /
+registration_index: /
+
+# Desc: /participant/{hash}/confirm
+registration_participant_confirm: '/uczestnik/{hash}/potwierdz'
+
+# Desc: /success
+registration_success: /sukces
+
+# Desc: /troop/{hash}/confirm
+registration_troop_confirm: '/druzyna/{hash}/potwierdz'
+
+# Desc: /troop
+registration_troop_form: /druzyna

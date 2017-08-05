@@ -1,0 +1,84 @@
+{% macro pagination(items, params = {}) %}
+    {% if items.pagesNumber > 1 %}
+        <ul class="pagination">
+            {% if items.prev %}
+                <li>
+                    <a href="{{ path(items.routeName, items.routeParams(items.prev)|merge(params)) }}">
+                        &laquo;
+                    </a>
+                </li>
+            {% else %}
+                <li class="disabled">
+                    <span>&laquo;</span>
+                </li>
+            {% endif %}
+            {% if items.first %}
+                <li>
+                    <a href="{{ path(items.routeName, items.routeParams(items.first)|merge(params)) }}">
+                        {{ items.first }}
+                    </a>
+                </li>
+                {% if items.spaceAfterFirst %}
+                    <li class="disabled">
+                        <span>...</span>
+                    </li>
+                {% endif %}
+            {% endif %}
+            {% for pageNo in items.pagesList %}
+                <li{% if items.pageNo == pageNo %} class="active"{% endif %}>
+                    <a href="{{ path(items.routeName, items.routeParams(pageNo)|merge(params)) }}">
+                        {{ pageNo }}
+                    </a>
+                </li>
+            {% endfor %}
+            {% if items.last %}
+                {% if items.spaceBeforeLast %}
+                    <li class="disabled">
+                        <span>...</span>
+                    </li>
+                {% endif %}
+                <li>
+                    <a href="{{ path(items.routeName, items.routeParams(items.last)|merge(params)) }}">
+                        {{ items.last }}
+                    </a>
+                </li>
+            {% endif %}
+            {% if items.next %}
+                <li>
+                    <a href="{{ path(items.routeName, items.routeParams(items.next)|merge(params)) }}">
+                        &raquo;
+                    </a>
+                </li>
+            {% else %}
+                <li class="disabled">
+                    <span>&raquo;</span>
+                </li>
+            {% endif %}
+        </ul>
+    {% endif %}
+{% endmacro %}
+
+{% macro showHeader(title, editFormPath, id = 'edit-button', modalId = 'edit-form') %}
+    <header class="show-header">
+        <h1>{{ title }}</h1>
+        <span id="{{ id }}" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#{{ modalId }}"
+            data-edit-path="{{ editFormPath }}">
+            <i class="glyphicon glyphicon-pencil"></i>
+        </span>
+    </header>
+{% endmacro %}
+
+{% macro editFormModal(id = 'edit-form') %}
+    {% import _self as macros %}
+    <div class="modal fade" id="{{ id }}" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" data-waiting="{{ macros.modalWaiting()|e }}"></div>
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro modalWaiting() %}
+    <div class="waiting">
+        <i class="glyphicon glyphicon-cog"></i>
+    </div>
+{% endmacro %}

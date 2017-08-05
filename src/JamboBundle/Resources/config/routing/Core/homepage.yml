@@ -1,0 +1,5 @@
+core_homepage:
+    defaults:
+        _controller:                    JamboBundle:Core:homepage
+    methods:                            [GET]
+    path:                               /

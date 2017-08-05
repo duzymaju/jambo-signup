@@ -1,0 +1,5 @@
+admin_index:
+    defaults:
+        _controller:                    JamboBundle:Admin:index
+    methods:                            [GET]
+    path:                               /admin

@@ -1,41 +1,48 @@
 imports:
-    - { resource: config.yml }
+    - resource:                         config.yml
+
+    - resource:                         bundles/doctrine_migrations.yml
+
+assetic:
+    use_controller:                     true
 
 framework:
     router:
-        resource: '%kernel.project_dir%/app/config/routing_dev.yml'
-        strict_requirements: true
-    profiler: { only_exceptions: false }
-
-web_profiler:
-    toolbar: true
-    intercept_redirects: false
+        resource:                       "%kernel.project_dir%/app/config/routing_dev.yml"
+        strict_requirements:            true
+    profiler:
+        only_exceptions:                false
 
 monolog:
     handlers:
         main:
-            type: stream
-            path: '%kernel.logs_dir%/%kernel.environment%.log'
-            level: debug
-            channels: ['!event']
+            channels:
+                -                       "!event"
+            level:                      debug
+            path:                       "%kernel.logs_dir%/%kernel.environment%.log"
+            type:                       stream
         console:
-            type: console
-            process_psr_3_messages: false
-            channels: ['!event', '!doctrine', '!console']
+            channels:
+                -                       "!console"
+                -                       "!doctrine"
+                -                       "!event"
+            process_psr_3_messages:     false
+            type:                       console
         # To follow logs in real time, execute the following command:
         # `bin/console server:log -vv`
         server_log:
-            type: server_log
-            process_psr_3_messages: false
-            host: 127.0.0.1:9911
+            host:                       127.0.0.1:9911
+            process_psr_3_messages:     false
+            type:                       server_log
         # uncomment to get logging in your browser
         # you may have to allow bigger header sizes in your Web server configuration
-        #firephp:
-        #    type: firephp
-        #    level: info
-        #chromephp:
-        #    type: chromephp
-        #    level: info
+#        chromephp:
+#            level:                      info
+#            type:                       chromephp
+#        firephp:
+#            level:                      info
+#            type:                       firephp
 
-#swiftmailer:
-#    delivery_addresses: ['me@example.com']
+web_profiler:
+    intercept_redirects:                false
+    toolbar:                            true

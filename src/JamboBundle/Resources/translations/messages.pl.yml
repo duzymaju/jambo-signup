@@ -1,0 +1,138 @@
+admin.age_at_limit:                     Wiek na dzień %date%
+admin.all:                              Wszyscy
+admin.command:                          Komenda %name%
+admin.created_at:                       Czas utworzenia
+admin.district:                         Hufiec
+admin.edit.close:                       Zamknij
+admin.edit.participant.title:           Edycja uczestnika
+admin.edit.success:                     Dane zostały pomyślnie zapisane.
+admin.edit.troop.title:                 Edycja drużyny
+admin.get_list:                         Pobierz listę (CSV)
+admin.header:                           Zlot ZHP Gdańsk 2018
+admin.list.empty:                       Ta lista jest pusta
+admin.login.password:                   Hasło
+admin.login.submit:                     Zaloguj
+admin.login.title:                      Formularz logowania
+admin.login.username:                   Nazwa użytkownika
+admin.logout.link:                      Wyloguj <strong>%login%</strong>
+admin.name:                             Nazwa
+admin.participant:                      Uczestnik
+admin.participants:                     Uczestnicy
+admin.participants.counter:             (ostatnich %limit% z %totalNumber%)
+admin.people_number:                    "%count% osoba|%count% osoby|%count% osób"
+admin.reminder.button:                  Wyślij przypomnienie
+admin.reminder.error:                   Wystąpił błąd podczas wysyłania wiadomości e-mail z przypomnieniem.
+admin.reminder.sent_date:               Ostatnie przypomnienie zostało wysłane %date%.
+admin.reminder.success:                 Pomyślnie wysłano wiadomość e-mail z przypomnieniem.
+admin.search:                           Wyszukiwarka
+admin.search.no_query:                  Musisz wpisać zapytanie, by móc wyszukiwać.
+admin.search.query:                     "Zapytanie:"
+admin.search.submit:                    Szukaj
+admin.search.type:                      "Typ:"
+admin.show:                             Pokaż
+admin.status:                           status
+admin.title:                            Administracja zgłoszeniami
+admin.troop:                            Drużyna
+admin.troop_leader:                     Drużynowy
+admin.troop_members:                    Członkowie drużyny (%count%)
+admin.troops:                           Drużyny
+admin.troops.counter:                   (ostatnie %limit% z %totalNumber%)
+
+confirmation.error:                     Twoja rejestracja została już potwierdzona lub posiadasz nieprawidłowy link potwierdzenia
+confirmation.success:                   Twoja rejestracja została prawidłowo potwierdzona
+confirmation.title:                     Potwierdzenie rejestracji
+
+email.link:                             Kliknij tutaj aby potwierdzić rejestrację
+email.participants.footer:              |
+    <p>Przygotowania idą pełną parą, dlatego zapraszamy Cię do śledzenia:</p>
+    <ul>
+    <li>naszej strony internetowej <a href="%main_page%">%main_page%</a></li>
+    <li>wydarzenia na Facebooku <a href="%facebook_event%">%facebook_event%</a></li>
+    </ul>
+    <p>aby być na bieżąco ze wszystkim, co dla Ciebie przygotowujemy.</p>
+    <p>Masz jakieś pytania lub wątpliwości? Napisz do nas: <a href="mailto:%main_email%">%main_email%</a>. Nie pozostawimy Cię długo bez odpowiedzi.</p>
+    <p>Czuwaj!<br>
+    Komenda gniazda krakowskiego Zlotu ZHP Gdańsk 2018</p>
+email.scout_apostrophe.f:               Druhno
+email.scout_apostrophe.m:               Druhu
+email.title:                            Rejestracja na Zlot ZHP Gdańsk 2018 do gniazda krakowskiego
+email.troop.registration_text:          |
+    <p>%apostrophe%,</p>
+    <p>Dziękujemy za rejestrację drużyny na Zlot ZHP Gdańsk 2018 do gniazda krakowskiego. Aby potwierdzić proces rejestracji, kliknij w poniższy link:</p>
+email.troop.reminder_text:              |
+    <p>%apostrophe%,</p>
+    <p>Dziękujemy za rejestrację drużyny na Zlot ZHP Gdańsk 2018 do gniazda krakowskiego. Ponieważ nie otrzymaliśmy od Ciebie potwierdzenia rejestracji, poniżej znajdziesz link aktywacyjny. Wystarczy tylko na niego kliknąć, abyśmy odnotowali je w naszym systemie:</p>
+
+form.address:                           Adres zamieszkania
+form.birth_date:                        Data urodzenia
+form.comments:                          Uwagi
+form.district:                          Hufiec
+form.email:                             Adres e-mail
+form.emergency_info:                    Dane alarmowe
+form.emergency_phone:                   Alarmowy nr telefonu
+form.error.age_too_high:                Maksymalny wiek to %age% lat.
+form.error.age_too_low:                 Minimalny wiek to %age% lat.
+form.error.birth_date_not_specified:    Nie podano daty urodzenia.
+form.error.grade_inproper:              Drużynowy powinien posiadać przynajmniej stopień przewodnika.
+form.error.pesel_empty:                 Pole z PESELem nie może być puste.
+form.errors:                            Część danych jest niepoprawna - zmień je przed zapisaniem formularza.
+form.exception.database:                Wystąpił błąd podczas zapisu danych - prosimy spróbować ponownie.
+form.exception.email:                   Wystąpił błąd podczas wysyłania wiadomości e-mail - sprawdź poprawność podanego adresu e-mail.
+form.father_name:                       Imię ojca
+form.first_name:                        Imię
+form.grade:                             Stopień
+form.grade.guide:                       przewodnik
+form.grade.no:                          brak
+form.grade.scoutmaster:                 harcmistrz
+form.grade.sub_scoutmaster:             podharcmistrz
+form.id:                                ID
+form.last_name:                         Nazwisko
+form.personal_data:                     Wyrażam zgodę na przetwarzanie powyższych danych osobowych przez Związek Harcerstwa Polskiego w celu organizacji mojego udziału w Zlocie ZHP Gdańsk 2018, zgodnie z ustawą z dn. 29 sierpnia 1997 roku o Ochronie Danych Osobowych (Dz. U. 2014, poz. 1882).
+form.pesel:                             PESEL
+form.phone:                             Nr telefonu
+form.rules:                             Akceptuję <a href="%url%" target="_blank">regulamin uczestnictwa</a>.
+form.save:                              Zapisz
+form.sex:                               Płeć
+form.sex.female:                        Kobieta
+form.sex.male:                          Mężczyzna
+form.shirt_size:                        Rozmiar koszulki
+form.shirt_size.xs:                     XS
+form.shirt_size.s:                      S
+form.shirt_size.m:                      M
+form.shirt_size.l:                      L
+form.shirt_size.xl:                     XL
+form.shirt_size.xxl:                    XXL
+form.shirt_size.xxxl:                   XXXL
+form.status:                            Status
+form.status.confirmed:                  Potwierdzony
+form.status.not_confirmed:              Niepotwierdzony
+form.status.payed:                      Opłacony
+form.status.resigned:                   Zrezygnował
+form.tip.email:                         Na ten adres wyślemy link do potwierdzenia rejestracji - upewnij się, że podany adres jest poprawny.
+form.troop_name:                        Nazwa drużyny
+
+index.closed.message:                   Rejestracja została zakończona.
+index.title:                            Jesteś
+index.troop:                            drużynowym
+
+jambo_page.title:                       Zlot ZHP Gdańsk 2018
+
+layout.navigation.toggle:               Przełącz nawigację
+layout.title:                           Formularz rejestracyjny na Zlot ZHP Gdańsk 2018 gniazda krakowskiego
+layout.title_short:                     Rejestracja
+
+next_steps.register_troop:              Zarejestruj kolejną drużynę
+next_steps.title:                       Kolejne kroki
+next_steps.regions_page:                Strona Zlotu ZHP Gdańsk 2018 gniazda krakowskiego
+
+success.registration.message:           Twoje dane zostały pomyślnie zapisane. Aby dokończyć rejestrację odbierz wiadomość e-mail, którą wysłaliśmy Ci na adres %email% i kliknij w link potwierdzenia. Jeśli podany adres e-mail jest niepoprawny, skontaktuj się z nami w celu skorygowania błędu.
+success.title:                          Dziękujemy za rejestrację
+
+troop.closed.message:                   Rejestracja drużyn została zakończona.
+troop.closed.title:                     Rejestracja zakończona
+troop.form.add_member:                  Dodaj kolejnego członka drużyny
+troop.form.description:                 Minimalny wiek członka drużyny to %age% lat ukończone przed %date%. W skład drużyny musi wchodzić %range% członków, w tym pełnoletni drużynowy.
+troop.form.title:                       Formularz dla drużyn
+troop.form.leader:                      Drużynowy (pełnoletni)
+troop.form.member:                      "%no%. członek drużyny"
+troop.form.range:                       od %min_size% do %max_size%

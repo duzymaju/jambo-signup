@@ -1,0 +1,19 @@
+JamboBundle\Entity\User:
+    options:
+        collate:                        utf8_general_ci
+    repositoryClass:                    JamboBundle\Entity\Repository\UserRepository
+    table:                              user
+    type:                               entity
+
+    id:
+        id:
+            generator:
+                strategy:               AUTO
+            type:                       integer
+
+    oneToMany:
+        actions:
+            cascade:
+                -                       persist
+            mappedBy:                   user
+            targetEntity:               JamboBundle\Entity\Action

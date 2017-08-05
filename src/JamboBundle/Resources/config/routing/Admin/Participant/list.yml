@@ -1,0 +1,5 @@
+admin_participant_list:
+    defaults:
+        _controller:                    JamboBundle:Admin/Participant:list
+    methods:                            [GET]
+    path:                               /admin/participants/list

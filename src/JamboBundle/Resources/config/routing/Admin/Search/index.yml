@@ -1,0 +1,5 @@
+admin_search_index:
+    defaults:
+        _controller:                    JamboBundle:Admin/Search:index
+    methods:                            [GET|POST]
+    path:                               /admin/search

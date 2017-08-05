@@ -1,0 +1,59 @@
+{% extends 'JamboBundle:admin:_template.html.twig' %}
+{% import 'JamboBundle:admin:_macro.html.twig' as macro %}
+{% import 'JamboBundle::_macro.html.twig' as globalMacro %}
+
+{% block content %}
+    {{ globalMacro.flashBagMessages('success', true) }}
+    {{ globalMacro.flashBagMessages('error', true) }}
+    {{ macro.showHeader('admin.participant'|trans, path('admin_participant_edit', {id: participant.id})) }}
+    <dl class="list">
+        <dt>{{ 'form.first_name'|trans }}:</dt>
+        <dd>{{ participant.firstName }}</dd>
+        <dt>{{ 'form.last_name'|trans }}:</dt>
+        <dd>{{ participant.lastName }}</dd>
+        <dt>{{ 'form.address'|trans }}:</dt>
+        <dd>{{ participant.address }}</dd>
+        <dt>{{ 'form.phone'|trans }}:</dt>
+        <dd>{{ participant.phone }}</dd>
+        <dt>{{ 'form.email'|trans }}:</dt>
+        <dd><a href="mailto:{{ participant.email }}">{{ participant.email }}</a> ({{ participant.status|statusname }})</dd>
+        <dt>{{ 'form.birth_date'|trans }}:</dt>
+        <dd>{{ participant.birthDate|date('Y-m-d') }}</dd>
+        <dt>{{ 'admin.age_at_limit'|trans({'%date%': ageLimit}) }}:</dt>
+        <dd>{{ participant.birthDate|ageatlimit }}</dd>
+        <dt>{{ 'form.sex'|trans }}:</dt>
+        <dd>{{ participant.sex|sexname }}</dd>
+        {% if participant.gradeId > 0 %}
+            <dt>{{ 'form.grade'|trans }}:</dt>
+            <dd>{{ participant.gradeId|gradename }}</dd>
+        {% endif %}
+        <dt>{{ 'form.district'|trans }}:</dt>
+        <dd>
+            <a href="{{ path('admin_participant_index', {districtId: participant.districtId}) }}">
+                {{ participant.districtId|districtname }}
+            </a>
+        </dd>
+        <dt>{{ 'form.pesel'|trans }}:</dt>
+        <dd>{{ participant.pesel|peselmodify }}</dd>
+        <dt>{{ 'form.father_name'|trans }}:</dt>
+        <dd>{{ participant.fatherName is empty ? '-' : participant.fatherName }}</dd>
+        <dt>{{ 'form.shirt_size'|trans }}:</dt>
+        <dd>{{ participant.shirtSize ? participant.shirtSize|shirtsizename : '-' }}</dd>
+        <dt>{{ 'form.comments'|trans }}:</dt>
+        <dd>{{ participant.comments is empty ? '-' : participant.comments }}</dd>
+        <dt>{{ 'form.emergency_info'|trans }}:</dt>
+        <dd>{{ participant.emergencyInfo is empty ? '-' : participant.emergencyInfo }}</dd>
+        <dt>{{ 'form.emergency_phone'|trans }}:</dt>
+        <dd>{{ participant.emergencyPhone is empty ? '-' : participant.emergencyPhone }}</dd>
+        {% if participant.troop %}
+            <dt>{{ 'form.troop_name'|trans }}:</dt>
+            <dd>
+                <a href="{{ path('admin_troop_show', {id: participant.troop.id}) }}">{{ participant.troop.name }}</a>
+                {% if participant.troop.leader.id == participant.id %}({{ 'admin.troop_leader'|trans }}){% endif %}
+            </dd>
+        {% endif %}
+        <dt>{{ 'admin.created_at'|trans }}:</dt>
+        <dd>{{ participant.createdAt|date('Y-m-d') }}</dd>
+    </dl>
+    {{ macro.editFormModal() }}
+{% endblock %}

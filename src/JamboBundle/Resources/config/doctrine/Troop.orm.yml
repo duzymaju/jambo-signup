@@ -1,0 +1,60 @@
+JamboBundle\Entity\Troop:
+    options:
+        collate:                        utf8_general_ci
+    repositoryClass:                    JamboBundle\Entity\Repository\TroopRepository
+    table:                              troop
+    type:                               entity
+
+    id:
+        id:
+            generator:
+                strategy:               AUTO
+            type:                       integer
+    fields:
+        name:
+            length:                     50
+            type:                       string
+        status:
+            type:                       smallint
+        activationHash:
+            length:                     32
+            name:                       activation_hash
+            options:
+                fixed:                  true
+            type:                       string
+            unique:                     true
+        districtId:
+            name:                       district_id
+            nullable:                   true
+            options:
+                unsigned:               true
+            type:                       smallint
+        comments:
+            length:                     255
+            nullable:                   true
+            type:                       string
+        createdAt:
+            name:                       created_at
+            type:                       datetime
+        updatedAt:
+            name:                       updated_at
+            type:                       datetime
+
+    oneToOne:
+        leader:
+            targetEntity:               JamboBundle\Entity\Participant
+
+    oneToMany:
+        members:
+            cascade:
+                -                       persist
+            mappedBy:                   troop
+            targetEntity:               JamboBundle\Entity\Participant
+
+    indexes:
+        t_index_1:
+            columns:                    status
+
+    lifecycleCallbacks:
+        postLoad:
+            -                           initializeCollections

@@ -1,0 +1,8 @@
+admin_participant_index:
+    defaults:
+        _controller:                    JamboBundle:Admin/Participant:index
+        pageNo:                         1
+    methods:                            [GET]
+    path:                               /admin/participants/{pageNo}
+    requirements:
+        pageNo:                         \d+

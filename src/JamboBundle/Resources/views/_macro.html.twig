@@ -1,0 +1,19 @@
+{% macro flashBagMessages(type = 'message', translate = false) %}
+    {% import _self as macros %}
+    {{ macros.messages(app.session.flashbag.get(type), type, translate) }}
+{% endmacro %}
+
+{% macro messages(messages, type = 'message', translate = false) %}
+    {% import _self as macros %}
+    {% if messages is defined and messages|length > 0 %}
+        {% for message in messages %}
+            {{ macros.message(message, type, translate) }}
+        {% endfor %}
+    {% endif %}
+{% endmacro %}
+
+{% macro message(message, type = 'message', translate = false) %}
+    <div class="alert alert-{{ type == 'message' ? 'info' : (type == 'error' ? 'danger' : type) }}">
+        {{ translate ? message|trans : message }}
+    </div>
+{% endmacro %}

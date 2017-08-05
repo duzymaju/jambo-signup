@@ -1,3 +1,55 @@
-app:
-    resource: '@JamboBundle/Controller/'
-    type: annotation
+_fos_user_security:
+    prefix:                             /admin
+    resource:                           "@FOSUserBundle/Resources/config/routing/security.xml"
+
+_admin_participant_edit:
+    resource:                           "@JamboBundle/Resources/config/routing/Admin/Participant/edit.yml"
+
+_admin_participant_show:
+    resource:                           "@JamboBundle/Resources/config/routing/Admin/Participant/show.yml"
+
+_admin_participant_list:
+    resource:                           "@JamboBundle/Resources/config/routing/Admin/Participant/list.yml"
+
+_admin_participant_index:
+    resource:                           "@JamboBundle/Resources/config/routing/Admin/Participant/index.yml"
+
+_admin_troop_edit:
+    resource:                           "@JamboBundle/Resources/config/routing/Admin/Troop/edit.yml"
+
+_admin_troop_show:
+    resource:                           "@JamboBundle/Resources/config/routing/Admin/Troop/show.yml"
+
+_admin_troop_index:
+    resource:                           "@JamboBundle/Resources/config/routing/Admin/Troop/index.yml"
+
+_admin_search_index:
+    resource:                           "@JamboBundle/Resources/config/routing/Admin/Search/index.yml"
+
+_admin_index:
+    resource:                           "@JamboBundle/Resources/config/routing/Admin/index.yml"
+
+_admin_main:
+    resource:                           "@JamboBundle/Resources/config/routing/Admin/main.yml"
+    options:
+        i18n:                           false
+
+_registration_participant_confirm:
+    resource:                           "@JamboBundle/Resources/config/routing/Registration/participant/confirm.yml"
+
+_registration_troop_confirm:
+    resource:                           "@JamboBundle/Resources/config/routing/Registration/troop/confirm.yml"
+
+_registration_troop_form:
+    resource:                           "@JamboBundle/Resources/config/routing/Registration/troop/form.yml"
+
+_registration_success:
+    resource:                           "@JamboBundle/Resources/config/routing/Registration/success.yml"
+
+_registration_index:
+    resource:                           "@JamboBundle/Resources/config/routing/Registration/index.yml"
+
+_core_homepage:
+    resource:                           "@JamboBundle/Resources/config/routing/Core/homepage.yml"
+    options:
+        i18n:                           false

@@ -1,22 +1,22 @@
 imports:
-    - { resource: config.yml }
+    - resource:                         config.yml
 
 #doctrine:
 #    orm:
-#        metadata_cache_driver: apc
-#        result_cache_driver: apc
-#        query_cache_driver: apc
+#        metadata_cache_driver:          apc
+#        result_cache_driver:            apc
+#        query_cache_driver:             apc
 
 monolog:
     handlers:
-        main:
-            type: fingers_crossed
-            action_level: error
-            handler: nested
-        nested:
-            type: stream
-            path: '%kernel.logs_dir%/%kernel.environment%.log'
-            level: debug
         console:
-            type: console
-            process_psr_3_messages: false
+            process_psr_3_messages:     false
+            type:                       console
+        main:
+            action_level:               error
+            handler:                    nested
+            type:                       fingers_crossed
+        nested:
+            level:                      debug
+            path:                       "%kernel.logs_dir%/%kernel.environment%.log"
+            type:                       stream

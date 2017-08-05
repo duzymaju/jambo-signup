@@ -1,0 +1,8 @@
+admin_troop_index:
+    defaults:
+        _controller:                    JamboBundle:Admin/Troop:index
+        pageNo:                         1
+    methods:                            [GET]
+    path:                               /admin/troops/{pageNo}
+    requirements:
+        pageNo:                         \d+

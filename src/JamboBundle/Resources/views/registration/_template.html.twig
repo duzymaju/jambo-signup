@@ -1,0 +1,77 @@
+{% extends 'JamboBundle::_layout.html.twig' %}
+{% import 'JamboBundle:registration:_macro.html.twig' as macro %}
+
+{% block title %}
+    {{ pageTitle is defined ? pageTitle ~ ' - ' }}{{ 'layout.title'|trans }}
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.1/css/bootstrap-datepicker.min.css">
+
+    {% stylesheets output='css/x-registration.min.css'
+        'css/main.css'
+        'css/messages.css'
+        'css/registration/main.css'
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.1/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.1/locales/bootstrap-datepicker.pl.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.1/locales/bootstrap-datepicker.es.min.js"></script>
+
+    {% javascripts output='js/x-registration.min.js'
+        'js/registration/main.js'
+    %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-locales" aria-expanded="false">
+                        <span class="sr-only">{{ 'layout.navigation.toggle'|trans }}</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="{{ macro.mainPage() }}" target="_blank" class="navbar-brand navbar-brand-logo">
+                        {{ 'jambo_page.title'|trans }}
+                    </a>
+                    <a href="{{ path('registration_index') }}" class="navbar-brand navbar-brand-title">
+                        {{ 'layout.title_short'|trans }}
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse" id="navbar-collapse-locales">
+                    <ul class="nav navbar-nav navbar-right header-locales">
+                        {% for locale in locales %}
+                            {% if locale == app.request.locale %}
+                                <li class="header-locale">
+                                    <span title="{{ locale|upper }}" class="navbar-link header-locale-item header-locale-{{ locale }}">
+                                        {{ locale|upper }}
+                                    </span>
+                                </li>
+                            {% else %}
+                                <li class="header-locale">
+                                    <a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({_locale: locale})) }}" title="{{ locale|upper }}" class="navbar-link header-locale-item header-locale-{{ locale }}">
+                                        {{ locale|upper }}
+                                    </a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        {% block content %}{% endblock %}
+    </div>
+{% endblock %}
