@@ -132,7 +132,8 @@ troop.closed.message:                   Rejestracja drużyn została zakończona
 troop.closed.title:                     Rejestracja zakończona
 troop.form.add_member:                  Dodaj kolejnego członka drużyny
 troop.form.description:                 Minimalny wiek członka drużyny to %age% lat ukończone przed %date%. W skład drużyny musi wchodzić %range% członków, w tym pełnoletni drużynowy.
-troop.form.title:                       Formularz dla drużyn
 troop.form.leader:                      Drużynowy (pełnoletni)
 troop.form.member:                      "%no%. członek drużyny"
+troop.form.patrol_leader:               "%no%. zastępowy"
 troop.form.range:                       od %min_size% do %max_size%
+troop.form.title:                       Formularz dla drużyn

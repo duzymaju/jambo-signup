@@ -126,7 +126,8 @@ troop.closed.message:                   Registration of troops is finished.
 troop.closed.title:                     Registration finished
 troop.form.add_member:                  Add another troop member
 troop.form.description:                 Troop member must be over %age% years before %date%. Troop has to contain %range% members including adult leader.
-troop.form.title:                       Form for troops
 troop.form.leader:                      Troop leader (adult)
 troop.form.member:                      "#%no% troop member"
+troop.form.patrol_leader:               "#%no% patrol leader"
 troop.form.range:                       from %min_size% to %max_size%
+troop.form.title:                       Form for troops

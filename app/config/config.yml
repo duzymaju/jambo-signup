@@ -43,5 +43,5 @@ parameters:
     jambo.region_id:                    12
     jambo.size_limit.total:             400
     jambo.size_limit.troop_max:         40
-    jambo.size_limit.troop_min:         2
+    jambo.size_limit.troop_min:         40
     jambo.time_limit.participants:      "2017-10-10 00:00:00"

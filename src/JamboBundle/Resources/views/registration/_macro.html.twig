@@ -43,7 +43,7 @@
     {% import _self as macros %}
     {% set isLeader = leaderData and leaderData is same as (member.vars.data) %}
     <div class="col-sm-6 member">
-        <h2>{{ isLeader ? 'troop.form.leader'|trans : 'troop.form.member'|trans({'%no%': no}) }}</h2>
+        <h2>{{ isLeader ? 'troop.form.leader'|trans : (no > 1 and no < 5 ? 'troop.form.patrol_leader'|trans({'%no%': no}) : 'troop.form.member'|trans({'%no%': no})) }}</h2>
         {{ macros.formRow(member.firstName) }}
         {{ macros.formRow(member.lastName) }}
         {{ macros.formRow(member.address) }}
