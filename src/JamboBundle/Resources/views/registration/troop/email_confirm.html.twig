@@ -1,4 +1,4 @@
-{{ 'email.troop.registration_text'|trans({'%apostrophe%': ('email.scout_apostrophe.' ~ sex)|trans})|raw }}
+{{ 'email.troop.registration_text'|trans({'%apostrophe%': ('email.scout_apostrophe.' ~ leader.sex)|trans})|raw }}
 <p>
     <a href="{{ confirmationUrl }}" target="_blank">{{ 'email.link'|trans }}</a>
 </p>

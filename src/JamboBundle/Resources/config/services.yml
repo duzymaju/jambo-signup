@@ -15,11 +15,27 @@ services:
         tags:
             - name:                     form.type
 
-    jambo_bundle.form_type.troop:
+    jambo_bundle.form_type.patrol:
         arguments:
             -                           "@translator"
             -                           "@jambo_bundle.registration.lists"
             -                           "%jambo.region_id%"
+        class:                          JamboBundle\Form\Type\PatrolType
+        tags:
+            - name:                     form.type
+
+    jambo_bundle.form_type.patrol_edit:
+        arguments:
+            -                           "@translator"
+            -                           "@jambo_bundle.registration.lists"
+        class:                          JamboBundle\Form\Type\PatrolEditType
+        tags:
+            - name:                     form.type
+
+    jambo_bundle.form_type.troop:
+        arguments:
+            -                           "@translator"
+            -                           "@jambo_bundle.registration.lists"
         class:                          JamboBundle\Form\Type\TroopType
         tags:
             - name:                     form.type

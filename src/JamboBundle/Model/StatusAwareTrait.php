@@ -38,6 +38,16 @@ trait StatusAwareTrait
     }
 
     /**
+     * Is completed
+     *
+     * @return bool
+     */
+    public function isCompleted()
+    {
+        return $this->status >= StatusAwareInterface::STATUS_COMPLETED;
+    }
+
+    /**
      * Is confirmed
      *
      * @return bool

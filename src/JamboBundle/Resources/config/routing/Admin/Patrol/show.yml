@@ -1,0 +1,7 @@
+admin_patrol_show:
+    defaults:
+        _controller:                    JamboBundle:Admin/Patrol:show
+    methods:                            [GET]
+    path:                               /admin/patrol/{id}
+    requirements:
+        id:                             \d+

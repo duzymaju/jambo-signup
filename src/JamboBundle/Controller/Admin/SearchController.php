@@ -28,7 +28,6 @@ class SearchController extends AbstractController
         ]);
         $form->handleRequest($request);
 
-        $type = SearchType::CHOICE_ALL;
         if ($form->isSubmitted() && $form->isValid()) {
             $type = $form->get('type')
                 ->getData();
@@ -71,10 +70,10 @@ class SearchController extends AbstractController
      * Get repository
      *
      * @param string $type type
-     * 
+     *
      * @return SearchRepositoryInterface
      *
-     * @throw Exception
+     * @throws Exception
      */
     private function getRepository($type)
     {
@@ -90,6 +89,7 @@ class SearchController extends AbstractController
             default:
                 throw new Exception('There is no proper repository service name defined.');
         }
+        /** @var SearchRepositoryInterface $repository */
         $repository = $this->get($serviceName);
 
         return $repository;

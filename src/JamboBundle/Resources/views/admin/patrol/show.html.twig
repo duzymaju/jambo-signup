@@ -1,0 +1,40 @@
+{% extends 'JamboBundle:admin:_template.html.twig' %}
+{% import 'JamboBundle:admin:_macro.html.twig' as macro %}
+{% import 'JamboBundle::_macro.html.twig' as globalMacro %}
+
+{% block content %}
+    {{ globalMacro.flashBagMessages('success', true) }}
+    {{ globalMacro.flashBagMessages('error', true) }}
+    {{ macro.showHeader('admin.patrol'|trans, path('admin_patrol_edit', {id: patrol.id})) }}
+    <dl class="list">
+        <dt>{{ 'form.patrol_name'|trans }}:</dt>
+        <dd>{{ patrol.name }}</dd>
+        <dt>{{ 'form.troop_name'|trans }}:</dt>
+        <dd>
+            <a href="{{ path('admin_troop_show', {id: patrol.troop.id}) }}">
+                {{ patrol.troop.name }}
+            </a>
+        </dd>
+        {% if patrol.districtId > 0 %}
+            <dt>{{ 'form.district'|trans }}:</dt>
+            <dd>
+                <a href="{{ path('admin_troop_index', {districtId: patrol.districtId}) }}">
+                    {{ patrol.districtId|districtname }}
+                </a>
+            </dd>
+        {% endif %}
+        <dt>{{ 'form.comments'|trans }}:</dt>
+        <dd>{{ patrol.comments is empty ? '-' : patrol.comments }}</dd>
+        {% if patrol.members.count > 0 %}
+            <dt>{{ 'admin.patrol_members'|trans({'%count%': patrol.members.count}) }}:</dt>
+            <dd>
+                {% for member in patrol.members %}
+                    <a href="{{ path('admin_participant_show', {id: member.id}) }}">{{ member.firstName }} {{ member.lastName }}</a>{% if member.patrolLeader %} ({{ 'admin.patrol_leader'|trans }}){% endif %}{{ not loop.last ? ',' : '' }}
+                {% endfor %}
+            </dd>
+        {% endif %}
+        <dt>{{ 'admin.created_at'|trans }}:</dt>
+        <dd>{{ patrol.createdAt|date('Y-m-d') }}</dd>
+    </dl>
+    {{ macro.editFormModal() }}
+{% endblock %}

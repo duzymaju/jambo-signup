@@ -2,6 +2,8 @@
 
 namespace JamboBundle\Model\Virtual;
 
+use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator as DoctrinePaginator;
 
 /**
@@ -9,6 +11,9 @@ use Doctrine\ORM\Tools\Pagination\Paginator as DoctrinePaginator;
  */
 class Paginator extends DoctrinePaginator
 {
+    /** @var int */
+    private $pagesAround;
+
     /** @var int */
     private $pageNo;
 

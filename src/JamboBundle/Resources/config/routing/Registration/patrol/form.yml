@@ -1,0 +1,7 @@
+registration_patrol_form:
+    defaults:
+        _controller:                    JamboBundle:Registration:patrolForm
+    methods:                            [GET|POST]
+    path:                               /patrol/{troopId}
+    requirements:
+        troopId:                        \d+

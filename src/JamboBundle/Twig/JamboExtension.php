@@ -4,7 +4,6 @@ namespace JamboBundle\Twig;
 
 use DateTime;
 use JamboBundle\Form\RegistrationLists;
-use Symfony\Component\Intl\Intl;
 use Symfony\Component\Translation\TranslatorInterface;
 use Twig_Extension;
 use Twig_SimpleFilter;
@@ -44,12 +43,7 @@ class JamboExtension extends Twig_Extension
             new Twig_SimpleFilter('changekeys', [$this, 'changeKeysFilter']),
             new Twig_SimpleFilter('districtname', [$this, 'districtNameFilter']),
             new Twig_SimpleFilter('gradename', [$this, 'gradeNameFilter']),
-            new Twig_SimpleFilter('languagename', [$this, 'languageNameFilter']),
-            new Twig_SimpleFilter('localizedcountry', [$this, 'localizedCountryFilter']),
-            new Twig_SimpleFilter('participantdate', [$this, 'participantDateFilter']),
-            new Twig_SimpleFilter('permissionname', [$this, 'permissionNameFilter']),
             new Twig_SimpleFilter('peselmodify', [$this, 'peselModifyFilter']),
-            new Twig_SimpleFilter('servicename', [$this, 'serviceNameFilter']),
             new Twig_SimpleFilter('sexname', [$this, 'sexNameFilter']),
             new Twig_SimpleFilter('shirtsizename', [$this, 'shirtSizeNameFilter']),
             new Twig_SimpleFilter('statusname', [$this, 'statusNameFilter']),
@@ -122,49 +116,6 @@ class JamboExtension extends Twig_Extension
     }
 
     /**
-     * Language name filter
-     *
-     * @param string $languageSlug language slug
-     *
-     * @return string|null
-     */
-    public function languageNameFilter($languageSlug)
-    {
-        $languageName = $this->registrationLists->getLanguage($languageSlug);
-
-        return $languageName;
-    }
-
-    /**
-     * Localized country filter
-     *
-     * @param string $countryCode country code
-     * 
-     * @return string
-     */
-    public function localizedCountryFilter($countryCode)
-    {
-        $regionBundle = Intl::getRegionBundle();
-        $countryName = $regionBundle->getCountryName($countryCode);
-
-        return $countryName;
-    }
-
-    /**
-     * Permission name filter
-     *
-     * @param int $permissionId permission ID
-     *
-     * @return string|null
-     */
-    public function permissionNameFilter($permissionId)
-    {
-        $permissionName = $this->registrationLists->getPermission($permissionId);
-
-        return $permissionName;
-    }
-
-    /**
      * PESEL modify filter
      *
      * @param string $pesel     PESEL
@@ -182,34 +133,6 @@ class JamboExtension extends Twig_Extension
         }
 
         return $modifiedPesel;
-    }
-
-    /**
-     * Participant date filter
-     *
-     * @param int $participantDateId participant date ID
-     *
-     * @return string|null
-     */
-    public function participantDateFilter($participantDateId)
-    {
-        $pilgrimDate = $this->registrationLists->getParticipantDate($participantDateId);
-
-        return $pilgrimDate;
-    }
-
-    /**
-     * Service name filter
-     *
-     * @param int $serviceId service ID
-     *
-     * @return string|null
-     */
-    public function serviceNameFilter($serviceId)
-    {
-        $serviceName = $this->registrationLists->getService($serviceId);
-
-        return $serviceName;
     }
 
     /**

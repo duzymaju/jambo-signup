@@ -45,11 +45,18 @@
         <dd>{{ participant.emergencyInfo is empty ? '-' : participant.emergencyInfo }}</dd>
         <dt>{{ 'form.emergency_phone'|trans }}:</dt>
         <dd>{{ participant.emergencyPhone is empty ? '-' : participant.emergencyPhone }}</dd>
+        {% if participant.patrol %}
+            <dt>{{ 'form.patrol_name'|trans }}:</dt>
+            <dd>
+                <a href="{{ path('admin_patrol_show', {id: participant.patrol.id}) }}">{{ participant.patrol.name }}</a>
+                {% if participant.patrolLeader %}({{ 'admin.patrol_leader'|trans }}){% endif %}
+            </dd>
+        {% endif %}
         {% if participant.troop %}
             <dt>{{ 'form.troop_name'|trans }}:</dt>
             <dd>
                 <a href="{{ path('admin_troop_show', {id: participant.troop.id}) }}">{{ participant.troop.name }}</a>
-                {% if participant.troop.leader.id == participant.id %}({{ 'admin.troop_leader'|trans }}){% endif %}
+                {% if participant.troopLeader %}({{ 'admin.troop_leader'|trans }}){% endif %}
             </dd>
         {% endif %}
         <dt>{{ 'admin.created_at'|trans }}:</dt>

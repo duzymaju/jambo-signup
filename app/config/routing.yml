@@ -14,6 +14,12 @@ _admin_participant_list:
 _admin_participant_index:
     resource:                           "@JamboBundle/Resources/config/routing/Admin/Participant/index.yml"
 
+_admin_patrol_edit:
+    resource:                           "@JamboBundle/Resources/config/routing/Admin/Patrol/edit.yml"
+
+_admin_patrol_show:
+    resource:                           "@JamboBundle/Resources/config/routing/Admin/Patrol/show.yml"
+
 _admin_troop_edit:
     resource:                           "@JamboBundle/Resources/config/routing/Admin/Troop/edit.yml"
 
@@ -36,6 +42,9 @@ _admin_main:
 
 _registration_participant_confirm:
     resource:                           "@JamboBundle/Resources/config/routing/Registration/participant/confirm.yml"
+
+_registration_patrol_form:
+    resource:                           "@JamboBundle/Resources/config/routing/Registration/patrol/form.yml"
 
 _registration_troop_confirm:
     resource:                           "@JamboBundle/Resources/config/routing/Registration/troop/confirm.yml"

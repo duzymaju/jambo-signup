@@ -2,6 +2,8 @@
 
 namespace JamboBundle\Entity\Repository;
 
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\QueryBuilder;
 use JamboBundle\Entity\EntityInterface;
 use JamboBundle\Model\Virtual\Paginator;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -167,4 +169,21 @@ trait BaseRepositoryTrait
 
         return $result;
     }
+
+    /**
+     * Get entity manager
+     *
+     * @return EntityManager
+     */
+    abstract public function getEntityManager();
+
+    /**
+     * Create query builder
+     *
+     * @param string      $alias   alias
+     * @param string|null $indexBy index by
+     *
+     * @return QueryBuilder
+     */
+    abstract public function createQueryBuilder($alias, $indexBy = null);
 }

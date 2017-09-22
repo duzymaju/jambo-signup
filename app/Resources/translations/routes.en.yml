@@ -13,6 +13,12 @@ admin_participant_list: /admin/participants/list
 # Desc: /admin/participant/{id}
 admin_participant_show: '/admin/participant/{id}'
 
+# Desc: /admin/patrol/{id}/edit
+admin_patrol_edit: '/admin/patrol/{id}/edit'
+
+# Desc: /admin/patrol/{id}
+admin_patrol_show: '/admin/patrol/{id}'
+
 # Desc: /admin/search
 admin_search_index: /admin/search
 
@@ -39,6 +45,9 @@ registration_index: /
 
 # Desc: /participant/{hash}/confirm
 registration_participant_confirm: '/participant/{hash}/confirm'
+
+# Desc: /patrol/{troopId}
+registration_patrol_form: '/patrol/{troopId}'
 
 # Desc: /success
 registration_success: /success

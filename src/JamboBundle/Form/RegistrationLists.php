@@ -2,7 +2,7 @@
 
 namespace JamboBundle\Form;
 
-use JamboBundle\Model\PersonInterface;
+use JamboBundle\Model\Participant;
 use JamboBundle\Model\StatusAwareInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
@@ -33,16 +33,19 @@ class RegistrationLists
     /**
      * Get status labels
      *
+     * @param bool $forceAll force all
+     *
      * @return array
      */
-    public function getStatusLabels()
+    public function getStatusLabels($forceAll = false)
     {
-        $labels = [
-            'form.status.not_confirmed' => StatusAwareInterface::STATUS_NOT_CONFIRMED,
-            'form.status.confirmed' => StatusAwareInterface::STATUS_CONFIRMED,
-            'form.status.payed' => StatusAwareInterface::STATUS_PAYED,
-            'form.status.resigned' => StatusAwareInterface::STATUS_RESIGNED,
-        ];
+        $labels = $forceAll ? [
+            'form.status.not_completed' => StatusAwareInterface::STATUS_NOT_COMPLETED,
+        ] : [];
+        $labels['form.status.completed'] = StatusAwareInterface::STATUS_COMPLETED;
+        $labels['form.status.confirmed'] = StatusAwareInterface::STATUS_CONFIRMED;
+        $labels['form.status.payed'] = StatusAwareInterface::STATUS_PAYED;
+        $labels['form.status.resigned'] = StatusAwareInterface::STATUS_RESIGNED;
 
         return $labels;
     }
@@ -82,8 +85,8 @@ class RegistrationLists
     public function getSexLabels()
     {
         $labels = [
-            'form.sex.male' => PersonInterface::SEX_MALE,
-            'form.sex.female' => PersonInterface::SEX_FEMALE,
+            'form.sex.male' => Participant::SEX_MALE,
+            'form.sex.female' => Participant::SEX_FEMALE,
         ];
 
         return $labels;
@@ -124,13 +127,13 @@ class RegistrationLists
     public function getShirtSizeLabels()
     {
         $labels = [
-            'form.shirt_size.xs' => PersonInterface::SHIRT_SIZE_XS,
-            'form.shirt_size.s' => PersonInterface::SHIRT_SIZE_S,
-            'form.shirt_size.m' => PersonInterface::SHIRT_SIZE_M,
-            'form.shirt_size.l' => PersonInterface::SHIRT_SIZE_L,
-            'form.shirt_size.xl' => PersonInterface::SHIRT_SIZE_XL,
-            'form.shirt_size.xxl' => PersonInterface::SHIRT_SIZE_XXL,
-            'form.shirt_size.xxxl' => PersonInterface::SHIRT_SIZE_XXXL,
+            'form.shirt_size.xs' => Participant::SHIRT_SIZE_XS,
+            'form.shirt_size.s' => Participant::SHIRT_SIZE_S,
+            'form.shirt_size.m' => Participant::SHIRT_SIZE_M,
+            'form.shirt_size.l' => Participant::SHIRT_SIZE_L,
+            'form.shirt_size.xl' => Participant::SHIRT_SIZE_XL,
+            'form.shirt_size.xxl' => Participant::SHIRT_SIZE_XXL,
+            'form.shirt_size.xxxl' => Participant::SHIRT_SIZE_XXXL,
         ];
 
         return $labels;

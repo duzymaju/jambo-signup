@@ -1,6 +1,7 @@
 /.web-server-pid
 /app/config/parameters.yml
 /build/
+/.idea/
 /nbproject/private/
 /phpunit.xml
 /public_html/bundles/
@@ -15,4 +16,5 @@
 /var/sessions/*
 !var/sessions/.gitkeep
 !var/SymfonyRequirements.php
+/vagrant/
 /vendor/

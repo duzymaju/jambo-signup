@@ -16,6 +16,12 @@ services:
         class:                          JamboBundle\Entity\Repository\ParticipantRepository
         factory:                        ["@jambo_bundle.alias.manager_service", getRepository]
 
+    jambo_bundle.repository.patrol:
+        arguments:
+            -                           JamboBundle\Entity\Patrol
+        class:                          JamboBundle\Entity\Repository\PatrolRepository
+        factory:                        ["@jambo_bundle.alias.manager_service", getRepository]
+
     jambo_bundle.repository.troop:
         arguments:
             -                           JamboBundle\Entity\Troop

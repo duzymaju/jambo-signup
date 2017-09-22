@@ -1,0 +1,7 @@
+admin_patrol_edit:
+    defaults:
+        _controller:                    JamboBundle:Admin/Patrol:edit
+    methods:                            [GET|POST]
+    path:                               /admin/patrol/{id}/edit
+    requirements:
+        id:                             \d+

@@ -13,6 +13,9 @@ class Action
     const TYPE_UPDATE_PARTICIPANT_DATA = 'update_participant_data';
 
     /** @const string */
+    const TYPE_UPDATE_PATROL_DATA = 'update_patrol_data';
+
+    /** @const string */
     const TYPE_UPDATE_TROOP_DATA = 'update_troop_data';
 
     /** @var User */

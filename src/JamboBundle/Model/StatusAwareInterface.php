@@ -8,16 +8,19 @@ namespace JamboBundle\Model;
 interface StatusAwareInterface
 {
     /** @const int */
-    const STATUS_CONFIRMED = 1;
+    const STATUS_COMPLETED = 1;
 
     /** @const int */
-    const STATUS_PAYED = 2;
+    const STATUS_CONFIRMED = 2;
+
+    /** @const int */
+    const STATUS_PAYED = 3;
 
     /** @const int */
     const STATUS_RESIGNED = 6;
 
     /** @const int */
-    const STATUS_NOT_CONFIRMED = 0;
+    const STATUS_NOT_COMPLETED = 0;
 
     /**
      * Get status
@@ -34,6 +37,13 @@ interface StatusAwareInterface
      * @return self
      */
     public function setStatus($status);
+
+    /**
+     * Is confirmed
+     *
+     * @return bool
+     */
+    public function isCompleted();
 
     /**
      * Is confirmed

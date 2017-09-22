@@ -5,14 +5,12 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="{{ 'admin.edit.close'|trans }}">
             <span>&times;</span>
         </button>
-        <h4 class="modal-title">{{ 'admin.edit.participant.title' |trans }}</h4>
+        <h4 class="modal-title">{{ 'admin.edit.patrol.title' |trans }}</h4>
     </div>
     <div class="modal-body">
         {{ globalMacro.flashBagMessages('error', true) }}
         <div class="form-group">
             {{ form_row(form.comments, {attr: {class: 'form-control'}}) }}
-            {{ form_row(form.emergencyInfo, {attr: {class: 'form-control'}}) }}
-            {{ form_row(form.emergencyPhone, {attr: {class: 'form-control'}}) }}
         </div>
     </div>
     <div class="modal-footer">

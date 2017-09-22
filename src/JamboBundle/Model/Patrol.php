@@ -8,10 +8,9 @@ use Doctrine\Common\Collections\Collection;
 /**
  * Model
  */
-class Troop implements StatusAwareInterface
+class Patrol
 {
     use RecordTrait;
-    use StatusAwareTrait;
 
     /** @var string */
     protected $name;
@@ -22,11 +21,14 @@ class Troop implements StatusAwareInterface
     /** @var string */
     protected $comments;
 
+    /** @var Troop */
+    protected $troop;
+
     /** @var Participant */
     protected $leader;
 
     /** @var ArrayCollection */
-    protected $patrols;
+    protected $members;
 
     /**
      * Construct
@@ -109,6 +111,30 @@ class Troop implements StatusAwareInterface
     }
 
     /**
+     * Get troop
+     *
+     * @return Troop
+     */
+    public function getTroop()
+    {
+        return $this->troop;
+    }
+
+    /**
+     * Set troop
+     *
+     * @param Troop $troop troop
+     *
+     * @return self
+     */
+    public function setTroop(Troop $troop)
+    {
+        $this->troop = $troop;
+
+        return $this;
+    }
+
+    /**
      * Get leader
      *
      * @return Participant
@@ -133,88 +159,59 @@ class Troop implements StatusAwareInterface
     }
 
     /**
-     * Get patrols
-     *
-     * @return ArrayCollection
-     */
-    public function getPatrols()
-    {
-        return $this->patrols;
-    }
-
-    /**
-     * Add patrol
-     *
-     * @param Patrol $patrol patrol
-     *
-     * @return self
-     */
-    public function addPatrol(Patrol $patrol)
-    {
-        if (!$this->patrols->contains($patrol)) {
-            $this->patrols->add($patrol);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Remove patrol
-     *
-     * @param Patrol $patrol patrol
-     *
-     * @return self
-     */
-    public function removePatrol(Patrol $patrol)
-    {
-        if ($this->patrols->contains($patrol)) {
-            $this->patrols->removeElement($patrol);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Set patrols
-     *
-     * @param ArrayCollection $patrols patrols
-     *
-     * @return self
-     */
-    public function setPatrols(ArrayCollection $patrols)
-    {
-        $this->patrols = $patrols;
-
-        return $this;
-    }
-
-    /**
-     * Count patrols
-     *
-     * @return int
-     */
-    public function countPatrols()
-    {
-        return $this->patrols->count();
-    }
-
-    /**
      * Get members
      *
      * @return ArrayCollection
      */
     public function getMembers()
     {
-        $members = new ArrayCollection();
-        /** @var Patrol $patrol */
-        foreach ($this->patrols as $patrol) {
-            /** @var Participant $member */
-            foreach ($patrol->getMembers() as $member) {
-                $members->add($member);
-            }
+        return $this->members;
+    }
+
+    /**
+     * Add member
+     *
+     * @param Participant $member member
+     *
+     * @return self
+     */
+    public function addMember(Participant $member)
+    {
+        if (!$this->members->contains($member)) {
+            $this->members->add($member);
         }
 
-        return $members;
+        return $this;
+    }
+
+    /**
+     * Remove member
+     *
+     * @param Participant $member member
+     *
+     * @return self
+     */
+    public function removeMember(Participant $member)
+    {
+        if ($this->members->contains($member)) {
+            $this->members->removeElement($member);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Set members
+     *
+     * @param ArrayCollection $members members
+     *
+     * @return self
+     */
+    public function setMembers(ArrayCollection $members)
+    {
+        $this->members = $members;
+
+        return $this;
     }
 
     /**
@@ -222,8 +219,8 @@ class Troop implements StatusAwareInterface
      */
     public function initializeCollections()
     {
-        if (!($this->patrols instanceof Collection)) {
-            $this->patrols = new ArrayCollection();
+        if (!($this->members instanceof Collection)) {
+            $this->members = new ArrayCollection();
         }
     }
 }

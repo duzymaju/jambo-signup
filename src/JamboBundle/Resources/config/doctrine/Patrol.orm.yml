@@ -1,8 +1,8 @@
-JamboBundle\Entity\Troop:
+JamboBundle\Entity\Patrol:
     options:
         collate:                        utf8_general_ci
-    repositoryClass:                    JamboBundle\Entity\Repository\TroopRepository
-    table:                              troop
+    repositoryClass:                    JamboBundle\Entity\Repository\PatrolRepository
+    table:                              patrol
     type:                               entity
 
     id:
@@ -14,15 +14,6 @@ JamboBundle\Entity\Troop:
         name:
             length:                     50
             type:                       string
-        status:
-            type:                       smallint
-        activationHash:
-            length:                     32
-            name:                       activation_hash
-            options:
-                fixed:                  true
-            type:                       string
-            unique:                     true
         districtId:
             name:                       district_id
             nullable:                   true
@@ -40,19 +31,19 @@ JamboBundle\Entity\Troop:
             name:                       updated_at
             type:                       datetime
 
+    manyToOne:
+        troop:
+            inversedBy:                 patrols
+            targetEntity:               JamboBundle\Entity\Troop
     oneToOne:
         leader:
             targetEntity:               JamboBundle\Entity\Participant
     oneToMany:
-        patrols:
+        members:
             cascade:
                 -                       persist
-            mappedBy:                   troop
-            targetEntity:               JamboBundle\Entity\Patrol
-
-    indexes:
-        t_index_1:
-            columns:                    status
+            mappedBy:                   patrol
+            targetEntity:               JamboBundle\Entity\Participant
 
     lifecycleCallbacks:
         postLoad:

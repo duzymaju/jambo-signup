@@ -3,17 +3,18 @@
 namespace JamboBundle\Controller\Admin;
 
 use DateTime;
-use Doctrine\ORM\Tools\Pagination\Paginator;
-use JamboBundle\Entity\Participant;
 use JamboBundle\Entity\Repository\TroopRepository;
 use JamboBundle\Entity\Troop;
 use JamboBundle\Exception\EditFormException;
 use JamboBundle\Exception\ExceptionInterface;
 use JamboBundle\Form\Type\TroopEditType;
-use JamboBundle\Manager\ActionManager;
 use JamboBundle\Model\Action;
+use JamboBundle\Model\Virtual\Paginator;
+use Swift_Message;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * Admin controller
@@ -110,13 +111,10 @@ class TroopController extends AbstractController
                 $troop->setUpdatedAt(new DateTime());
                 $troopRepository->update($troop, true);
 
-                /** @var ActionManager $actionManager */
-                $actionManager = $this->get('jambo_bundle.manager.action');
-                /** @var Participant $participant */
-                foreach ($troop->getMembers() as $participant) {
-                    $actionManager->log(Action::TYPE_UPDATE_PARTICIPANT_DATA, $participant->getId(), $this->getUser());
-                }
-                $actionManager->log(Action::TYPE_UPDATE_TROOP_DATA, $troop->getId(), $this->getUser());
+                $this
+                    ->get('jambo_bundle.manager.action')
+                    ->log(Action::TYPE_UPDATE_TROOP_DATA, $troop->getId(), $this->getUser())
+                ;
 
                 $this->addMessage('admin.edit.success', 'success');
                 $response = $this->softRedirect($this->generateUrl('admin_troop_show', [
@@ -159,7 +157,7 @@ class TroopController extends AbstractController
                 $leader = $troop->getLeader();
                 $email = $leader->getEmail();
                 $sex = $leader->getSex();
-                $locale = $this->getLocale($leader->getCountry());
+                $locale = $this->getLocale($this->getParameter('jambo.mailer_locale'));
                 $subject = $this->get('translator')
                     ->trans('email.title', [], null, $locale);
 
@@ -193,6 +191,8 @@ class TroopController extends AbstractController
                 ]));
             }
         }
+
+        return null;
     }
 
     /**
@@ -228,6 +228,7 @@ class TroopController extends AbstractController
      */
     private function getRepository()
     {
+        /** @var TroopRepository $repository */
         $repository = $this->get('jambo_bundle.repository.troop');
 
         return $repository;

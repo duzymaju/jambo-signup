@@ -39,16 +39,16 @@
     </div>
 {% endmacro %}
 
-{% macro troopMember(member, no = 1, leaderData = null) %}
+{% macro troopMember(member, no = 1, isFirstPatrol, leaderData = null) %}
     {% import _self as macros %}
     {% set isLeader = leaderData and leaderData is same as (member.vars.data) %}
     <div class="col-sm-6 member">
-        <h2>{{ isLeader ? 'troop.form.leader'|trans : (no > 1 and no < 5 ? 'troop.form.patrol_leader'|trans({'%no%': no}) : 'troop.form.member'|trans({'%no%': no})) }}</h2>
+        <h2>{{ isLeader ? (isFirstPatrol ? 'patrol.form.troop_leader'|trans : 'patrol.form.leader'|trans) : 'patrol.form.member'|trans({'%no%': no}) }}</h2>
         {{ macros.formRow(member.firstName) }}
         {{ macros.formRow(member.lastName) }}
         {{ macros.formRow(member.address) }}
         {{ macros.formRow(member.phone) }}
-        {{ macros.formRow(member.email, isLeader ? {info: 'form.tip.email'|trans} : {}) }}
+        {{ macros.formRow(member.email, isLeader and isFirstPatrol ? {info: 'form.tip.email'|trans} : {}) }}
         {{ macros.formRow(member.pesel) }}
         {{ macros.formRow(member.fatherName) }}
         {{ macros.formRow(member.emergencyPhone) }}

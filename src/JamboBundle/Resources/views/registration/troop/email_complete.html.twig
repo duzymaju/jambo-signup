@@ -1,0 +1,5 @@
+{{ 'email.troop.completation_text'|trans({'%apostrophe%': ('email.scout_apostrophe.' ~ leader.sex)|trans})|raw }}
+<p>
+    <a href="{{ completationUrl }}" target="_blank">{{ 'email.link'|trans }}</a>
+</p>
+{{ 'email.participants.footer'|trans({'%facebook_event%': facebook_event[app.request.locale], '%main_email%': main_email, '%main_page%': main_page.url[app.request.locale]})|raw }}

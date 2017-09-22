@@ -2,12 +2,13 @@
 
 namespace JamboBundle\Entity\Repository;
 
+use Doctrine\Common\Persistence\ObjectRepository;
 use JamboBundle\Entity\EntityInterface;
 
 /**
  * Repository
  */
-interface BaseRepositoryInterface
+interface BaseRepositoryInterface extends ObjectRepository
 {
     /**
      * Insert

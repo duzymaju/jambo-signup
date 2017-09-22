@@ -30,11 +30,19 @@
         {% endif %}
         <dt>{{ 'form.comments'|trans }}:</dt>
         <dd>{{ troop.comments is empty ? '-' : troop.comments }}</dd>
+        {% if troop.patrols.count > 0 %}
+            <dt>{{ 'admin.troop_patrols'|trans({'%count%': troop.patrols.count}) }}:</dt>
+            <dd>
+                {% for patrol in troop.patrols %}
+                    <a href="{{ path('admin_patrol_show', {id: patrol.id}) }}">{{ patrol.name }}</a>{{ not loop.last ? ',' : '' }}
+                {% endfor %}
+            </dd>
+        {% endif %}
         {% if troop.members.count > 0 %}
             <dt>{{ 'admin.troop_members'|trans({'%count%': troop.members.count}) }}:</dt>
             <dd>
                 {% for member in troop.members %}
-                    <a href="{{ path('admin_participant_show', {id: member.id}) }}">{{ member.firstName }} {{ member.lastName }}</a>{% if troop.leader.id == member.id %} ({{ 'admin.troop_leader'|trans }}){% endif %}{{ not loop.last ? ',' : '' }}
+                    <a href="{{ path('admin_participant_show', {id: member.id}) }}">{{ member.firstName }} {{ member.lastName }}</a>{% if member.troopLeader %} ({{ 'admin.troop_leader'|trans }}){% elseif member.patrolLeader %} ({{ 'admin.patrol_leader'|trans }}){% endif %}{{ not loop.last ? ',' : '' }}
                 {% endfor %}
             </dd>
         {% endif %}

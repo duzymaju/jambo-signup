@@ -7,27 +7,9 @@ use Doctrine\ORM\EntityRepository;
 /**
  * Repository
  */
-class TroopRepository extends EntityRepository implements BaseRepositoryInterface, SearchRepositoryInterface
+class PatrolRepository extends EntityRepository implements BaseRepositoryInterface, SearchRepositoryInterface
 {
     use BaseRepositoryTrait;
-
-    /**
-     * Get total number
-     *
-     * @return int
-     */
-    public function getTotalNumber()
-    {
-        $qb = $this->getEntityManager()
-            ->createQueryBuilder();
-        $qb->select('count(t.id)');
-        $qb->from('JamboBundle:Troop', 't');
-
-        $count = $qb->getQuery()
-            ->getSingleScalarResult();
-
-        return $count;
-    }
 
     /**
      * {@inheritdoc}

@@ -2,9 +2,11 @@
 
 namespace JamboBundle\Form\Type;
 
-use JamboBundle\Entity\Troop;
+use JamboBundle\Entity\Patrol;
 use JamboBundle\Form\RegistrationLists;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,18 +17,23 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 /*
  * Form type
  */
-class TroopType extends AbstractType
+class PatrolType extends AbstractType
 {
+    /** @var int */
+    private $regionId;
+
     /**
      * Constructor
      *
      * @param TranslatorInterface $translator        translator
      * @param RegistrationLists   $registrationLists registration lists
+     * @param int                 $regionId          region ID
      */
-    public function __construct(TranslatorInterface $translator, RegistrationLists $registrationLists)
+    public function __construct(TranslatorInterface $translator, RegistrationLists $registrationLists, $regionId)
     {
         parent::__construct($translator, $registrationLists);
-        $this->loadValidation('Troop');
+        $this->loadValidation('Patrol');
+        $this->regionId = $regionId;
     }
 
     /**
@@ -38,16 +45,31 @@ class TroopType extends AbstractType
 
         $builder
             ->add('name', TextType::class, $this->mergeOptions('name', [
-                'label' => 'form.troop_name',
+                'label' => 'form.patrol_name',
+            ]))
+            ->add('districtId', ChoiceType::class, $this->mergeOptions('districtId', [
+                'choices' => array_flip($this->registrationLists->getDistricts($this->regionId)),
+                'label' => $this->translator->trans('form.district'),
+                'translation_domain' => false,
+            ]))
+            ->add('members', CollectionType::class, $this->mergeOptions('members', [
+                'allow_add' => true,
+                'allow_delete' => false,
+                'by_reference' => false,
+                'entry_type' => TroopMemberType::class,
+                'validation_groups' => [
+                    'troopMember',
+                ],
             ]))
             ->add('comments', TextType::class, $this->mergeOptions('comments', [
                 'label' => 'form.comments',
                 'required' => false,
             ]))
-            ->add('rules', CheckboxType::class, $this->mergeOptions('rules', [
+            ->add('personalData', CheckboxType::class, $this->mergeOptions('personalData', [
                 'constraints' => [
                     new NotBlank(),
                 ],
+                'label' => 'form.personal_data',
                 'mapped' => false,
             ]))
             ->add('save', SubmitType::class, [
@@ -62,7 +84,8 @@ class TroopType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Troop::class,
+            'cascade_validation' => true,
+            'data_class' => Patrol::class,
         ]);
     }
 
@@ -71,6 +94,6 @@ class TroopType extends AbstractType
      */
     public function getName()
     {
-        return 'troop';
+        return 'patrol';
     }
 }

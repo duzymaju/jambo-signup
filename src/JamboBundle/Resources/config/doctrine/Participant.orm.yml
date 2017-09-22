@@ -90,11 +90,11 @@ JamboBundle\Entity\Participant:
             type:                       datetime
 
     manyToOne:
-        troop:
+        patrol:
             cascade:
                 -                       persist
             inversedBy:                 members
-            targetEntity:               JamboBundle\Entity\Troop
+            targetEntity:               JamboBundle\Entity\Patrol
 
     indexes:
         p_index_1:

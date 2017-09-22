@@ -43,7 +43,6 @@ class ParticipantRepository extends EntityRepository implements BaseRepositoryIn
      */
     public function getFullInfoBy(array $criteria = [], array $orderBy = [])
     {
-        /** @var QueryBuilder $qb */
         $qb = $this->createQueryBuilder('p')
             ->select('p, t')
             ->leftJoin('p.troop', 't');
@@ -140,7 +139,6 @@ class ParticipantRepository extends EntityRepository implements BaseRepositoryIn
      */
     public function searchBy(array $queries)
     {
-        /** @var QueryBuilder $qb */
         $qb = $this->createQueryBuilder('p');
 
         $i = 1;

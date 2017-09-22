@@ -2,10 +2,6 @@
 
 namespace JamboBundle\Controller\Admin;
 
-use DateTime;
-use JamboBundle\Entity\Repository\BaseRepositoryInterface;
-use JamboBundle\Exception\EditFormException;
-use JamboBundle\Model\BandInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\ParameterBag;

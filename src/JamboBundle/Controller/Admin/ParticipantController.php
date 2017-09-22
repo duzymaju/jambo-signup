@@ -3,12 +3,12 @@
 namespace JamboBundle\Controller\Admin;
 
 use DateTime;
-use Doctrine\ORM\Tools\Pagination\Paginator;
 use JamboBundle\Entity\Participant;
 use JamboBundle\Entity\Repository\ParticipantRepository;
 use JamboBundle\Exception\ExceptionInterface;
 use JamboBundle\Form\Type\ParticipantEditType;
 use JamboBundle\Model\Action;
+use JamboBundle\Model\Virtual\Paginator;
 use JamboBundle\Twig\JamboExtension;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -41,7 +41,7 @@ class ParticipantController extends AbstractController
         /** @var Paginator $participants */
         $participants = $this->getRepository()
             ->getPackOrException($pageNo, $this->getParameter('jambo.admin.pack_size'), $criteria, $orderBy, [
-                't' => 'troop',
+                'p' => 'patrol',
             ]);
 
         return $this->render('JamboBundle::admin/participant/index.html.twig', [
@@ -103,8 +103,10 @@ class ParticipantController extends AbstractController
                 $participant->setUpdatedAt(new DateTime());
                 $participantRepository->update($participant, true);
 
-                $this->get('jambo_bundle.manager.action')
-                    ->log(Action::TYPE_UPDATE_PARTICIPANT_DATA, $participant->getId(), $this->getUser());
+                $this
+                    ->get('jambo_bundle.manager.action')
+                    ->log(Action::TYPE_UPDATE_PARTICIPANT_DATA, $participant->getId(), $this->getUser())
+                ;
 
                 $this->addMessage('admin.edit.success', 'success');
                 $response = $this->softRedirect($this->generateUrl('admin_participant_show', [
@@ -143,7 +145,7 @@ class ParticipantController extends AbstractController
         $type = $request->query->get('type');
         $adultAge = $this->getParameter('jambo.age_limit.adult');
         $date = new DateTime($this->getParameter('jambo.age_limit.date'));
-        $adultDate = $date->diff(sprintf('-%s years', $adultAge));
+        $adultDate = $date->modify(sprintf('-%s years', $adultAge));
         $adultDateString = $adultDate->format('Y-m-d');
 
         $orderBy = [
@@ -194,6 +196,7 @@ class ParticipantController extends AbstractController
             $translator->trans('form.shirt_size'),
             $translator->trans('form.comments'),
             $translator->trans('form.troop_name'),
+            $translator->trans('form.patrol_name'),
             $translator->trans('admin.created_at'),
         ];
         foreach ($participants as $participant) {
@@ -220,6 +223,8 @@ class ParticipantController extends AbstractController
                 empty($participant->getComments()) ? '-' : $participant->getComments(),
                 $participant->getTroop() ? $participant->getTroop()
                     ->getName() : '-',
+                $participant->getPatrol() ? $participant->getPatrol()
+                    ->getName() : '-',
                 $participant->getCreatedAt()
                     ->format('Y-m-d'),
             ];
@@ -235,6 +240,7 @@ class ParticipantController extends AbstractController
      */
     private function getRepository()
     {
+        /** @var ParticipantRepository $repository */
         $repository = $this->get('jambo_bundle.repository.participant');
 
         return $repository;

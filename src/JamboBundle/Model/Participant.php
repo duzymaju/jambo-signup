@@ -8,22 +8,289 @@ use Exception;
 /**
  * Model
  */
-class Participant extends ItemAbstract implements PersonInterface, StatusAwareInterface
+class Participant implements StatusAwareInterface
 {
-    use PersonTrait;
+    use RecordTrait;
     use StatusAwareTrait;
+
+    /** @const string */
+    const SEX_MALE = 'm';
+
+    /** @const string */
+    const SEX_FEMALE = 'f';
+
+    /** @const int */
+    const SHIRT_SIZE_XS = 1;
+
+    /** @const int */
+    const SHIRT_SIZE_S = 2;
+
+    /** @const int */
+    const SHIRT_SIZE_M = 3;
+
+    /** @const int */
+    const SHIRT_SIZE_L = 4;
+
+    /** @const int */
+    const SHIRT_SIZE_XL = 5;
+
+    /** @const int */
+    const SHIRT_SIZE_XXL = 6;
+
+    /** @const int */
+    const SHIRT_SIZE_XXXL = 7;
+
+    /** @var string */
+    protected $firstName;
+
+    /** @var string */
+    protected $lastName;
+
+    /** @var string */
+    protected $address;
+
+    /** @var string */
+    protected $phone;
+
+    /** @var string */
+    protected $email;
+
+    /** @var int */
+    protected $shirtSize;
+
+    /** @var string */
+    protected $sex;
+
+    /** @var DateTime */
+    protected $birthDate;
 
     /** @var int|null */
     protected $gradeId;
 
-    /** @var Troop|null */
-    protected $troop;
+    /** @var int|null */
+    protected $districtId;
+
+    /** @var Patrol|null */
+    protected $patrol;
 
     /** @var string|null */
     protected $pesel;
 
     /** @var string|null */
     protected $fatherName;
+
+    /** @var string */
+    protected $comments;
+
+    /** @var string */
+    protected $emergencyInfo;
+
+    /** @var string */
+    protected $emergencyPhone;
+
+    /**
+     * Get first name
+     *
+     * @return string
+     */
+    public function getFirstName()
+    {
+        return $this->firstName;
+    }
+
+    /**
+     * Set first name
+     *
+     * @param string $firstName first name
+     *
+     * @return self
+     */
+    public function setFirstName($firstName)
+    {
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    /**
+     * Get last name
+     *
+     * @return string
+     */
+    public function getLastName()
+    {
+        return $this->lastName;
+    }
+
+    /**
+     * Set last name
+     *
+     * @param string $lastName last name
+     *
+     * @return self
+     */
+    public function setLastName($lastName)
+    {
+        $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->getFirstName() . ' ' . $this->getLastName();
+    }
+
+    /**
+     * Get address
+     *
+     * @return string
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * Set address
+     *
+     * @param string $address address
+     *
+     * @return self
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * Get phone
+     *
+     * @return string
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * Set phone
+     *
+     * @param string $phone phone
+     *
+     * @return self
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    /**
+     * Get e-mail
+     *
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set e-mail
+     *
+     * @param string $email e-mail
+     *
+     * @return self
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get shirt size
+     *
+     * @return int|null
+     */
+    public function getShirtSize()
+    {
+        return $this->shirtSize;
+    }
+
+    /**
+     * Set shirt size
+     *
+     * @param int|null $shirtSize shirt size
+     *
+     * @return self
+     */
+    public function setShirtSize($shirtSize = null)
+    {
+        $this->shirtSize = $shirtSize;
+
+        return $this;
+    }
+
+    /**
+     * Get sex
+     *
+     * @return string
+     */
+    public function getSex()
+    {
+        return $this->sex;
+    }
+
+    /**
+     * Set sex
+     *
+     * @param string $sex sex
+     *
+     * @return self
+     */
+    public function setSex($sex)
+    {
+        $this->sex = $sex;
+
+        return $this;
+    }
+
+    /**
+     * Get birth date
+     *
+     * @return DateTime
+     */
+    public function getBirthDate()
+    {
+        return $this->birthDate;
+    }
+
+    /**
+     * Set birth date
+     *
+     * @param DateTime|null $birthDate birth date
+     *
+     * @return self
+     */
+    public function setBirthDate(DateTime $birthDate = null)
+    {
+        if (isset($birthDate)) {
+            $this->birthDate = $birthDate;
+        }
+
+        return $this;
+    }
 
     /**
      * Get grade ID
@@ -50,27 +317,90 @@ class Participant extends ItemAbstract implements PersonInterface, StatusAwareIn
     }
 
     /**
+     * Get district ID
+     *
+     * @return int|null
+     */
+    public function getDistrictId()
+    {
+        return $this->districtId;
+    }
+
+    /**
+     * Set district ID
+     *
+     * @param int|null $districtId district ID
+     *
+     * @return self
+     */
+    public function setDistrictId($districtId = null)
+    {
+        $this->districtId = $districtId;
+
+        return $this;
+    }
+
+    /**
+     * Get patrol
+     *
+     * @return Patrol|null
+     */
+    public function getPatrol()
+    {
+        return $this->patrol;
+    }
+
+    /**
+     * Set patrol
+     *
+     * @param Patrol|null $patrol patrol
+     *
+     * @return self
+     */
+    public function setPatrol(Patrol $patrol = null)
+    {
+        $this->patrol = $patrol;
+
+        return $this;
+    }
+
+    /**
+     * Is patrol member
+     *
+     * @return bool
+     */
+    public function isPatrolMember()
+    {
+        $patrol = $this->getPatrol();
+        $isPatrolMember = isset($patrol);
+
+        return $isPatrolMember;
+    }
+
+    /**
+     * Is patrol leader
+     *
+     * @return bool
+     */
+    public function isPatrolLeader()
+    {
+        $patrol = $this->getPatrol();
+        $isPatrolLeader = isset($patrol) && $patrol->getLeader() == $this;
+
+        return $isPatrolLeader;
+    }
+
+    /**
      * Get troop
      *
      * @return Troop|null
      */
     public function getTroop()
     {
-        return $this->troop;
-    }
+        $patrol = $this->getPatrol();
+        $troop = isset($patrol) ? $patrol->getTroop() : null;
 
-    /**
-     * Set troop
-     *
-     * @param Troop|null $troop troop
-     *
-     * @return self
-     */
-    public function setTroop(Troop $troop = null)
-    {
-        $this->troop = $troop;
-
-        return $this;
+        return $troop;
     }
 
     /**
@@ -203,6 +533,78 @@ class Participant extends ItemAbstract implements PersonInterface, StatusAwareIn
     public function setFatherName($fatherName = null)
     {
         $this->fatherName = $fatherName;
+
+        return $this;
+    }
+
+    /**
+     * Get comments
+     *
+     * @return string|null
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    /**
+     * Set comments
+     *
+     * @param string|null $comments comments
+     *
+     * @return self
+     */
+    public function setComments($comments = null)
+    {
+        $this->comments = $comments;
+
+        return $this;
+    }
+
+    /**
+     * Get emergency info
+     *
+     * @return string|null
+     */
+    public function getEmergencyInfo()
+    {
+        return $this->emergencyInfo;
+    }
+
+    /**
+     * Set emergency info
+     *
+     * @param string|null $emergencyInfo emergency info
+     *
+     * @return self
+     */
+    public function setEmergencyInfo($emergencyInfo = null)
+    {
+        $this->emergencyInfo = $emergencyInfo;
+
+        return $this;
+    }
+
+    /**
+     * Get emergency phone
+     *
+     * @return string|null
+     */
+    public function getEmergencyPhone()
+    {
+        return $this->emergencyPhone;
+    }
+
+    /**
+     * Set emergency phone
+     *
+     * @param string|null $emergencyPhone emergency phone
+     *
+     * @return self
+     */
+    public function setEmergencyPhone($emergencyPhone = null)
+    {
+        $this->emergencyPhone = $emergencyPhone;
 
         return $this;
     }
