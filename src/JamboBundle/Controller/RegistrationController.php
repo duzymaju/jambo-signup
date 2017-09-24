@@ -186,9 +186,11 @@ class RegistrationController extends Controller
                     ->setPatrol($patrol)
                     ->setCreatedAt($createdAt)
                     ->setUpdatedAt($createdAt)
-                    ->setDistrictId($patrol->getDistrictId())
                     ->setSex($member->getSexFromPesel())
                 ;
+                if ($member->getDistrictId() == null) {
+                    $member->setDistrictId($patrol->getDistrictId());
+                }
 
                 /** @var FormInterface $memberView */
                 $memberView = $form

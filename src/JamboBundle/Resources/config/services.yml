@@ -48,11 +48,12 @@ services:
         tags:
             - name:                     form.type
 
-    jambo_bundle.form_type.troop_member:
+    jambo_bundle.form_type.patrol_member:
         arguments:
             -                           "@translator"
             -                           "@jambo_bundle.registration.lists"
-        class:                          JamboBundle\Form\Type\TroopMemberType
+            -                           "%jambo.region_id%"
+        class:                          JamboBundle\Form\Type\PatrolMemberType
         tags:
             - name:                     form.type
 

@@ -78,7 +78,7 @@ class RegistrationLists
     }
 
     /**
-     * Get sex labelss
+     * Get sex labels
      *
      * @return array
      */
@@ -169,11 +169,15 @@ class RegistrationLists
     /**
      * Get regions
      *
+     * @param bool $allowDifferent allow different
+     *
      * @return array
      */
-    public function getRegions()
+    public function getRegions($allowDifferent = true)
     {
-        $regions = [];
+        $regions = $allowDifferent ? [
+            0 => $this->translator->trans('form.regions_different'),
+        ] : [];
         
         foreach ($this->getStructure() as $regionId => $region) {
             $regions[$regionId] = $region['name'];
@@ -200,13 +204,16 @@ class RegistrationLists
     /**
      * Get districts
      *
-     * @param int|null $regionId region ID
+     * @param int|null $regionId       region ID
+     * @param bool     $allowDifferent allow different
      *
      * @return array
      */
-    public function getDistricts($regionId = null)
+    public function getDistricts($regionId = null, $allowDifferent = true)
     {
-        $districts = [];
+        $districts = $allowDifferent ? [
+            0 => $this->translator->trans('form.districts_different'),
+        ] : [];
 
         foreach ($this->getStructure() as $id => $region) {
             if (!isset($regionId) || $id == $regionId) {
@@ -223,12 +230,17 @@ class RegistrationLists
     /**
      * Get district
      *
-     * @param int $districtId district ID
+     * @param int  $districtId     district ID
+     * @param bool $allowDifferent allow different
      *
      * @return string|null
      */
-    public function getDistrict($districtId)
+    public function getDistrict($districtId, $allowDifferent = true)
     {
+        if ($allowDifferent && $districtId == 0) {
+            return $this->translator->trans('form.districts_different');
+        }
+
         $regionId = $this->getRegionId($districtId);
         $districtKey = $this->getDistrictKey($districtId);
         $structure = $this->getStructure();
@@ -281,6 +293,51 @@ class RegistrationLists
         $grade = array_key_exists($gradeId, $grades) ? $grades[$gradeId] : null;
 
         return $grade;
+    }
+
+    /**
+     * Get methodology group labels
+     *
+     * @return array
+     */
+    public function getMethodologyGroupLabels()
+    {
+        $labels = [
+            'form.methodology_group.cub_scouts' => 1,
+            'form.methodology_group.scouts' => 2,
+            'form.methodology_group.senior_scouts' => 3,
+            'form.methodology_group.rovers' => 4,
+        ];
+
+        return $labels;
+    }
+
+    /**
+     * Get methodology groups
+     *
+     * @return array
+     */
+    public function getMethodologyGroups()
+    {
+        $methodologyGroups = $this->translateLabels($this->getMethodologyGroupLabels());
+
+        return $methodologyGroups;
+    }
+
+    /**
+     * Get methodology group
+     *
+     * @param int $methodologyGroupId methodology group ID
+     *
+     * @return string|null
+     */
+    public function getMethodologyGroup($methodologyGroupId)
+    {
+        $methodologyGroups = $this->getMethodologyGroups();
+        $methodologyGroup = array_key_exists($methodologyGroupId, $methodologyGroups) ?
+            $methodologyGroups[$methodologyGroupId] : null;
+
+        return $methodologyGroup;
     }
 
     /**

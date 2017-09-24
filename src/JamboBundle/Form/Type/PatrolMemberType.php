@@ -14,15 +14,23 @@ use Symfony\Component\Translation\TranslatorInterface;
 /*
  * Form type
  */
-class TroopMemberType extends AbstractType
+class PatrolMemberType extends AbstractType
 {
+    /** @var int */
+    private $regionId;
+
     /**
-     * {@inheritdoc}
+     * Constructor
+     *
+     * @param TranslatorInterface $translator        translator
+     * @param RegistrationLists   $registrationLists registration lists
+     * @param int                 $regionId          region ID
      */
-    public function __construct(TranslatorInterface $translator, RegistrationLists $registrationLists)
+    public function __construct(TranslatorInterface $translator, RegistrationLists $registrationLists, $regionId)
     {
         parent::__construct($translator, $registrationLists);
         $this->loadValidation('Participant');
+        $this->regionId = $regionId;
     }
 
     /**
@@ -50,21 +58,36 @@ class TroopMemberType extends AbstractType
             ]))
             ->add('pesel', TextType::class, $this->mergeOptions('pesel', [
                 'label' => 'form.pesel',
-                'required' => false,
             ]))
-            ->add('fatherName', TextType::class, $this->mergeOptions('fatherName', [
-                'label' => 'form.father_name',
+            ->add('guardianName', TextType::class, $this->mergeOptions('guardianName', [
+                'label' => 'form.guardian_name',
             ]))
-            ->add('emergencyPhone', TextType::class, $this->mergeOptions('emergencyPhone', [
-                'label' => 'form.emergency_phone',
+            ->add('guardianPhone', TextType::class, $this->mergeOptions('guardianPhone', [
+                'label' => 'form.guardian_phone',
             ]))
             ->add('gradeId', ChoiceType::class, $this->mergeOptions('gradeId', [
                 'choices' => $this->registrationLists->getGradeLabels(),
                 'label' => 'form.grade',
             ]))
+            ->add('districtId', ChoiceType::class, $this->mergeOptions('districtId', [
+                'choices' => array_flip($this->registrationLists->getDistricts($this->regionId, false)),
+                'label' => $this->translator->trans('form.district'),
+                'required' => false,
+                'translation_domain' => false,
+            ]))
+            ->add('memberNumber', TextType::class, $this->mergeOptions('memberNumber', [
+                'attr' => [
+                    'placeholder' => $this->translator->trans('form.member_number_placeholder'),
+                ],
+                'label' => 'form.member_number',
+            ]))
             ->add('shirtSize', ChoiceType::class, $this->mergeOptions('shirtSize', [
                 'choices' => $this->registrationLists->getShirtSizeLabels(),
                 'label' => 'form.shirt_size',
+            ]))
+            ->add('specialDiet', TextType::class, $this->mergeOptions('specialDiet', [
+                'label' => 'form.special_diet',
+                'required' => false,
             ]))
         ;
     }

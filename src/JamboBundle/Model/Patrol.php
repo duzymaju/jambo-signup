@@ -15,8 +15,11 @@ class Patrol
     /** @var string */
     protected $name;
 
-    /** @var int|null */
+    /** @var int */
     protected $districtId;
+
+    /** @var int */
+    protected $methodologyGroupId;
 
     /** @var string */
     protected $comments;
@@ -65,7 +68,7 @@ class Patrol
     /**
      * Get district ID
      *
-     * @return int|null
+     * @return int
      */
     public function getDistrictId()
     {
@@ -75,13 +78,37 @@ class Patrol
     /**
      * Set district ID
      *
-     * @param int|null $districtId district ID
+     * @param int $districtId district ID
      *
      * @return self
      */
     public function setDistrictId($districtId = null)
     {
         $this->districtId = $districtId;
+
+        return $this;
+    }
+
+    /**
+     * Get methodology group ID
+     *
+     * @return int
+     */
+    public function getMethodologyGroupId()
+    {
+        return $this->methodologyGroupId;
+    }
+
+    /**
+     * Set methodology group ID
+     *
+     * @param int $methodologyGroupId methodology group ID
+     *
+     * @return self
+     */
+    public function setMethodologyGroupId($methodologyGroupId = null)
+    {
+        $this->methodologyGroupId = $methodologyGroupId;
 
         return $this;
     }

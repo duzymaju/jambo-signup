@@ -52,11 +52,16 @@ class PatrolType extends AbstractType
                 'label' => $this->translator->trans('form.district'),
                 'translation_domain' => false,
             ]))
+            ->add('methodologyGroupId', ChoiceType::class, $this->mergeOptions('methodologyGroupId', [
+                'choices' => array_flip($this->registrationLists->getMethodologyGroups()),
+                'label' => $this->translator->trans('form.methodology_group'),
+                'translation_domain' => false,
+            ]))
             ->add('members', CollectionType::class, $this->mergeOptions('members', [
                 'allow_add' => true,
                 'allow_delete' => false,
                 'by_reference' => false,
-                'entry_type' => TroopMemberType::class,
+                'entry_type' => PatrolMemberType::class,
                 'validation_groups' => [
                     'troopMember',
                 ],

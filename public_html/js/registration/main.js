@@ -1,38 +1,48 @@
 ;(function ($, document, undefinedType) {
 
     /**
+     * Switch districts
+     *
+     * @param {jQuery} mainSelect main select
+     * @param {jQuery} selects    selects
+     */
+    var switchDistricts = function (mainSelect, selects) {
+        var groups = selects.closest('.form-group');
+        selects.find('[value=""]').remove();
+        if (mainSelect.val() === '0') {
+            selects.prop('disabled', false);
+            groups.show();
+        } else {
+            selects.prop('disabled', true);
+            groups.hide();
+        }
+    };
+
+    /**
      * Manage subforms
      *
-     * @param {jQuery}   form     form
-     * @param {function} callback callback
+     * @param {jQuery}   form       form
+     * @param {function} [callback] callback
      */
     var manageSubforms = function (form, callback) {
         $('[data-prototype]').each(function () {
-            var colsInRow = 2,
-                rowClassName = 'row',
-                collection = $(this),
-                itemName = collection.data('item-name'),
-                maxSize = collection.data('max-size'),
-                prototype = collection.data('prototype'),
-                items = collection.find('.' + itemName);
+            var collection = $(this);
+            var maxSize = collection.data('max-size');
+            var prototype = collection.data('prototype');
+            var items = collection.children();
 
             if (items.length >= maxSize) {
                 return;
             }
-            form.find('#add-' + itemName).on('click', function () {
+            form.find('#add-member').on('click', function () {
                 if (items.length < maxSize) {
-                    var row;
-                    if (items.length % colsInRow) {
-                        row = items.last().closest('.' + rowClassName);
-                    } else {
-                        row = $('<div class="' + rowClassName + '">');
-                        collection.append(row);
-                    }
                     var newItem = $(prototype.replace(/__name__/g, items.length).replace(/__no__/g, items.length + 1));
-                    row.append(newItem);
-                    items = collection.find('.' + itemName);
+                    collection.append(newItem);
+                    items = collection.children();
                     form.trigger('enlarge');
-                    callback(newItem);
+                    if (typeof callback !== undefinedType) {
+                        callback(newItem);
+                    }
                     if (items.length === maxSize) {
                         $(this).parent().hide();
                     }
@@ -40,23 +50,17 @@
             }).parent().show();
         });
     };
-    
-    var addTools = function (range) {
-        range.find('[data-toggle="tooltip"]').tooltip();
-        range.find('.input-group.date').datepicker({
-            endDate: '0d',
-            format: 'yyyy-mm-dd',
-            language: $('html').attr('lang')
-        });
-    };
 
     $(document).ready(function() {
         var form = $('.registration-form').first();
         if (form.length === 1) {
+            var districtsSelect = form.find('#patrol_districtId');
+            districtsSelect.on('change', function () {
+                switchDistricts(districtsSelect, form.find('.patrol-members-districtId'));
+            }).trigger('change');
             manageSubforms(form, function (item) {
-                addTools(item);
+                switchDistricts(districtsSelect, item.find('.patrol-members-districtId'));
             });
-            addTools(form);
         }
     });
 

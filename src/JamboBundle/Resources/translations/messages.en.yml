@@ -67,9 +67,8 @@ form.address:                           Address
 form.birth_date:                        Birth date
 form.comments:                          Comments
 form.district:                          District
+form.districts_different:               different districts
 form.email:                             E-mail address
-form.emergency_info:                    Emergency info
-form.emergency_phone:                   Emergency phone
 form.error.age_too_high:                Maximum age is %age%.
 form.error.age_too_low:                 Minimum age is %age%.
 form.error.birth_date_not_specified:    Birth date has to be specified.
@@ -78,19 +77,28 @@ form.error.pesel_empty:                 PESEL field can't be empty.
 form.errors:                            Some data is incorrect - change it before saving the form.
 form.exception.database:                An error occured during data saving - please try again.
 form.exception.email:                   An error occured during e-mail sending - check if an e-mail address is correct.
-form.father_name:                       Father's name
 form.first_name:                        First name
 form.grade:                             Grade
 form.grade.guide:                       guide
 form.grade.no:                          no
 form.grade.scoutmaster:                 scoutmaster
 form.grade.sub_scoutmaster:             sub-scoutmaster
+form.guardian_name:                     Guardian's name
+form.guardian_phone:                    Guardian's phone
 form.id:                                ID
 form.last_name:                         Last name
+form.member_number:                     ZHP member number
+form.member_number_placeholder:         e.g. AA000000000
+form.methodology_group:                 Methodology group
+form.methodology_group.cub_scouts:      cub scouts
+form.methodology_group.rovers:          rovers
+form.methodology_group.scouts:          scouts
+form.methodology_group.senior_scouts:   senior scouts
 form.patrol_name:                       Patrol name
 form.personal_data:                     "I hereby give consent for the above personal data to be processed by Polish Scouting and Guiding Association to prepare participation in Jamboree Gdańsk 2018, in accordance with the Personal Data Protection Act dated Aug 29 1997 (uniform text: Journal of Laws of the Republic of Poland 2014, item 1182)."
 form.pesel:                             PESEL
 form.phone:                             Phone no
+form.regions_different:                 different regions
 form.rules:                             I accept <a href="%url%" target="_blank">the rules of participation</a>.
 form.save:                              Save
 form.sex:                               Sex
@@ -104,6 +112,7 @@ form.shirt_size.l:                      L
 form.shirt_size.xl:                     XL
 form.shirt_size.xxl:                    XXL
 form.shirt_size.xxxl:                   XXXL
+form.special_diet:                      Special diet
 form.status:                            Status
 form.status.completed:                  Completed
 form.status.confirmed:                  Confirmed
@@ -130,7 +139,7 @@ next_steps.regions_page:                Page of Jamboree Gdańsk 2018 Krakow con
 patrol.enough.message:                  The number of patrols is reached.
 patrol.enough.title:                    Patrol number reached
 patrol.form.add_member:                 Add another patrol member
-patrol.form.description:                Patrol member must be over %age% years before %date%. Patrol has to contain %range% members including adult leader.
+patrol.form.description:                Patrol member must be over %age% years before %date%. Patrol has to contain %range% members including adult leader who has leader grade or camp counselor permissions.
 patrol.form.leader:                     Patrol leader (adult)
 patrol.form.member:                     "#%no% patrol member"
 patrol.form.range:                      from %min_size% to %max_size%

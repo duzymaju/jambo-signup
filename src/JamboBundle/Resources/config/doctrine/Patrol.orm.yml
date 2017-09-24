@@ -16,7 +16,11 @@ JamboBundle\Entity\Patrol:
             type:                       string
         districtId:
             name:                       district_id
-            nullable:                   true
+            options:
+                unsigned:               true
+            type:                       smallint
+        methodologyGroupId:
+            name:                       methodology_group_id
             options:
                 unsigned:               true
             type:                       smallint

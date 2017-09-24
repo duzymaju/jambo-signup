@@ -57,19 +57,50 @@ JamboBundle\Entity\Participant:
             - NotBlank:
                 groups:
                     -                   troopMember
+        memberNumber:
+            - Length:
+                groups:
+                    -                   troopMember
+                max:                    11
+                min:                    11
+            - NotBlank:
+                groups:
+                    -                   troopMember
+            - Regex:
+                groups:
+                    -                   troopMember
+                pattern:                "/^[A-Z]{2}[0-9]{9}$/"
         pesel:
             - JamboBundle\Validator\Constraints\ContainsPesel:
                 groups:
                     -                   troopMember
-        fatherName:
+        guardianName:
             - Length:
                 groups:
                     -                   troopMember
-                max:                    50
+                max:                    100
                 min:                    2
             - NotBlank:
                 groups:
                     -                   troopMember
+        guardianPhone:
+            - Length:
+                groups:
+                    -                   troopMember
+                max:                    15
+                min:                    8
+            - NotBlank:
+                groups:
+                    -                   troopMember
+            - Regex:
+                groups:
+                    -                   troopMember
+                pattern:                "/^[0-9 \\(\\)\\+-]{8,15}$/"
+        specialDiet:
+            - Length:
+                groups:
+                    -                   troopMember
+                max:                    255
         comments:
             - Length:
                 groups:

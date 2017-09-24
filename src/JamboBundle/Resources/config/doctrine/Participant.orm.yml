@@ -56,31 +56,30 @@ JamboBundle\Entity\Participant:
             type:                       smallint
         districtId:
             name:                       district_id
-            nullable:                   true
             options:
                 unsigned:               true
             type:                       smallint
+        memberNumber:
+            name:                       member_number
+            type:                       string
         pesel:
             nullable:                   true
             type:                       bigint
-        fatherName:
-            length:                     50
-            name:                       father_name
+        specialDiet:
+            length:                     255
             nullable:                   true
             type:                       string
         comments:
             length:                     255
             nullable:                   true
             type:                       string
-        emergencyInfo:
+        guardianName:
             length:                     100
-            name:                       emergency_info
-            nullable:                   true
+            name:                       guardian_name
             type:                       string
-        emergencyPhone:
+        guardianPhone:
             length:                     15
-            name:                       emergency_phone
-            nullable:                   true
+            name:                       guardian_phone
             type:                       string
         createdAt:
             name:                       created_at

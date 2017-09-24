@@ -15,13 +15,19 @@
                 {{ patrol.troop.name }}
             </a>
         </dd>
-        {% if patrol.districtId > 0 %}
-            <dt>{{ 'form.district'|trans }}:</dt>
-            <dd>
+        <dt>{{ 'form.district'|trans }}:</dt>
+        <dd>
+            {% if patrol.districtId > 0 %}
                 <a href="{{ path('admin_troop_index', {districtId: patrol.districtId}) }}">
                     {{ patrol.districtId|districtname }}
                 </a>
-            </dd>
+            {% else %}
+                {{ patrol.districtId|districtname }}
+            {% endif %}
+        </dd>
+        {% if patrol.methodologyGroupId > 0 %}
+            <dt>{{ 'form.methodology_group'|trans }}:</dt>
+            <dd>{{ patrol.methodologyGroupId|methodologygroupname }}</dd>
         {% endif %}
         <dt>{{ 'form.comments'|trans }}:</dt>
         <dd>{{ patrol.comments is empty ? '-' : patrol.comments }}</dd>

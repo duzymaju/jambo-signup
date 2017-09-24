@@ -23,12 +23,12 @@ class ParticipantEditType extends AbstractType
                 'label' => 'form.comments',
                 'required' => false,
             ]))
-            ->add('emergencyInfo', TextType::class, $this->mergeOptions('emergencyInfo', [
-                'label' => 'form.emergency_info',
+            ->add('guardianName', TextType::class, $this->mergeOptions('guardianName', [
+                'label' => 'form.guardian_name',
                 'required' => false,
             ]))
-            ->add('emergencyPhone', TextType::class, $this->mergeOptions('emergencyPhone', [
-                'label' => 'form.emergency_phone',
+            ->add('guardianPhone', TextType::class, $this->mergeOptions('guardianPhone', [
+                'label' => 'form.guardian_phone',
                 'required' => false,
             ]))
             ->add('save', SubmitType::class, [

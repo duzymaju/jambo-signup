@@ -67,8 +67,11 @@ class Participant implements StatusAwareInterface
     /** @var int|null */
     protected $gradeId;
 
-    /** @var int|null */
+    /** @var int */
     protected $districtId;
+
+    /** @var string */
+    protected $memberNumber;
 
     /** @var Patrol|null */
     protected $patrol;
@@ -77,16 +80,16 @@ class Participant implements StatusAwareInterface
     protected $pesel;
 
     /** @var string|null */
-    protected $fatherName;
+    protected $specialDiet;
 
-    /** @var string */
+    /** @var string|null */
     protected $comments;
 
     /** @var string */
-    protected $emergencyInfo;
+    protected $guardianName;
 
     /** @var string */
-    protected $emergencyPhone;
+    protected $guardianPhone;
 
     /**
      * Get first name
@@ -319,7 +322,7 @@ class Participant implements StatusAwareInterface
     /**
      * Get district ID
      *
-     * @return int|null
+     * @return int
      */
     public function getDistrictId()
     {
@@ -329,13 +332,37 @@ class Participant implements StatusAwareInterface
     /**
      * Set district ID
      *
-     * @param int|null $districtId district ID
+     * @param int $districtId district ID
      *
      * @return self
      */
     public function setDistrictId($districtId = null)
     {
         $this->districtId = $districtId;
+
+        return $this;
+    }
+
+    /**
+     * Get member number
+     *
+     * @return string
+     */
+    public function getMemberNumber()
+    {
+        return $this->memberNumber;
+    }
+
+    /**
+     * Set member number
+     *
+     * @param string $memberNumber member number
+     *
+     * @return self
+     */
+    public function setMemberNumber($memberNumber = null)
+    {
+        $this->memberNumber = $memberNumber;
 
         return $this;
     }
@@ -514,25 +541,25 @@ class Participant implements StatusAwareInterface
     }
 
     /**
-     * Get father name
+     * Get special diet
      *
      * @return string|null
      */
-    public function getFatherName()
+    public function getSpecialDiet()
     {
-        return $this->fatherName;
+        return $this->specialDiet;
     }
 
     /**
-     * Set father name
+     * Set special diet
      *
-     * @param string|null $fatherName father name
+     * @param string|null $specialDiet special diet
      *
      * @return self
      */
-    public function setFatherName($fatherName = null)
+    public function setSpecialDiet($specialDiet = null)
     {
-        $this->fatherName = $fatherName;
+        $this->specialDiet = $specialDiet;
 
         return $this;
     }
@@ -562,49 +589,49 @@ class Participant implements StatusAwareInterface
     }
 
     /**
-     * Get emergency info
+     * Get guardian name
      *
-     * @return string|null
+     * @return string
      */
-    public function getEmergencyInfo()
+    public function getGuardianName()
     {
-        return $this->emergencyInfo;
+        return $this->guardianName;
     }
 
     /**
-     * Set emergency info
+     * Set guardian name
      *
-     * @param string|null $emergencyInfo emergency info
+     * @param string $guardianName guardian name
      *
      * @return self
      */
-    public function setEmergencyInfo($emergencyInfo = null)
+    public function setGuardianName($guardianName = null)
     {
-        $this->emergencyInfo = $emergencyInfo;
+        $this->guardianName = $guardianName;
 
         return $this;
     }
 
     /**
-     * Get emergency phone
+     * Get guardian phone
      *
-     * @return string|null
+     * @return string
      */
-    public function getEmergencyPhone()
+    public function getGuardianPhone()
     {
-        return $this->emergencyPhone;
+        return $this->guardianPhone;
     }
 
     /**
-     * Set emergency phone
+     * Set guardian phone
      *
-     * @param string|null $emergencyPhone emergency phone
+     * @param string $guardianPhone guardian phone
      *
      * @return self
      */
-    public function setEmergencyPhone($emergencyPhone = null)
+    public function setGuardianPhone($guardianPhone = null)
     {
-        $this->emergencyPhone = $emergencyPhone;
+        $this->guardianPhone = $guardianPhone;
 
         return $this;
     }

@@ -23,16 +23,16 @@
 
 {% macro formRow(element, options = {}) %}
     {% import _self as macros %}
-    <div class="form-group{% if options.info is defined %} form-info{% endif %}"
+    <div class="col-sm-6 form-group{% if options.info is defined %} form-info{% endif %}"
         {% if options.locale is defined %} data-specific-locale="{{ options.locale }}"{% endif %}>
         {{ form_label(element) }}
         {% if options.date is defined %}
             <div class="input-group date">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                {{ form_widget(element, {attr: {class: 'span2 form-control', maxlength: 10, pattern: '[0-9]{4}-[0-9]{2}-[0-9]{2}', placeholder: 'YYYY-MM-DD'}}) }}
+                {{ form_widget(element, {attr: {class: 'span2 form-control' ~ (options.class is defined ? ' ' ~ options.class : ''), maxlength: 10, pattern: '[0-9]{4}-[0-9]{2}-[0-9]{2}', placeholder: 'YYYY-MM-DD'}}) }}
             </div>
         {% else %}
-            {{ form_widget(element, {attr: {class: 'form-control'}}) }}
+            {{ form_widget(element, {attr: {class: 'form-control' ~ (options.class is defined ? ' ' ~ options.class : '')}}) }}
         {% endif %}
         {% if options.info is defined %}{{ macros.formInfo(options.info) }}{% endif %}
         {{ form_errors(element) }}
@@ -42,18 +42,21 @@
 {% macro troopMember(member, no = 1, isFirstPatrol, leaderData = null) %}
     {% import _self as macros %}
     {% set isLeader = leaderData and leaderData is same as (member.vars.data) %}
-    <div class="col-sm-6 member">
-        <h2>{{ isLeader ? (isFirstPatrol ? 'patrol.form.troop_leader'|trans : 'patrol.form.leader'|trans) : 'patrol.form.member'|trans({'%no%': no}) }}</h2>
+    <div class="row member">
+        <h2 class="col-xs-12">{{ isLeader ? (isFirstPatrol ? 'patrol.form.troop_leader'|trans : 'patrol.form.leader'|trans) : 'patrol.form.member'|trans({'%no%': no}) }}</h2>
         {{ macros.formRow(member.firstName) }}
         {{ macros.formRow(member.lastName) }}
-        {{ macros.formRow(member.address) }}
-        {{ macros.formRow(member.phone) }}
-        {{ macros.formRow(member.email, isLeader and isFirstPatrol ? {info: 'form.tip.email'|trans} : {}) }}
         {{ macros.formRow(member.pesel) }}
-        {{ macros.formRow(member.fatherName) }}
-        {{ macros.formRow(member.emergencyPhone) }}
+        {{ macros.formRow(member.address) }}
+        {{ macros.formRow(member.email, isLeader and isFirstPatrol ? {info: 'form.tip.email'|trans} : {}) }}
+        {{ macros.formRow(member.phone) }}
+        {{ macros.formRow(member.guardianName) }}
+        {{ macros.formRow(member.guardianPhone) }}
         {{ macros.formRow(member.gradeId) }}
+        {{ macros.formRow(member.memberNumber) }}
+        {{ macros.formRow(member.districtId, {class: 'patrol-members-districtId'}) }}
         {{ macros.formRow(member.shirtSize) }}
+        {{ macros.formRow(member.specialDiet) }}
     </div>
 {% endmacro %}
 

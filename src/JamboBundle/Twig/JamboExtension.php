@@ -43,6 +43,7 @@ class JamboExtension extends Twig_Extension
             new Twig_SimpleFilter('changekeys', [$this, 'changeKeysFilter']),
             new Twig_SimpleFilter('districtname', [$this, 'districtNameFilter']),
             new Twig_SimpleFilter('gradename', [$this, 'gradeNameFilter']),
+            new Twig_SimpleFilter('methodologygroupname', [$this, 'methodologyGroupNameFilter']),
             new Twig_SimpleFilter('peselmodify', [$this, 'peselModifyFilter']),
             new Twig_SimpleFilter('sexname', [$this, 'sexNameFilter']),
             new Twig_SimpleFilter('shirtsizename', [$this, 'shirtSizeNameFilter']),
@@ -113,6 +114,20 @@ class JamboExtension extends Twig_Extension
         $gradeName = $this->registrationLists->getGrade($gradeId);
 
         return $gradeName;
+    }
+
+    /**
+     * Methodology group name filter
+     *
+     * @param int $methodologyGroupId methodology group ID
+     *
+     * @return string|null
+     */
+    public function methodologyGroupNameFilter($methodologyGroupId)
+    {
+        $methodologyGroupName = $this->registrationLists->getMethodologyGroup($methodologyGroupId);
+
+        return $methodologyGroupName;
     }
 
     /**

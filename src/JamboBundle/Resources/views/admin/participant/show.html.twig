@@ -33,18 +33,18 @@
                 {{ participant.districtId|districtname }}
             </a>
         </dd>
+        <dt>{{ 'form.member_number'|trans }}:</dt>
+        <dd>{{ participant.memberNumber }}</dd>
         <dt>{{ 'form.pesel'|trans }}:</dt>
         <dd>{{ participant.pesel|peselmodify }}</dd>
-        <dt>{{ 'form.father_name'|trans }}:</dt>
-        <dd>{{ participant.fatherName is empty ? '-' : participant.fatherName }}</dd>
         <dt>{{ 'form.shirt_size'|trans }}:</dt>
         <dd>{{ participant.shirtSize ? participant.shirtSize|shirtsizename : '-' }}</dd>
         <dt>{{ 'form.comments'|trans }}:</dt>
         <dd>{{ participant.comments is empty ? '-' : participant.comments }}</dd>
-        <dt>{{ 'form.emergency_info'|trans }}:</dt>
-        <dd>{{ participant.emergencyInfo is empty ? '-' : participant.emergencyInfo }}</dd>
-        <dt>{{ 'form.emergency_phone'|trans }}:</dt>
-        <dd>{{ participant.emergencyPhone is empty ? '-' : participant.emergencyPhone }}</dd>
+        <dt>{{ 'form.guardian_name'|trans }}:</dt>
+        <dd>{{ participant.guardianName is empty ? '-' : participant.guardianName }}</dd>
+        <dt>{{ 'form.guardian_phone'|trans }}:</dt>
+        <dd>{{ participant.guardianPhone is empty ? '-' : participant.guardianPhone }}</dd>
         {% if participant.patrol %}
             <dt>{{ 'form.patrol_name'|trans }}:</dt>
             <dd>

@@ -12,16 +12,12 @@
     {{ form_start(form, {'attr': {'class': 'registration-form registration-form-troop'}}) }}
         {{ macro.formRow(form.name) }}
         {{ macro.formRow(form.districtId) }}
+        {{ macro.formRow(form.methodologyGroupId) }}
         {{ macro.formRow(form.comments) }}
-        <div data-item-name="member" data-max-size="{{ max_size }}" data-prototype="{{ macro.troopMember(form.members.vars.prototype, '__no__', is_first_patrol)|e }}">
-            <div class="row">
-                {% for member in form.members %}
-                    {% if loop.index0 > 0 and loop.index0 is even %}
-                        </div><div class="row">
-                    {% endif %}
-                    {{ macro.troopMember(member, loop.index, is_first_patrol, form.vars.data.leader) }}
-                {% endfor %}
-            </div>
+        <div data-max-size="{{ max_size }}" data-prototype="{{ macro.troopMember(form.members.vars.prototype, '__no__', is_first_patrol)|e }}">
+            {% for member in form.members %}
+                {{ macro.troopMember(member, loop.index, is_first_patrol, form.vars.data.leader) }}
+            {% endfor %}
         </div>
         <div class="form-group" style="display:none">
             <span id="add-member" class="btn btn-default btn-lg" style="width:100%">

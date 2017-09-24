@@ -75,9 +75,8 @@ form.address:                           Adres zamieszkania
 form.birth_date:                        Data urodzenia
 form.comments:                          Uwagi
 form.district:                          Hufiec
+form.districts_different:               różne hufce
 form.email:                             Adres e-mail
-form.emergency_info:                    Dane alarmowe
-form.emergency_phone:                   Alarmowy nr telefonu
 form.error.age_too_high:                Maksymalny wiek to %age% lat.
 form.error.age_too_low:                 Minimalny wiek to %age% lat.
 form.error.birth_date_not_specified:    Nie podano daty urodzenia.
@@ -86,19 +85,28 @@ form.error.pesel_empty:                 Pole z PESELem nie może być puste.
 form.errors:                            Część danych jest niepoprawna - zmień je przed zapisaniem formularza.
 form.exception.database:                Wystąpił błąd podczas zapisu danych - prosimy spróbować ponownie.
 form.exception.email:                   Wystąpił błąd podczas wysyłania wiadomości e-mail - sprawdź poprawność podanego adresu e-mail.
-form.father_name:                       Imię ojca
 form.first_name:                        Imię
 form.grade:                             Stopień
 form.grade.guide:                       przewodnik
 form.grade.no:                          brak
 form.grade.scoutmaster:                 harcmistrz
 form.grade.sub_scoutmaster:             podharcmistrz
+form.guardian_name:                     Imię i nazwisko opiekuna
+form.guardian_phone:                    Nr telefonu opiekuna
 form.id:                                ID
 form.last_name:                         Nazwisko
+form.member_number:                     Numer członkowski ZHP
+form.member_number_placeholder:         np. AA000000000
+form.methodology_group:                 Grupa metodyczna
+form.methodology_group.cub_scouts:      zuchy
+form.methodology_group.rovers:          wędrownicy
+form.methodology_group.scouts:          harcerze
+form.methodology_group.senior_scouts:   harcerze starsi
 form.patrol_name:                       Nazwa zastępu
 form.personal_data:                     Wyrażam zgodę na przetwarzanie powyższych danych osobowych przez Związek Harcerstwa Polskiego w celu organizacji udziału w Zlocie ZHP Gdańsk 2018, zgodnie z ustawą z dn. 29 sierpnia 1997 roku o Ochronie Danych Osobowych (Dz. U. 2014, poz. 1882).
 form.pesel:                             PESEL
 form.phone:                             Nr telefonu
+form.regions_different:                 różne chorągwie
 form.rules:                             Akceptuję <a href="%url%" target="_blank">regulamin uczestnictwa</a>.
 form.save:                              Zapisz
 form.sex:                               Płeć
@@ -112,6 +120,7 @@ form.shirt_size.l:                      L
 form.shirt_size.xl:                     XL
 form.shirt_size.xxl:                    XXL
 form.shirt_size.xxxl:                   XXXL
+form.special_diet:                      Specialna dieta
 form.status:                            Status
 form.status.completed:                  Kompletny
 form.status.confirmed:                  Potwierdzony
@@ -138,7 +147,7 @@ next_steps.regions_page:                Strona Zlotu ZHP Gdańsk 2018 gniazda kr
 patrol.enough.message:                  Ilość zastępów została osiągnięta.
 patrol.enough.title:                    Ilość zastępów osiągnięta
 patrol.form.add_member:                 Dodaj kolejnego członka zastępu
-patrol.form.description:                Minimalny wiek członka zastępu to %age% lat ukończone przed %date%. W skład zastępu musi wchodzić %range% członków, w tym pełnoletni zastępowy.
+patrol.form.description:                Minimalny wiek członka zastępu to %age% lat ukończone przed %date%. W skład zastępu musi wchodzić %range% członków, w tym pełnoletni zastępowy posiadający stopień instruktorski lub uprawnienia wychowawcy kolonijnego.
 patrol.form.leader:                     Zastępowy (pełnoletni)
 patrol.form.member:                     "%no%. członek zastępu"
 patrol.form.range:                      od %min_size% do %max_size%
