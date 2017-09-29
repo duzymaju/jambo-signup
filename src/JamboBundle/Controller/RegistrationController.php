@@ -222,6 +222,7 @@ class RegistrationController extends Controller
                 try {
                     if ($isFirstPatrol) {
                         $this->mailSendingProcedure($troopLeader->getEmail(),
+                            $translator->trans('email.troop.completation_title'),
                             'JamboBundle::registration/troop/email_complete.html.twig', [
                                 'completationUrl' => $this->generateUrl('registration_patrol_form', [
                                     'troopId' => $troop->getId(),
@@ -230,6 +231,7 @@ class RegistrationController extends Controller
                             ]);
                     } elseif ($isLastPatrol) {
                         $this->mailSendingProcedure($troopLeader->getEmail(),
+                            $translator->trans('email.troop.registration_title'),
                             'JamboBundle::registration/troop/email_confirm.html.twig', [
                                 'confirmationUrl' => $this->generateUrl('registration_troop_confirm', [
                                     'hash' => $troop->getActivationHash(),
@@ -338,17 +340,16 @@ class RegistrationController extends Controller
      * Mail sending procedure
      *
      * @param string $emailAddress e-mail address
+     * @param string $emailTitle   e-mail title
      * @param string $emailView    e-mail view
      * @param array  $emailParams  e-mail params
      *
      * @throws RegistrationException
      */
-    private function mailSendingProcedure($emailAddress, $emailView, array $emailParams = [])
+    private function mailSendingProcedure($emailAddress, $emailTitle, $emailView, array $emailParams = [])
     {
-        $translator = $this->get('translator');
-
         $message = Swift_Message::newInstance()
-            ->setSubject($translator->trans('email.title'))
+            ->setSubject($emailTitle)
             ->setFrom($this->getParameter('mailer_user'))
             ->setTo($emailAddress)
             ->setReplyTo($this->getParameter('jambo.email.reply_to'))

@@ -59,15 +59,16 @@ email.participants.footer:              |
     Komenda gniazda krakowskiego Zlotu ZHP Gdańsk 2018</p>
 email.scout_apostrophe.f:               Druhno
 email.scout_apostrophe.m:               Druhu
-email.title:                            Rejestracja na Zlot ZHP Gdańsk 2018 do gniazda krakowskiego
 email.troop.completation_link:          Kliknij tutaj aby przejść do formularza rejestracji patroli
 email.troop.completation_text:          |
     <p>%apostrophe%,</p>
     <p>Dziękujemy za rozpoczęcie rejestracji drużyny na Zlot ZHP Gdańsk 2018 do gniazda krakowskiego. Zarejestruj wszystkie patrole używając poniżego linku:</p>
+email.troop.completation_title:         Rozpoczęcie rejestracji na zlot
 email.troop.registration_link:          Kliknij tutaj aby potwierdzić rejestrację
 email.troop.registration_text:          |
     <p>%apostrophe%,</p>
     <p>Dziękujemy za rejestrację drużyny na Zlot ZHP Gdańsk 2018 do gniazda krakowskiego. Aby potwierdzić proces rejestracji, kliknij w poniższy link:</p>
+email.troop.registration_title:         Potwierdzenie rejestracji na zlot
 email.troop.reminder_text:              |
     <p>%apostrophe%,</p>
     <p>Dziękujemy za rejestrację drużyny na Zlot ZHP Gdańsk 2018 do gniazda krakowskiego. Ponieważ nie otrzymaliśmy od Ciebie potwierdzenia rejestracji, poniżej znajdziesz link aktywacyjny. Wystarczy tylko na niego kliknąć, abyśmy odnotowali je w naszym systemie:</p>
