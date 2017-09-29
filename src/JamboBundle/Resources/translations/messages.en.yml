@@ -47,7 +47,6 @@ confirmation.error:                     Your registration is already confirmed o
 confirmation.success:                   Your registration was successfully confirmed
 confirmation.title:                     Registration confirmation
 
-email.link:                             Click here to confirm registration
 email.participants.footer:              |
     <p>Preperation are in full swing, to keep up we invite you to follow:</p>
     <ul>
@@ -59,7 +58,9 @@ email.participants.footer:              |
 email.scout_apostrophe.f:               Madam
 email.scout_apostrophe.m:               Sir
 email.title:                            Registration for Jamboree Gdańsk 2018 Krakow contingent
+email.troop.completation_link:          Click here to see patrol's registration form
 email.troop.completation_text:          "<p>Thank you for start registration of a troop for Jamboree Gdańsk 2018 Krakow contingent. Let's register all patrols using the link below:</p>"
+email.troop.registration_link:          Click here to confirm registration
 email.troop.registration_text:          "<p>Thank you for registration of a troop for Jamboree Gdańsk 2018 Krakow contingent. To confirm your registration process please click the link below:</p>"
 email.troop.reminder_text:              "<p>Thank you for registration of a troop for Jamboree Gdańsk 2018 Krakow contingent. You didn't confirm registration yet so we send you confirmation link again. You only need to click it to let us update your status:</p>"
 
