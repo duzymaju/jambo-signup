@@ -220,21 +220,21 @@ class RegistrationController extends Controller
 
             if ($form->isValid()) {
                 try {
-                    if ($isFirstPatrol) {
-                        $this->mailSendingProcedure($troopLeader->getEmail(),
-                            $translator->trans('email.troop.completation_title'),
-                            'JamboBundle::registration/troop/email_complete.html.twig', [
-                                'completationUrl' => $this->generateUrl('registration_patrol_form', [
-                                    'troopId' => $troop->getId(),
-                                ], UrlGeneratorInterface::ABSOLUTE_URL),
-                                'leader' => $troopLeader,
-                            ]);
-                    } elseif ($isLastPatrol) {
+                    if ($isLastPatrol) {
                         $this->mailSendingProcedure($troopLeader->getEmail(),
                             $translator->trans('email.troop.registration_title'),
                             'JamboBundle::registration/troop/email_confirm.html.twig', [
                                 'confirmationUrl' => $this->generateUrl('registration_troop_confirm', [
                                     'hash' => $troop->getActivationHash(),
+                                ], UrlGeneratorInterface::ABSOLUTE_URL),
+                                'leader' => $troopLeader,
+                            ]);
+                    } elseif ($isFirstPatrol) {
+                        $this->mailSendingProcedure($troopLeader->getEmail(),
+                            $translator->trans('email.troop.completation_title'),
+                            'JamboBundle::registration/troop/email_complete.html.twig', [
+                                'completationUrl' => $this->generateUrl('registration_patrol_form', [
+                                    'troopId' => $troop->getId(),
                                 ], UrlGeneratorInterface::ABSOLUTE_URL),
                                 'leader' => $troopLeader,
                             ]);
