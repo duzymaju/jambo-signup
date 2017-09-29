@@ -15,7 +15,7 @@ imports:
     - resource:                         "@JamboBundle/Resources/config/services.yml"
 
 parameters:
-    assets_version:                     17080101
+    assets_version:                     17092901
     locale:                             en
     locales:
         -                               en
