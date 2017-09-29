@@ -85,7 +85,7 @@ abstract class AbstractType extends BaseAbstractType
                 $attributes['maxlength'] = $maxLength;
             }
             if (isset($pattern)) {
-                $attributes['pattern'] = preg_replace('#^[\^]?(.+)[\$]?$#', '$1', trim($pattern, '/#'));
+                $attributes['pattern'] = rtrim(ltrim(trim($pattern, '/#'), '^'), '$');
             }
 
             if (count($attributes) > 0) {

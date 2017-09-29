@@ -36,9 +36,13 @@ class RegistrationController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('JamboBundle::registration/index.html.twig', [
-            'participantsLimitsExceeded' => $this->participantsLimitsExceeded(),
-        ]);
+        if ($this->participantsLimitsExceeded()) {
+            return $this->render('JamboBundle::registration/index.html.twig', [
+                'participantsLimitsExceeded' => true,
+            ]);
+        }
+
+        return $this->redirect($this->generateUrl('registration_troop_form'));
     }
 
     /**
@@ -102,7 +106,7 @@ class RegistrationController extends Controller
      */
     public function patrolFormAction($troopId, Request $request)
     {
-        if ($this->participantsLimitsExceeded()) {
+        if ($this->participantsLimitsExceeded(false)) {
             return $this->render('JamboBundle::registration/troop/closed.html.twig', [
                 'participantsLimitsExceeded' => true,
             ]);
@@ -507,19 +511,23 @@ class RegistrationController extends Controller
     /**
      * Participants limits exceeded
      *
+     * @param bool $checkTroopLimit check troop limit
+     *
      * @return bool
      */
-    private function participantsLimitsExceeded()
+    private function participantsLimitsExceeded($checkTroopLimit = true)
     {
         $timeLimit = new DateTime($this->getParameter('jambo.time_limit.participants'));
         if (new DateTime('now') > $timeLimit) {
             return true;
         }
 
-        $troopLimit = $this->getParameter('jambo.troop_limit.max');
-        $troopRepository = $this->get('jambo_bundle.repository.troop');
-        if ($troopRepository->getTotalNumber() >= $troopLimit) {
-            return true;
+        if ($checkTroopLimit) {
+            $troopLimit = $this->getParameter('jambo.troop_limit.max');
+            $troopRepository = $this->get('jambo_bundle.repository.troop');
+            if ($troopRepository->getTotalNumber() >= $troopLimit) {
+                return true;
+            }
         }
 
         return false;

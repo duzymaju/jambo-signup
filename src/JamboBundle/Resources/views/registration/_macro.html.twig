@@ -23,7 +23,7 @@
 
 {% macro formRow(element, options = {}) %}
     {% import _self as macros %}
-    <div class="col-sm-6 form-group{% if options.info is defined %} form-info{% endif %}"
+    <div class="form-group{% if options.size is defined %} col-sm-{{ options.size }}{% endif %}{% if options.info is defined %} form-info{% endif %}"
         {% if options.locale is defined %} data-specific-locale="{{ options.locale }}"{% endif %}>
         {{ form_label(element) }}
         {% if options.date is defined %}
@@ -44,19 +44,19 @@
     {% set isLeader = leaderData and leaderData is same as (member.vars.data) %}
     <div class="row member">
         <h2 class="col-xs-12">{{ isLeader ? (isFirstPatrol ? 'patrol.form.troop_leader'|trans : 'patrol.form.leader'|trans) : 'patrol.form.member'|trans({'%no%': no}) }}</h2>
-        {{ macros.formRow(member.firstName) }}
-        {{ macros.formRow(member.lastName) }}
-        {{ macros.formRow(member.pesel) }}
-        {{ macros.formRow(member.address) }}
-        {{ macros.formRow(member.email, isLeader and isFirstPatrol ? {info: 'form.tip.email'|trans} : {}) }}
-        {{ macros.formRow(member.phone) }}
-        {{ macros.formRow(member.guardianName) }}
-        {{ macros.formRow(member.guardianPhone) }}
-        {{ macros.formRow(member.gradeId) }}
-        {{ macros.formRow(member.memberNumber) }}
-        {{ macros.formRow(member.districtId, {class: 'patrol-members-districtId'}) }}
-        {{ macros.formRow(member.shirtSize) }}
-        {{ macros.formRow(member.specialDiet) }}
+        {{ macros.formRow(member.firstName, {size: 6}) }}
+        {{ macros.formRow(member.lastName, {size: 6}) }}
+        {{ macros.formRow(member.pesel, {size: 6}) }}
+        {{ macros.formRow(member.address, {size: 6}) }}
+        {{ macros.formRow(member.email, isLeader and isFirstPatrol ? {size: 6, info: 'form.tip.email'|trans} : {size: 6}) }}
+        {{ macros.formRow(member.phone, {size: 6}) }}
+        {{ macros.formRow(member.guardianName, {size: 6}) }}
+        {{ macros.formRow(member.guardianPhone, {size: 6}) }}
+        {{ macros.formRow(member.gradeId, {size: 6}) }}
+        {{ macros.formRow(member.memberNumber, {size: 6}) }}
+        {{ macros.formRow(member.districtId, {size: 6, class: 'patrol-members-districtId'}) }}
+        {{ macros.formRow(member.shirtSize, {size: 6}) }}
+        {{ macros.formRow(member.specialDiet, {size: 6}) }}
     </div>
 {% endmacro %}
 

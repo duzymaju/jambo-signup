@@ -107,6 +107,6 @@ class PatrolMemberType extends AbstractType
      */
     public function getName()
     {
-        return 'troop_member';
+        return 'patrol_member';
     }
 }
