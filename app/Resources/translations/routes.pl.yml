@@ -46,8 +46,8 @@ registration_index: /
 # Desc: /participant/{hash}/confirm
 registration_participant_confirm: '/uczestnik/{hash}/potwierdz'
 
-# Desc: /patrol/{troopId}
-registration_patrol_form: '/zastep/{troopId}'
+# Desc: /patrol/{troopHash}
+registration_patrol_form: '/zastep/{troopHash}'
 
 # Desc: /success
 registration_success: /sukces

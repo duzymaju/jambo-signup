@@ -25,7 +25,7 @@ parameters:
 
     jambo.admin.pack_size:              20
     jambo.age_limit.adult:              18
-    jambo.age_limit.date:               "2017-08-06"
+    jambo.age_limit.date:               "2018-08-06"
     jambo.age_limit.max:                120
     jambo.age_limit.min:                6
     jambo.default_prefix:               "+48"
@@ -45,5 +45,5 @@ parameters:
     jambo.participant_limit.max:        10
     jambo.participant_limit.min:        10
     jambo.patrol_limit:                 4
-    jambo.time_limit.participants:      "2017-10-10 00:00:00"
+    jambo.time_limit.participants:      "2018-01-01 00:00:00"
     jambo.troop_limit:                  10

@@ -79,7 +79,7 @@ class RegistrationController extends Controller
                     ->insert($troop, true);
                 $this->addMessage('troop.message.success', 'success');
                 $response = $this->redirect($this->generateUrl('registration_patrol_form', [
-                    'troopId' => $troop->getId(),
+                    'troopHash' => $troop->getActivationHash(),
                 ]));
             } catch (Exception $e) {
                 $this->addMessage($e->getMessage(), 'error');
@@ -99,12 +99,12 @@ class RegistrationController extends Controller
     /**
      * Patrol form action
      *
-     * @param int     $troopId troop ID
-     * @param Request $request request
+     * @param int     $troopHash troop hash
+     * @param Request $request   request
      *
      * @return Response
      */
-    public function patrolFormAction($troopId, Request $request)
+    public function patrolFormAction($troopHash, Request $request)
     {
         if ($this->participantsLimitsExceeded(false)) {
             return $this->render('JamboBundle::registration/troop/closed.html.twig', [
@@ -116,7 +116,7 @@ class RegistrationController extends Controller
         $troop = $this
             ->get('jambo_bundle.repository.troop')
             ->findOneByOrException([
-                'id' => $troopId,
+                'activationHash' => $troopHash,
                 'status' => Troop::STATUS_NOT_COMPLETED,
             ]);
 
@@ -150,7 +150,7 @@ class RegistrationController extends Controller
         }
         $form = $this->createForm(PatrolType::class, $patrol, [
             'action' => $this->generateUrl('registration_patrol_form', [
-                'troopId' => $troop->getId(),
+                'troopHash' => $troop->getActivationHash(),
             ]),
             'method' => 'POST',
         ]);
@@ -234,7 +234,7 @@ class RegistrationController extends Controller
                             $translator->trans('email.troop.completation_title'),
                             'JamboBundle::registration/troop/email_complete.html.twig', [
                                 'completationUrl' => $this->generateUrl('registration_patrol_form', [
-                                    'troopId' => $troop->getId(),
+                                    'troopHash' => $troop->getActivationHash(),
                                 ], UrlGeneratorInterface::ABSOLUTE_URL),
                                 'leader' => $troopLeader,
                             ]);
@@ -261,7 +261,7 @@ class RegistrationController extends Controller
                             '%troopName%' => $troop->getName(),
                         ]);
                         $redirectLink = $this->generateUrl('registration_patrol_form', [
-                            'troopId' => $troop->getId(),
+                            'troopHash' => $troop->getActivationHash(),
                         ]);
                     }
                     $this->addMessage($successMessage, 'success');
