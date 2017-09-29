@@ -523,7 +523,7 @@ class RegistrationController extends Controller
         }
 
         if ($checkTroopLimit) {
-            $troopLimit = $this->getParameter('jambo.troop_limit.max');
+            $troopLimit = $this->getParameter('jambo.troop_limit');
             $troopRepository = $this->get('jambo_bundle.repository.troop');
             if ($troopRepository->getTotalNumber() >= $troopLimit) {
                 return true;

@@ -46,5 +46,4 @@ parameters:
     jambo.participant_limit.min:        10
     jambo.patrol_limit:                 4
     jambo.time_limit.participants:      "2017-10-10 00:00:00"
-    jambo.troop_limit.max:              10
-    jambo.troop_limit.min:              10
+    jambo.troop_limit:                  10
