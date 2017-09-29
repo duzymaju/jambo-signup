@@ -4,11 +4,13 @@ JamboBundle\Entity\Patrol:
             - Length:
                 min:                    2
                 max:                    50
+            - NotBlank:                 ~
         members:
             - JamboBundle\Validator\Constraints\UniqueEntities:
                 field:                  pesel
             - JamboBundle\Validator\Constraints\UniqueEntities:
                 field:                  email
+            - Valid:                    ~
         comments:
             - Length:
                 max:                    255

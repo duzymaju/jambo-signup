@@ -7,102 +7,56 @@ JamboBundle\Entity\Participant:
     properties:
         firstName:
             - Length:
-                groups:
-                    -                   troopMember
                 max:                    50
                 min:                    2
-            - NotBlank:
-                groups:
-                    -                   troopMember
+            - NotBlank:                 ~
         lastName:
             - Length:
-                groups:
-                    -                   troopMember
                 max:                    50
                 min:                    2
-            - NotBlank:
-                groups:
-                    -                   troopMember
+            - NotBlank:                 ~
         address:
             - Length:
-                groups:
-                    -                   troopMember
                 max:                    255
                 min:                    10
-            - NotBlank:
-                groups:
-                    -                   troopMember
+            - NotBlank:                 ~
         phone:
             - Length:
-                groups:
-                    -                   troopMember
                 max:                    15
                 min:                    8
-            - NotBlank:
-                groups:
-                    -                   troopMember
+            - NotBlank:                 ~
             - Regex:
-                groups:
-                    -                   troopMember
                 pattern:                "/^[0-9 \\(\\)\\+-]{8,15}$/"
         email:
-            - Email:
-                groups:
-                    -                   troopMember
+            - Email:                    ~
             - Length:
-                groups:
-                    -                   troopMember
                 max:                    40
                 min:                    3
-            - NotBlank:
-                groups:
-                    -                   troopMember
+            - NotBlank:                 ~
         memberNumber:
             - Length:
-                groups:
-                    -                   troopMember
                 max:                    11
                 min:                    11
-            - NotBlank:
-                groups:
-                    -                   troopMember
+            - NotBlank:                 ~
             - Regex:
-                groups:
-                    -                   troopMember
                 pattern:                "/^[A-Z]{2}[0-9]{9}$/"
         pesel:
-            - JamboBundle\Validator\Constraints\ContainsPesel:
-                groups:
-                    -                   troopMember
+            - JamboBundle\Validator\Constraints\ContainsPesel: ~
         guardianName:
             - Length:
-                groups:
-                    -                   troopMember
                 max:                    100
                 min:                    2
-            - NotBlank:
-                groups:
-                    -                   troopMember
+            - NotBlank:                 ~
         guardianPhone:
             - Length:
-                groups:
-                    -                   troopMember
                 max:                    15
                 min:                    8
-            - NotBlank:
-                groups:
-                    -                   troopMember
+            - NotBlank:                 ~
             - Regex:
-                groups:
-                    -                   troopMember
                 pattern:                "/^[0-9 \\(\\)\\+-]{8,15}$/"
         specialDiet:
             - Length:
-                groups:
-                    -                   troopMember
                 max:                    255
         comments:
             - Length:
-                groups:
-                    -                   troopMember
                 max:                    255

@@ -4,6 +4,7 @@ JamboBundle\Entity\Troop:
             - Length:
                 min:                    2
                 max:                    50
+            - NotBlank:                 ~
         comments:
             - Length:
                 max:                    255

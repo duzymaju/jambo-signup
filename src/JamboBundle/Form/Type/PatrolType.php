@@ -62,9 +62,6 @@ class PatrolType extends AbstractType
                 'allow_delete' => false,
                 'by_reference' => false,
                 'entry_type' => PatrolMemberType::class,
-                'validation_groups' => [
-                    'troopMember',
-                ],
             ]))
             ->add('comments', TextType::class, $this->mergeOptions('comments', [
                 'label' => 'form.comments',
@@ -89,7 +86,6 @@ class PatrolType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'cascade_validation' => true,
             'data_class' => Patrol::class,
         ]);
     }
