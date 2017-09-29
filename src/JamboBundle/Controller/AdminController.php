@@ -35,7 +35,7 @@ class AdminController extends Controller
                     'routeIndex' => 'admin_participant_index',
                     'routeShow' => 'admin_participant_show',
                     'title' => 'admin.participants',
-                    'totalNumber' => $participantRepository->getTotalNumber(),
+                    'totalNumber' => $participantRepository->getTotalNumber(false, true),
                 ],
                 'troops' => [
                     'counter' => 'admin.troops.counter',
@@ -43,7 +43,7 @@ class AdminController extends Controller
                     'routeIndex' => 'admin_troop_index',
                     'routeShow' => 'admin_troop_show',
                     'title' => 'admin.troops',
-                    'totalNumber' => $troopRepository->getTotalNumber(),
+                    'totalNumber' => $troopRepository->getTotalNumber(true),
                 ],
             ],
         ]);

@@ -53,11 +53,13 @@ class RegistrationLists
     /**
      * Get statuses
      *
+     * @param bool $forceAll force all
+     *
      * @return array
      */
-    public function getStatuses()
+    public function getStatuses($forceAll = false)
     {
-        $statuses = $this->translateLabels($this->getStatusLabels());
+        $statuses = $this->translateLabels($this->getStatusLabels($forceAll));
 
         return $statuses;
     }
@@ -71,7 +73,7 @@ class RegistrationLists
      */
     public function getStatus($statusId)
     {
-        $statuses = $this->getStatuses();
+        $statuses = $this->getStatuses(true);
         $status = array_key_exists($statusId, $statuses) ? $statuses[$statusId] : null;
 
         return $status;

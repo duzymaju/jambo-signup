@@ -4,6 +4,7 @@ namespace JamboBundle\Entity\Repository;
 
 use DateTime;
 use Doctrine\ORM\EntityRepository;
+use JamboBundle\Entity\Participant;
 use JamboBundle\Form\RegistrationLists;
 
 /**
@@ -115,20 +116,33 @@ class ParticipantRepository extends EntityRepository implements BaseRepositoryIn
     /**
      * Get total number
      *
-     * @param bool $force force
+     * @param bool $refresh  refresh
+     * @param bool $forceAll force all
      *
      * @return int
      */
-    public function getTotalNumber($force = false)
+    public function getTotalNumber($refresh = false, $forceAll = false)
     {
-        if (!isset($this->totalNumber) || $force) {
-            $qb = $this->getEntityManager()
-                ->createQueryBuilder();
-            $qb->select('count(p.id)');
-            $qb->from('JamboBundle:Participant', 'p');
+        if (!isset($this->totalNumber) || $refresh) {
+            $qb = $this
+                ->getEntityManager()
+                ->createQueryBuilder()
+            ;
+            $qb
+                ->select('count(p.id)')
+                ->from('JamboBundle:Participant', 'p')
+            ;
+            if (!$forceAll) {
+                $qb
+                    ->andWhere('p.status >= :status')
+                    ->setParameter('status', Participant::STATUS_COMPLETED)
+                ;
+            }
 
-            $this->totalNumber = $qb->getQuery()
-                ->getSingleScalarResult();
+            $this->totalNumber = $qb
+                ->getQuery()
+                ->getSingleScalarResult()
+            ;
         }
 
         return $this->totalNumber;
