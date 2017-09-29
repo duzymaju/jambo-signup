@@ -1,9 +1,8 @@
 JamboBundle\Entity\Participant:
     constraints:
-        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
-            fields:                     pesel
-            ignoreNull:                 true
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: pesel
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: email
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: memberNumber
     properties:
         firstName:
             - Length:
