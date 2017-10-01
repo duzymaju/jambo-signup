@@ -163,10 +163,7 @@ class RegistrationController extends Controller
                 ->setUpdatedAt($createdAt)
             ;
             if ($isFirstPatrol) {
-                $troop
-                    ->setActivationHash($this->generateActivationHash($leader->getEmail()))
-                    ->setLeader($leader)
-                ;
+                $troop->setLeader($leader);
                 $troopLeader = $leader;
             } else {
                 if ($isLastPatrol) {
@@ -221,6 +218,8 @@ class RegistrationController extends Controller
             if ($form->isValid()) {
                 try {
                     if ($isLastPatrol) {
+                        $troopLeader = $troop->getLeader();
+                        $troop->setActivationHash($this->generateActivationHash($troopLeader->getEmail()));
                         $this->mailSendingProcedure($troopLeader->getEmail(),
                             $translator->trans('email.troop.registration_title'),
                             'JamboBundle::registration/troop/email_confirm.html.twig', [
