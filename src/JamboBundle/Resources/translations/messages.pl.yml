@@ -48,6 +48,7 @@ confirmation.success:                   Twoja rejestracja została prawidłowo p
 confirmation.title:                     Potwierdzenie rejestracji
 
 email.participants.footer:              |
+    <p>Pamiętaj, że po ukończeniu rejestracji drużyny należy na adres <a href="mailto:%main_email%">%main_email%</a> wysłać skan książeczki instruktorskiej lub zaświadczenia ukończenia kursu wychowawców kolonijnych. Dane członków zastępów będzie można uzupełnić w późniejszym terminie, przed połową marca 2018.</p>
     <p>Przygotowania idą pełną parą, dlatego zapraszamy Cię do śledzenia:</p>
     <ul>
     <li>naszej strony internetowej <a href="%main_page%">%main_page%</a></li>
@@ -147,7 +148,8 @@ next_steps.regions_page:                Strona Zlotu ZHP Gdańsk 2018 gniazda kr
 patrol.enough.message:                  Ilość zastępów została osiągnięta.
 patrol.enough.title:                    Ilość zastępów osiągnięta
 patrol.form.add_member:                 Dodaj kolejnego członka zastępu
-patrol.form.description:                Minimalny wiek członka zastępu to %age% lat ukończone przed %date%. W skład zastępu musi wchodzić %range% członków, w tym pełnoletni zastępowy posiadający stopień instruktorski lub uprawnienia wychowawcy kolonijnego.
+#patrol.form.description:                Minimalny wiek członka zastępu to %age% lat ukończone przed %date%. W skład zastępu musi wchodzić %range% członków, w tym pełnoletni zastępowy posiadający stopień instruktorski lub uprawnienia wychowawcy kolonijnego (skan książeczki instruktorskiej lub zaświadczenia ukończenia kursu wychowawców kolonijnych należy po ukończeniu rejestracji wysłać na adres <a href="mailto:%main_email%">%main_email%</a>).
+patrol.form.description:                Pełnoletni zastępowy musi posiadać stopień instruktorski lub uprawnienia wychowawcy kolonijnego (skan książeczki instruktorskiej lub zaświadczenia ukończenia kursu wychowawców kolonijnych należy po ukończeniu rejestracji wysłać na adres <a href="mailto:%main_email%">%main_email%</a>).
 patrol.form.leader:                     Zastępowy (pełnoletni)
 patrol.form.member:                     "%no%. członek zastępu"
 patrol.form.range:                      od %min_size% do %max_size%
@@ -155,7 +157,7 @@ patrol.form.title:                      Formularz dla %no%. zastępu drużyny "%
 patrol.form.troop_leader:               Drużynowy i zastępowy (pełnoletni)
 patrol.message.success:                 Pomyślnie dodano zastęp do drużyny "%troopName%". Dodaj kolejny zastęp.
 
-success.message:                        Twoje dane zostały pomyślnie zapisane. Aby dokończyć rejestrację odbierz wiadomość e-mail, którą wysłaliśmy Ci na adres %email% i kliknij w link potwierdzenia. Jeśli podany adres e-mail jest niepoprawny, skontaktuj się z nami w celu skorygowania błędu.
+success.message:                        Twoje dane zostały pomyślnie zapisane. Aby dokończyć rejestrację odbierz wiadomość e-mail, którą wysłaliśmy Ci na adres %email% i kliknij w link potwierdzenia. Jeśli podany adres e-mail jest niepoprawny, skontaktuj się z nami w celu skorygowania błędu. Dane członków zastępów będzie można uzupełnić w późniejszym terminie, przed połową marca 2018.
 success.title:                          Dziękujemy za rejestrację
 
 troop.closed.message:                   Rejestracja drużyn została zakończona.

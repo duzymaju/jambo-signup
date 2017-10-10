@@ -48,6 +48,7 @@ confirmation.success:                   Your registration was successfully confi
 confirmation.title:                     Registration confirmation
 
 email.participants.footer:              |
+    <p>Remember to send a scan of a proper document to <a href="mailto:%main_email%">%main_email%</a>. You will have to add information about patrol members later but before March 15 2018.</p>
     <p>Preperation are in full swing, to keep up we invite you to follow:</p>
     <ul>
     <li>our website <a href="%main_page%">%main_page%</a></li>
@@ -139,7 +140,8 @@ next_steps.regions_page:                Page of Jamboree Gdańsk 2018 Krakow con
 patrol.enough.message:                  The number of patrols is reached.
 patrol.enough.title:                    Patrol number reached
 patrol.form.add_member:                 Add another patrol member
-patrol.form.description:                Patrol member must be over %age% years before %date%. Patrol has to contain %range% members including adult leader who has leader grade or camp counselor permissions.
+#patrol.form.description:                Patrol member must be over %age% years before %date%. Patrol has to contain %range% members including adult leader who has leader grade or camp counselor permissions (scan of a proper document should be send to <a href="mailto:%main_email%">%main_email%</a>).
+patrol.form.description:                Adult leader should have leader grade or camp counselor permissions (scan of a proper document should be send to <a href="mailto:%main_email%">%main_email%</a>).
 patrol.form.leader:                     Patrol leader (adult)
 patrol.form.member:                     "#%no% patrol member"
 patrol.form.range:                      from %min_size% to %max_size%
@@ -147,7 +149,7 @@ patrol.form.title:                      Form for %no% patrol of "%troopName%" tr
 patrol.form.troop_leader:               Troop and patrol leader (adult)
 patrol.message.success:                 Patrol was successfully added to "%troopName%" troop. Add another one.
 
-success.message:                        Your data was successfuly saved. To complete your registration please receive e-mail message we've send to you on %email% and click confirmation link. If the address is wrong, please contact us in order to correct it.
+success.message:                        Your data was successfuly saved. To complete your registration please receive e-mail message we've send to you on %email% and click confirmation link. If the address is wrong, please contact us in order to correct it. You will have to add information about patrol members later but before March 15 2018.
 success.title:                          Thank you for registration
 
 troop.closed.message:                   Registration of troops is finished.

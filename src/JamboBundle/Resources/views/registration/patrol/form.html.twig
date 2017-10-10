@@ -8,7 +8,7 @@
     {{ globalMacro.flashBagMessages('success', true) }}
     {{ globalMacro.flashBagMessages('error', true) }}
     <h1>{{ 'patrol.form.title'|trans({'%no%': patrol_no, '%troopName%': troop.name}) }}</h1>
-    <p>{{ 'patrol.form.description'|trans({'%age%': min_age_member, '%date%': age_limit, '%range%': min_size == max_size ? min_size : 'patrol.form.range'|trans({'%min_size%': min_size, '%max_size%': max_size})}) }}</p>
+    <p>{{ 'patrol.form.description'|trans({'%age%': min_age_member, '%date%': age_limit, '%main_email%': main_email, '%range%': min_size == max_size ? min_size : 'patrol.form.range'|trans({'%min_size%': min_size, '%max_size%': max_size})})|raw }}</p>
     {{ form_start(form, {'attr': {'class': 'registration-form registration-form-troop'}}) }}
         {{ macro.formRow(form.name) }}
         {{ macro.formRow(form.districtId) }}
