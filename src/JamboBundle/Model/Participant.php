@@ -70,9 +70,6 @@ class Participant implements StatusAwareInterface
     /** @var int */
     protected $districtId;
 
-    /** @var string */
-    protected $memberNumber;
-
     /** @var Patrol|null */
     protected $patrol;
 
@@ -339,30 +336,6 @@ class Participant implements StatusAwareInterface
     public function setDistrictId($districtId = null)
     {
         $this->districtId = $districtId;
-
-        return $this;
-    }
-
-    /**
-     * Get member number
-     *
-     * @return string
-     */
-    public function getMemberNumber()
-    {
-        return $this->memberNumber;
-    }
-
-    /**
-     * Set member number
-     *
-     * @param string $memberNumber member number
-     *
-     * @return self
-     */
-    public function setMemberNumber($memberNumber = null)
-    {
-        $this->memberNumber = $memberNumber;
 
         return $this;
     }

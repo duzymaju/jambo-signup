@@ -2,7 +2,6 @@ JamboBundle\Entity\Participant:
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: pesel
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: email
-        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: memberNumber
     properties:
         firstName:
             - Length:
@@ -32,13 +31,6 @@ JamboBundle\Entity\Participant:
                 max:                    40
                 min:                    3
             - NotBlank:                 ~
-        memberNumber:
-            - Length:
-                max:                    11
-                min:                    11
-            - NotBlank:                 ~
-            - Regex:
-                pattern:                "/^[A-Z]{2}[0-9]{9}$/"
         pesel:
             - JamboBundle\Validator\Constraints\ContainsPesel: ~
         guardianName:

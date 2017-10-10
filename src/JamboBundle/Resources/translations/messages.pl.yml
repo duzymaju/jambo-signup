@@ -97,8 +97,6 @@ form.guardian_name:                     Imię i nazwisko opiekuna
 form.guardian_phone:                    Nr telefonu opiekuna
 form.id:                                ID
 form.last_name:                         Nazwisko
-form.member_number:                     Numer członkowski ZHP
-form.member_number_placeholder:         np. AA000000000
 form.methodology_group:                 Grupa metodyczna
 form.methodology_group.cub_scouts:      zuchy
 form.methodology_group.rovers:          wędrownicy

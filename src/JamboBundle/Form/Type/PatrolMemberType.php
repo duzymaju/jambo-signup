@@ -75,12 +75,6 @@ class PatrolMemberType extends AbstractType
                 'required' => false,
                 'translation_domain' => false,
             ]))
-            ->add('memberNumber', TextType::class, $this->mergeOptions('memberNumber', [
-                'attr' => [
-                    'placeholder' => $this->translator->trans('form.member_number_placeholder'),
-                ],
-                'label' => 'form.member_number',
-            ]))
             ->add('shirtSize', ChoiceType::class, $this->mergeOptions('shirtSize', [
                 'choices' => $this->registrationLists->getShirtSizeLabels(),
                 'label' => 'form.shirt_size',

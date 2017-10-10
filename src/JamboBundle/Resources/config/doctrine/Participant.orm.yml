@@ -59,9 +59,6 @@ JamboBundle\Entity\Participant:
             options:
                 unsigned:               true
             type:                       smallint
-        memberNumber:
-            name:                       member_number
-            type:                       string
         pesel:
             nullable:                   true
             type:                       bigint

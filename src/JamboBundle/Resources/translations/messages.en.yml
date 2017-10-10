@@ -89,8 +89,6 @@ form.guardian_name:                     Guardian's name
 form.guardian_phone:                    Guardian's phone
 form.id:                                ID
 form.last_name:                         Last name
-form.member_number:                     ZHP member number
-form.member_number_placeholder:         e.g. AA000000000
 form.methodology_group:                 Methodology group
 form.methodology_group.cub_scouts:      cub scouts
 form.methodology_group.rovers:          rovers
