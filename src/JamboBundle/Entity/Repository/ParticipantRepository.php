@@ -134,8 +134,10 @@ class ParticipantRepository extends EntityRepository implements BaseRepositoryIn
             ;
             if (!$forceAll) {
                 $qb
-                    ->andWhere('p.status >= :status')
-                    ->setParameter('status', Participant::STATUS_COMPLETED)
+                    ->andWhere('p.status >= :statusFrom')
+                    ->andWhere('p.status < :statusTo')
+                    ->setParameter('status', Participant::STATUS_CONFIRMED)
+                    ->setParameter('status', Participant::STATUS_RESIGNED)
                 ;
             }
 

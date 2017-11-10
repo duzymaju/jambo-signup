@@ -31,8 +31,10 @@ class TroopRepository extends EntityRepository implements BaseRepositoryInterfac
         ;
         if (!$forceAll) {
             $qb
-                ->andWhere('t.status >= :status')
-                ->setParameter('status', Troop::STATUS_COMPLETED)
+                ->andWhere('t.status >= :statusFrom')
+                ->andWhere('t.status < :statusTo')
+                ->setParameter('statusFrom', Troop::STATUS_CONFIRMED)
+                ->setParameter('statusTo', Troop::STATUS_RESIGNED)
             ;
         }
 
