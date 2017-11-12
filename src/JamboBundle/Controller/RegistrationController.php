@@ -7,22 +7,20 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Exception;
 use JamboBundle\Entity\Participant;
 use JamboBundle\Entity\Patrol;
-use JamboBundle\Entity\Repository\BaseRepositoryInterface;
-use JamboBundle\Entity\Repository\ParticipantRepository;
-use JamboBundle\Entity\Repository\TroopRepository;
 use JamboBundle\Entity\Troop;
+use JamboBundle\Exception\ExceptionInterface;
 use JamboBundle\Exception\RegistrationException;
 use JamboBundle\Form\Type\PatrolType;
 use JamboBundle\Form\Type\TroopType;
 use Swift_Message;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Translation\TranslatorInterface;
-use Zend\EventManager\Exception\ExceptionInterface;
 
 /**
  * Controller
@@ -36,13 +34,9 @@ class RegistrationController extends Controller
      */
     public function indexAction()
     {
-        if ($this->participantsLimitsExceeded()) {
-            return $this->render('JamboBundle::registration/index.html.twig', [
-                'participantsLimitsExceeded' => true,
-            ]);
-        }
-
-        return $this->redirect($this->generateUrl('registration_troop_form'));
+        return $this->render('JamboBundle::registration/index.html.twig', [
+            'participantsLimitsExceeded' => $this->participantsLimitsExceeded(),
+        ]);
     }
 
     /**
@@ -141,13 +135,7 @@ class RegistrationController extends Controller
             ->setLeader($leader)
             ->addMember($leader)
         ;
-        $participantMinSize = $this->getParameter('jambo.participant_limit.min');
-        $participantMaxSize = $this->getParameter('jambo.participant_limit.max');
-        for ($i = 1; $i < $participantMinSize; $i++) {
-            $member = new Participant();
-            $member->setPatrol($patrol);
-            $patrol->addMember($member);
-        }
+        $this->addMembersToPatrol($patrol);
         $form = $this->createForm(PatrolType::class, $patrol, [
             'action' => $this->generateUrl('registration_patrol_form', [
                 'troopHash' => $troop->getActivationHash(),
@@ -157,11 +145,7 @@ class RegistrationController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $createdAt = new DateTime();
-            $patrol
-                ->setCreatedAt($createdAt)
-                ->setUpdatedAt($createdAt)
-            ;
+            $this->preparePatrolAndMembers($form, $patrol);
             if ($isFirstPatrol) {
                 $troop->setLeader($leader);
                 $troopLeader = $leader;
@@ -170,49 +154,6 @@ class RegistrationController extends Controller
                     $troop->setStatus(Troop::STATUS_COMPLETED);
                 }
                 $troopLeader = $troop->getLeader();
-            }
-
-            $members = $patrol->getMembers();
-            if ($members->count() > $participantMaxSize) {
-                $patrol->setMembers(new ArrayCollection($members->slice(0, $participantMaxSize)));
-            }
-            unset($members);
-            foreach ($patrol->getMembers() as $i => $member) {
-                /** @var Participant $member */
-                $isLeader = $member === $patrol->getLeader();
-                // Copies data from form to each participant
-                $member
-                    ->setStatus(Participant::STATUS_COMPLETED)
-                    ->setActivationHash($this->generateActivationHash($member->getEmail()))
-                    ->setPatrol($patrol)
-                    ->setCreatedAt($createdAt)
-                    ->setUpdatedAt($createdAt)
-                    ->setSex($member->getSexFromPesel())
-                ;
-                if ($member->getDistrictId() == null) {
-                    $member->setDistrictId($patrol->getDistrictId());
-                }
-
-                /** @var FormInterface $memberView */
-                $memberView = $form
-                    ->get('members')
-                    ->get($i)
-                ;
-                // Validates age
-                $this->validateAge($member, $memberView->get('pesel'),
-                $isLeader ? 'jambo.age_limit.adult' : 'jambo.age_limit.min');
-                // Validates PESEL existance
-                if ($member->getPesel() == null) {
-                    $memberView->get('pesel')
-                        ->addError(new FormError($translator->trans('form.error.pesel_empty')));
-                }
-/*                if ($isLeader) {
-                    // Validates leader grade - disabled
-                        if ($member->getGradeId() == RegistrationLists::GRADE_NO) {
-                            $memberView->get('gradeId')
-                                ->addError(new FormError($translator->trans('form.error.grade_inproper')));
-                        }
-                }*/
             }
 
             if ($form->isValid()) {
@@ -276,11 +217,90 @@ class RegistrationController extends Controller
             $response = $this->render('JamboBundle::registration/patrol/form.html.twig', [
                 'form' => $form->createView(),
                 'is_first_patrol' => $isFirstPatrol,
-                'max_size' => $participantMaxSize,
+                'max_size' => $this->getParameter('jambo.participant_limit.max'),
                 'min_age_member' => $this->getParameter('jambo.age_limit.min'),
-                'min_size' => $participantMinSize,
+                'min_size' => $this->getParameter('jambo.participant_limit.min'),
                 'patrol_no' => $patrolNo,
                 'troop' => $troop,
+            ]);
+        }
+
+        return $response;
+    }
+
+    /**
+     * Patrol single form action
+     *
+     * @param Request $request request
+     *
+     * @return Response
+     */
+    public function patrolSingleFormAction(Request $request)
+    {
+        if ($this->participantsLimitsExceeded(false)) {
+            return $this->render('JamboBundle::registration/troop/closed.html.twig', [
+                'participantsLimitsExceeded' => true,
+            ]);
+        }
+
+        /** @var TranslatorInterface $translator */
+        $translator = $this->get('translator');
+
+        $patrol = new Patrol();
+        $leader = new Participant();
+        $leader->setPatrol($patrol);
+        $patrol
+            ->setLeader($leader)
+            ->addMember($leader)
+        ;
+        $this->addMembersToPatrol($patrol);
+        $form = $this->createForm(PatrolType::class, $patrol, [
+            'action' => $this->generateUrl('registration_patrol_single_form'),
+            'method' => 'POST',
+        ]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->preparePatrolAndMembers($form, $patrol);
+
+            if ($form->isValid()) {
+                try {
+                    $this->mailSendingProcedure($leader->getEmail(),
+                        $translator->trans('email.patrol.registration_title'),
+                        'JamboBundle::registration/patrol/email_confirm.html.twig', [
+                            'confirmationUrl' => $this->generateUrl('registration_patrol_confirm', [
+                                'hash' => $patrol->getActivationHash(),
+                            ], UrlGeneratorInterface::ABSOLUTE_URL),
+                            'leader' => $leader,
+                        ]);
+
+                    try {
+                        $this->get('jambo_bundle.repository.patrol')
+                            ->insert($patrol, true);
+                        $this->get('jambo_bundle.repository.participant')
+                            ->insert($leader, true);
+                    } catch (Exception $e) {
+                        throw new RegistrationException('form.exception.database', 0, $e);
+                    }
+
+                    $this->addMessage($translator->trans('success.message', [
+                        '%email%' => $leader->getEmail(),
+                    ]), 'success');
+                    $response = $this->redirectToRoute('registration_success');
+                } catch (ExceptionInterface $e) {
+                    $this->addMessage($e->getMessage(), 'error');
+                } catch (Exception $e) {
+                    $this->addMessage('form.exception.database', 'error');
+                }
+            }
+        }
+        if (!isset($response)) {
+            $this->addErrorMessage($form);
+            $response = $this->render('JamboBundle::registration/patrol/single_form.html.twig', [
+                'form' => $form->createView(),
+                'max_size' => $this->getParameter('jambo.participant_limit.max'),
+                'min_age_member' => $this->getParameter('jambo.age_limit.min'),
+                'min_size' => $this->getParameter('jambo.participant_limit.min'),
             ]);
         }
 
@@ -308,11 +328,51 @@ class RegistrationController extends Controller
      */
     public function participantConfirmAction($hash)
     {
-        /** @var ParticipantRepository $participantRepository */
-        $participantRepository = $this->get('jambo_bundle.repository.participant');
-        $response = $this->confirmationProcedureParticipant($participantRepository, $hash, Participant::STATUS_CONFIRMED);
+        /** @var Participant|null $participant */
+        $participant = $this
+            ->get('jambo_bundle.repository.participant')
+            ->findOneBy(array(
+                'activationHash' => $hash,
+            ))
+        ;
+        try {
+            $this->confirmParticipant($participant);
+            $this->addMessage('confirmation.success', 'success');
+        } catch (Exception $e) {
+            $this->addMessage('confirmation.error', 'error');
+        }
 
-        return $response;
+        return $this->render('JamboBundle::registration/confirmation.html.twig', [
+            'participantsLimitsExceeded' => $this->participantsLimitsExceeded(),
+        ]);
+    }
+
+    /**
+     * Patrol confirm action
+     *
+     * @param string $hash hash
+     *
+     * @return Response
+     */
+    public function patrolConfirmAction($hash)
+    {
+        /** @var Patrol|null $patrol */
+        $patrol = $this
+            ->get('jambo_bundle.repository.patrol')
+            ->findOneBy(array(
+                'activationHash' => $hash,
+            ))
+        ;
+        try {
+            $this->confirmPatrol($patrol);
+            $this->addMessage('confirmation.success', 'success');
+        } catch (Exception $e) {
+            $this->addMessage('confirmation.error', 'error');
+        }
+
+        return $this->render('JamboBundle::registration/confirmation.html.twig', [
+            'participantsLimitsExceeded' => $this->participantsLimitsExceeded(),
+        ]);
     }
 
     /**
@@ -324,14 +384,112 @@ class RegistrationController extends Controller
      */
     public function troopConfirmAction($hash)
     {
-        /** @var TroopRepository $troopRepository */
-        $troopRepository = $this->get('jambo_bundle.repository.troop');
-        /** @var ParticipantRepository $participantRepository */
-        $participantRepository = $this->get('jambo_bundle.repository.participant');
-        $response = $this->confirmationProcedureTroop($troopRepository, $participantRepository, $hash,
-            Troop::STATUS_CONFIRMED, Participant::STATUS_CONFIRMED);
+        /** @var Troop|null $troop */
+        $troop = $this
+            ->get('jambo_bundle.repository.troop')
+            ->findOneBy(array(
+                'activationHash' => $hash,
+            ))
+        ;
+        try {
+            $this->confirmTroop($troop);
+            $this->addMessage('confirmation.success', 'success');
+        } catch (Exception $e) {
+            $this->addMessage('confirmation.error', 'error');
+        }
 
-        return $response;
+        return $this->render('JamboBundle::registration/confirmation.html.twig', [
+            'participantsLimitsExceeded' => $this->participantsLimitsExceeded(),
+        ]);
+    }
+
+    /**
+     * Add members to patrol
+     *
+     * @param Patrol $patrol patrol
+     *
+     * @return self
+     */
+    private function addMembersToPatrol(Patrol $patrol)
+    {
+        for ($i = 1; $i < $this->getParameter('jambo.participant_limit.min'); $i++) {
+            $member = new Participant();
+            $member->setPatrol($patrol);
+            $patrol->addMember($member);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Prepare patrol and members
+     *
+     * @param Form   $form   form
+     * @param Patrol $patrol patrol
+     *
+     * @return self
+     */
+    private function preparePatrolAndMembers(Form $form, Patrol $patrol)
+    {
+        /** @var TranslatorInterface $translator */
+        $translator = $this->get('translator');
+        $participantMaxSize = $this->getParameter('jambo.participant_limit.max');
+
+        $createdAt = new DateTime();
+        $patrol
+            ->setStatus(Patrol::STATUS_COMPLETED)
+            ->setCreatedAt($createdAt)
+            ->setUpdatedAt($createdAt)
+        ;
+
+        $members = $patrol->getMembers();
+        if ($members->count() > $participantMaxSize) {
+            $patrol->setMembers(new ArrayCollection($members->slice(0, $participantMaxSize)));
+        }
+        unset($members);
+        foreach ($patrol->getMembers() as $i => $member) {
+            /** @var Participant $member */
+            $isLeader = $member === $patrol->getLeader();
+            // Copies data from form to each participant
+            $member
+                ->setStatus(Participant::STATUS_COMPLETED)
+                ->setActivationHash($this->generateActivationHash($member->getEmail()))
+                ->setPatrol($patrol)
+                ->setCreatedAt($patrol->getCreatedAt())
+                ->setUpdatedAt($patrol->getUpdatedAt())
+                ->setSex($member->getSexFromPesel())
+            ;
+            if ($member->getDistrictId() == null) {
+                $member->setDistrictId($patrol->getDistrictId());
+            }
+
+            /** @var FormInterface $memberView */
+            $memberView = $form
+                ->get('members')
+                ->get($i)
+            ;
+            // Validates age
+            $this->validateAge($member, $memberView->get('pesel'),
+                $isLeader ? 'jambo.age_limit.adult' : 'jambo.age_limit.min');
+            // Validates PESEL existance
+            if ($member->getPesel() == null) {
+                $memberView->get('pesel')
+                    ->addError(new FormError($translator->trans('form.error.pesel_empty')));
+            }
+//            if ($isLeader) {
+//                // Validates leader grade - disabled
+//                    if ($member->getGradeId() == RegistrationLists::GRADE_NO) {
+//                        $memberView->get('gradeId')
+//                            ->addError(new FormError($translator->trans('form.error.grade_inproper')));
+//                    }
+//            }
+        }
+        $leader = $patrol->getLeader();
+        if (isset($leader)) {
+            $patrol->setActivationHash($this->generateActivationHash($leader->getEmail()));
+        }
+
+        return $this;
     }
 
     /**
@@ -351,7 +509,8 @@ class RegistrationController extends Controller
             ->setFrom($this->getParameter('mailer_user'))
             ->setTo($emailAddress)
             ->setReplyTo($this->getParameter('jambo.email.reply_to'))
-            ->setBody($this->renderView($emailView, $emailParams), 'text/html');
+            ->setBody($this->renderView($emailView, $emailParams), 'text/html')
+        ;
 
         $mailer = $this->get('mailer');
         if (!$mailer->send($message)) {
@@ -360,70 +519,78 @@ class RegistrationController extends Controller
     }
 
     /**
-     * Confirmation procedure participant
+     * Confirm participant
      *
-     * @param BaseRepositoryInterface $repository repository
-     * @param string                  $hash       hash
-     * @param integer                 $status     status
+     * @param Participant|null $participant participant
      *
-     * @return Response
+     * @return self
+     *
+     * @throws RegistrationException
      */
-    private function confirmationProcedureParticipant(BaseRepositoryInterface $repository, $hash, $status)
+    private function confirmParticipant(Participant $participant = null)
     {
-        /** @var Participant|null $participant */
-        $participant = $repository->findOneBy(array(
-            'activationHash' => $hash,
-        ));
-
         if (!isset($participant) || !$participant->isCompleted() || $participant->isConfirmed()) {
-            $this->addMessage('confirmation.error', 'error');
-        } else {
-            $participant->setStatus($status);
-            $repository->update($participant, true);
-            $this->addMessage('confirmation.success', 'success');
+            throw new RegistrationException();
         }
+        $participant->setStatus(Participant::STATUS_CONFIRMED);
+        $this
+            ->get('jambo_bundle.repository.participant')
+            ->update($participant, true)
+        ;
 
-        return $this->render('JamboBundle::registration/confirmation.html.twig', [
-            'participantsLimitsExceeded' => $this->participantsLimitsExceeded(),
-        ]);
+        return $this;
     }
 
     /**
-     * Confirmation procedure troop
+     * Confirm patrol
      *
-     * @param BaseRepositoryInterface $troopRepository       troop repository
-     * @param BaseRepositoryInterface $participantRepository participant repository
-     * @param string                  $hash                  hash
-     * @param int                     $troopStatus           troop status
-     * @param int                     $participantStatus     participant status
+     * @param Patrol|null $patrol patrol
      *
-     * @return Response
+     * @return self
+     *
+     * @throws RegistrationException
      */
-    private function confirmationProcedureTroop(BaseRepositoryInterface $troopRepository,
-        BaseRepositoryInterface $participantRepository, $hash, $troopStatus, $participantStatus)
+    private function confirmPatrol(Patrol $patrol = null)
     {
-        /** @var Troop|null $troop */
-        $troop = $troopRepository->findOneBy(array(
-            'activationHash' => $hash,
-        ));
-
-        if (!isset($troop) || !$troop->isCompleted() || $troop->isConfirmed()) {
-            $this->addMessage('confirmation.error', 'error');
-        } else {
-            $troop->setStatus($troopStatus);
-            $troopRepository->update($troop, true);
-            /** @var Participant $participant */
-            $participant = $troop->getLeader();
-            if (!$participant->isConfirmed()) {
-                $participant->setStatus($participantStatus);
-                $participantRepository->update($participant, true);
-            }
-            $this->addMessage('confirmation.success', 'success');
+        if (!isset($patrol) || !$patrol->isCompleted() || $patrol->isConfirmed()) {
+            throw new RegistrationException();
+        }
+        $patrol->setStatus(Patrol::STATUS_CONFIRMED);
+        $this
+            ->get('jambo_bundle.repository.patrol')
+            ->update($patrol, true)
+        ;
+        foreach ($patrol->getMembers() as $participant) {
+            $this->confirmParticipant($participant);
         }
 
-        return $this->render('JamboBundle::registration/confirmation.html.twig', [
-            'participantsLimitsExceeded' => $this->participantsLimitsExceeded(),
-        ]);
+        return $this;
+    }
+
+    /**
+     * Confirm troop
+     *
+     * @param Troop|null $troop troop
+     *
+     * @return self
+     *
+     * @throws RegistrationException
+     */
+    private function confirmTroop(Troop $troop = null)
+    {
+        if (!isset($troop) || !$troop->isCompleted() || $troop->isConfirmed()) {
+            throw new RegistrationException();
+        }
+        $troop->setStatus(Troop::STATUS_CONFIRMED);
+        $this
+            ->get('jambo_bundle.repository.troop')
+            ->update($troop, true)
+        ;
+        foreach ($troop->getPatrols() as $patrol) {
+            $this->confirmPatrol($patrol);
+        }
+
+        return $this;
     }
 
     /**

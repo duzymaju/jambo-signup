@@ -1,0 +1,5 @@
+registration_patrol_single_form:
+    defaults:
+        _controller:                    JamboBundle:Registration:patrolSingleForm
+    methods:                            [GET|POST]
+    path:                               /patrol

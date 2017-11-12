@@ -6,6 +6,9 @@
             <a href="{{ path('registration_troop_form') }}" class="btn btn-default">
                 {{ 'next_steps.register_troop'|trans }}
             </a>
+            <a href="{{ path('registration_patrol_single_form') }}" class="btn btn-default">
+                {{ 'next_steps.register_patrol'|trans }}
+            </a>
         {% endif %}
         <a href="{{ macros.mainPage() }}" target="_blank" class="btn btn-default">
             {{ 'next_steps.regions_page'|trans }}
@@ -39,7 +42,7 @@
     </div>
 {% endmacro %}
 
-{% macro troopMember(member, no = 1, isFirstPatrol, leaderData = null) %}
+{% macro troopMember(member, no = 1, isFirstPatrol, leaderData = null, forceEmailTip = false) %}
     {% import _self as macros %}
     {% set isLeader = leaderData and leaderData is same as (member.vars.data) %}
     <div class="row member">
@@ -48,7 +51,7 @@
         {{ macros.formRow(member.lastName, {size: 6}) }}
         {{ macros.formRow(member.pesel, {size: 6}) }}
         {{ macros.formRow(member.address, {size: 6}) }}
-        {{ macros.formRow(member.email, isLeader and isFirstPatrol ? {size: 6, info: 'form.tip.email'|trans} : {size: 6}) }}
+        {{ macros.formRow(member.email, isLeader and (isFirstPatrol or forceEmailTip) ? {size: 6, info: 'form.tip.email'|trans} : {size: 6}) }}
         {{ macros.formRow(member.phone, {size: 6}) }}
         {{ macros.formRow(member.guardianName, {size: 6}) }}
         {{ macros.formRow(member.guardianPhone, {size: 6}) }}

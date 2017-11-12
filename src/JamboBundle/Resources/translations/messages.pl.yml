@@ -58,6 +58,11 @@ email.participants.footer:              |
     <p>Masz jakieś pytania lub wątpliwości? Napisz do nas: <a href="mailto:%main_email%">%main_email%</a>. Nie pozostawimy Cię długo bez odpowiedzi.</p>
     <p>Czuwaj!<br>
     Komenda gniazda krakowskiego Zlotu ZHP Gdańsk 2018</p>
+email.patrol.registration_link:         Kliknij tutaj aby potwierdzić rejestrację
+email.patrol.registration_text:         |
+    <p>%apostrophe%,</p>
+    <p>Dziękujemy za rejestrację zastępu na Zlot ZHP Gdańsk 2018 do gniazda krakowskiego. Aby potwierdzić proces rejestracji, kliknij w poniższy link:</p>
+email.patrol.registration_title:        Potwierdzenie rejestracji na zlot
 email.scout_apostrophe.f:               Druhno
 email.scout_apostrophe.m:               Druhu
 email.troop.completation_link:          Kliknij tutaj aby przejść do formularza rejestracji patroli
@@ -132,8 +137,8 @@ form.tip.email:                         Na ten adres wyślemy link do potwierdze
 form.troop_name:                        Nazwa drużyny
 
 index.closed.message:                   Rejestracja została zakończona.
-index.title:                            Jesteś
-index.troop:                            drużynowym
+index.register_patrol:                  Zarejestruj zastęp
+index.register_troop:                   Zarejestruj drużynę
 
 jambo_page.title:                       Zlot ZHP Gdańsk 2018
 
@@ -141,6 +146,7 @@ layout.navigation.toggle:               Przełącz nawigację
 layout.title:                           Formularz rejestracyjny na Zlot ZHP Gdańsk 2018 gniazda krakowskiego
 layout.title_short:                     Rejestracja
 
+next_steps.register_patrol:             Zarejestruj kolejny zastęp
 next_steps.register_troop:              Zarejestruj kolejną drużynę
 next_steps.title:                       Kolejne kroki
 next_steps.regions_page:                Strona Zlotu ZHP Gdańsk 2018 gniazda krakowskiego
@@ -156,6 +162,7 @@ patrol.form.range:                      od %min_size% do %max_size%
 patrol.form.title:                      Formularz dla %no%. zastępu drużyny "%troopName%"
 patrol.form.troop_leader:               Drużynowy i zastępowy (pełnoletni)
 patrol.message.success:                 Pomyślnie dodano zastęp do drużyny "%troopName%". Dodaj kolejny zastęp.
+patrol.single_form.title:               Formularz dla pojedynczego zastępu
 
 success.message:                        Twoje dane zostały pomyślnie zapisane. Aby dokończyć rejestrację odbierz wiadomość e-mail, którą wysłaliśmy Ci na adres %email% i kliknij w link potwierdzenia. Jeśli podany adres e-mail jest niepoprawny, skontaktuj się z nami w celu skorygowania błędu. Dane członków zastępów będzie można uzupełnić w późniejszym terminie, przed połową marca 2018.
 success.title:                          Dziękujemy za rejestrację

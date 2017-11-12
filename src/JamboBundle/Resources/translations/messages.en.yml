@@ -56,6 +56,9 @@ email.participants.footer:              |
     </ul>
     <p>You have any questions or doubts? Email us: <a href="mailto:%main_email%">%main_email%</a> we will not leave you long unanswered</p>
     <p>Yours in Scouting!</p>
+email.patrol.registration_link:         Click here to confirm registration
+email.patrol.registration_text:         "<p>Thank you for registration of a patrol for Jamboree Gdańsk 2018 Krakow contingent. To confirm your registration process please click the link below:</p>"
+email.patrol.registration_title:        Confirmation of jamboree registration
 email.scout_apostrophe.f:               Madam
 email.scout_apostrophe.m:               Sir
 email.troop.completation_link:          Click here to see patrol's registration form
@@ -124,8 +127,8 @@ form.tip.email:                         We will use this e-mail address to send 
 form.troop_name:                        Troop name
 
 index.closed.message:                   Registration is finished.
-index.title:                            You are
-index.troop:                            leader of a troop
+index.register_patrol:                  Register patrol
+index.register_troop:                   Register troop
 
 jambo_page.title:                       Jamboree Gdańsk 2018
 
@@ -133,6 +136,7 @@ layout.navigation.toggle:               Toggle navigation
 layout.title:                           Jamboree Gdańsk 2018 Krakow contingent's registration form
 layout.title_short:                     Registration
 
+next_steps.register_patrol:             Register another patrol
 next_steps.register_troop:              Register another troop
 next_steps.title:                       Next steps
 next_steps.regions_page:                Page of Jamboree Gdańsk 2018 Krakow contingent
@@ -148,6 +152,7 @@ patrol.form.range:                      from %min_size% to %max_size%
 patrol.form.title:                      Form for %no% patrol of "%troopName%" troop
 patrol.form.troop_leader:               Troop and patrol leader (adult)
 patrol.message.success:                 Patrol was successfully added to "%troopName%" troop. Add another one.
+patrol.single_form.title:               Form for single patrol
 
 success.message:                        Your data was successfuly saved. To complete your registration please receive e-mail message we've send to you on %email% and click confirmation link. If the address is wrong, please contact us in order to correct it. You will have to add information about patrol members later but before March 15 2018.
 success.title:                          Thank you for registration

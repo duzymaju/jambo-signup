@@ -5,11 +5,13 @@
     {% if participantsLimitsExceeded %}
         {{ globalMacro.message('index.closed.message', 'message', true) }}
     {% else %}
-        <h1>{{ 'index.title'|trans }}:</h1>
         <div class="btn-group-vertical btn-group-lg">
             {% if not participantsLimitsExceeded %}
                 <a href="{{ path('registration_troop_form') }}" class="btn btn-default">
-                    {{ 'index.troop'|trans }}
+                    {{ 'index.register_troop'|trans }}
+                </a>
+                <a href="{{ path('registration_patrol_single_form') }}" class="btn btn-default">
+                    {{ 'index.register_patrol'|trans }}
                 </a>
             {% endif %}
         </div>

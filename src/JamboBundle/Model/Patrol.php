@@ -8,9 +8,10 @@ use Doctrine\Common\Collections\Collection;
 /**
  * Model
  */
-class Patrol
+class Patrol implements StatusAwareInterface
 {
     use RecordTrait;
+    use StatusAwareTrait;
 
     /** @var string */
     protected $name;

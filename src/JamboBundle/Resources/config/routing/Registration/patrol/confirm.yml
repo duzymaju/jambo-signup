@@ -1,0 +1,7 @@
+registration_patrol_confirm:
+    defaults:
+        _controller:                    JamboBundle:Registration:patrolConfirm
+    methods:                            [GET]
+    path:                               /patrol/{hash}/confirm
+    requirements:
+        hash:                           "[0-9a-f]{32}$"

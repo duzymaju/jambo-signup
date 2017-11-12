@@ -43,8 +43,14 @@ _admin_main:
 _registration_participant_confirm:
     resource:                           "@JamboBundle/Resources/config/routing/Registration/participant/confirm.yml"
 
+_registration_patrol_confirm:
+    resource:                           "@JamboBundle/Resources/config/routing/Registration/patrol/confirm.yml"
+
 _registration_patrol_form:
     resource:                           "@JamboBundle/Resources/config/routing/Registration/patrol/form.yml"
+
+_registration_patrol_single_form:
+    resource:                           "@JamboBundle/Resources/config/routing/Registration/patrol/single_form.yml"
 
 _registration_troop_confirm:
     resource:                           "@JamboBundle/Resources/config/routing/Registration/troop/confirm.yml"

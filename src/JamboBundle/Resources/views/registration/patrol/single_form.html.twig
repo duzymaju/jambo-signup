@@ -1,0 +1,32 @@
+{% extends 'JamboBundle:registration:_template.html.twig' %}
+{% import 'JamboBundle:registration:_macro.html.twig' as macro %}
+{% import 'JamboBundle::_macro.html.twig' as globalMacro %}
+
+{% set pageTitle = 'patrol.form.title'|trans %}
+
+{% block content %}
+    {{ globalMacro.flashBagMessages('success', true) }}
+    {{ globalMacro.flashBagMessages('error', true) }}
+    <h1>{{ 'patrol.single_form.title'|trans }}</h1>
+    <p>{{ 'patrol.form.description'|trans({'%age%': min_age_member, '%date%': age_limit, '%main_email%': main_email, '%range%': min_size == max_size ? min_size : 'patrol.form.range'|trans({'%min_size%': min_size, '%max_size%': max_size})})|raw }}</p>
+    {{ form_start(form, {'attr': {'class': 'registration-form registration-form-troop'}}) }}
+        {{ macro.formRow(form.name) }}
+        {{ macro.formRow(form.districtId) }}
+        {{ macro.formRow(form.methodologyGroupId) }}
+        {{ macro.formRow(form.comments) }}
+        <div data-max-size="{{ max_size }}" data-prototype="{{ macro.troopMember(form.members.vars.prototype, '__no__', false)|e }}">
+            {% for member in form.members %}
+                {{ macro.troopMember(member, loop.index, false, form.vars.data.leader, true) }}
+            {% endfor %}
+        </div>
+        <div class="form-group" style="display:none">
+            <span id="add-member" class="btn btn-default btn-lg" style="width:100%">
+                {{ 'patrol.form.add_member'|trans }}
+            </span>
+        </div>
+        {{ macro.formCheckboxRow(form.personalData) }}
+        <div class="form-group">
+            {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
+        </div>
+    {{ form_end(form) }}
+{% endblock %}
