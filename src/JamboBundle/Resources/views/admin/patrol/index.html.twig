@@ -1,0 +1,65 @@
+{% extends 'JamboBundle:admin:_template.html.twig' %}
+{% import 'JamboBundle:admin:_macro.html.twig' as macro %}
+
+{% block content %}
+    <h1>
+        <a href="{{ path('admin_patrol_index') }}">{{ 'admin.patrols'|trans }}</a>
+        {% if criteria.status is defined %}
+            ({{ 'admin.status'|trans }} {{ criteria.status|statusname|lower }})
+        {% elseif criteria.districtId is defined %}
+            ({{ 'admin.district'|trans }} {{ criteria.districtId|districtname }})
+        {% endif %}
+        - {{ patrols.count }}
+    </h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>{{ 'admin.name'|trans }}</th>
+                <th>{{ 'admin.district'|trans }}</th>
+                <th>{{ 'form.status'|trans }}</th>
+                <th>{{ 'admin.created_at'|trans }}</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for patrol in patrols %}
+                <tr>
+                    <td>
+                        <a href="{{ path('admin_patrol_show', {id: patrol.id}) }}">{{ patrol.name }}</a>
+                        {% if patrol.troop %}
+                            (<a href="{{ path('admin_troop_show', {id: patrol.troop.id}) }}">
+                                {{- patrol.troop.name -}}
+                            </a>)
+                        {% else %}
+                            ({{ 'admin.no_troop'|trans }})
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{{ path('admin_patrol_index', {districtId: patrol.districtId}) }}">
+                            {{ patrol.districtId|districtname }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{ path('admin_patrol_index', {status: patrol.status}) }}">
+                            {{ patrol.status|statusname }}
+                        </a>
+                    </td>
+                    <td>{{ patrol.createdAt|date('Y-m-d') }}</td>
+                    <td>
+                        <a href="{{ path('admin_patrol_show', {id: patrol.id}) }}" class="btn btn-default btn-xs"
+                            title="{{ 'admin.show'|trans }}">
+                            <i class="glyphicon glyphicon-file"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">
+                        {{ 'admin.list.empty'|trans }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {{ macro.pagination(patrols, criteria|changekeys({serviceMainId: 'serviceId'})) }}
+{% endblock %}

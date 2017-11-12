@@ -9,6 +9,7 @@ use JamboBundle\Exception\EditFormException;
 use JamboBundle\Exception\ExceptionInterface;
 use JamboBundle\Form\Type\PatrolEditType;
 use JamboBundle\Model\Action;
+use JamboBundle\Model\Virtual\Paginator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -17,6 +18,39 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class PatrolController extends AbstractController
 {
+    /**
+     * Index action
+     *
+     * @param Request $request request
+     * @param int     $pageNo  page no
+     *
+     * @return Response
+     */
+    public function indexAction(Request $request, $pageNo)
+    {
+        $criteriaSettings = [
+            'districtId' => 'getDistrict',
+            'status' => [
+                'getter' => 'getStatus',
+                'lowestValue' => 0,
+            ],
+        ];
+        $criteria = $this->getCriteria($request->query, $criteriaSettings);
+
+        /** @var Paginator $patrols */
+        $patrols = $this
+            ->getRepository()
+            ->getPackOrException($pageNo, $this->getParameter('jambo.admin.pack_size'), $criteria, [
+                'createdAt' => 'DESC',
+            ])
+        ;
+
+        return $this->render('JamboBundle::admin/patrol/index.html.twig', [
+            'criteria' => $criteria,
+            'patrols' => $patrols->setRouteName('admin_patrol_index'),
+        ]);
+    }
+
     /**
      * Show action
      *

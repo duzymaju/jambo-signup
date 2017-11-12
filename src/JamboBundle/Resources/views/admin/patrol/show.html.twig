@@ -7,13 +7,23 @@
     {{ globalMacro.flashBagMessages('error', true) }}
     {{ macro.showHeader('admin.patrol'|trans, path('admin_patrol_edit', {id: patrol.id})) }}
     <dl class="list">
+        <dt>{{ 'form.status'|trans }}:</dt>
+        <dd>
+            <a href="{{ path('admin_patrol_index', {status: patrol.status}) }}">
+                {{ patrol.status|statusname }}
+            </a>
+        </dd>
         <dt>{{ 'form.patrol_name'|trans }}:</dt>
         <dd>{{ patrol.name }}</dd>
         <dt>{{ 'form.troop_name'|trans }}:</dt>
         <dd>
-            <a href="{{ path('admin_troop_show', {id: patrol.troop.id}) }}">
-                {{ patrol.troop.name }}
-            </a>
+            {% if patrol.troop %}
+                <a href="{{ path('admin_troop_show', {id: patrol.troop.id}) }}">
+                    {{ patrol.troop.name }}
+                </a>
+            {% else %}
+                {{ 'admin.no_troop'|trans }}
+            {% endif %}
         </dd>
         <dt>{{ 'form.district'|trans }}:</dt>
         <dd>

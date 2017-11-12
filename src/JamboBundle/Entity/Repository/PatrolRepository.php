@@ -12,6 +12,40 @@ class PatrolRepository extends EntityRepository implements BaseRepositoryInterfa
     use BaseRepositoryTrait;
 
     /**
+     * Get total number
+     *
+     * @param bool $forceAll force all
+     *
+     * @return int
+     */
+    public function getTotalNumber($forceAll = false)
+    {
+        $qb = $this
+            ->getEntityManager()
+            ->createQueryBuilder()
+        ;
+        $qb
+            ->select('count(p.id)')
+            ->from('JamboBundle:Patrol', 'p')
+        ;
+        if (!$forceAll) {
+            $qb
+                ->andWhere('p.status >= :statusFrom')
+                ->andWhere('p.status < :statusTo')
+                ->setParameter('statusFrom', Troop::STATUS_CONFIRMED)
+                ->setParameter('statusTo', Troop::STATUS_RESIGNED)
+            ;
+        }
+
+        $count = (int) $qb
+            ->getQuery()
+            ->getSingleScalarResult()
+        ;
+
+        return $count;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function searchBy(array $queries)

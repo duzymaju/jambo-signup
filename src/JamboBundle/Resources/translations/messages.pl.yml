@@ -17,10 +17,13 @@ admin.login.title:                      Formularz logowania
 admin.login.username:                   Nazwa użytkownika
 admin.logout.link:                      Wyloguj <strong>%login%</strong>
 admin.name:                             Nazwa
+admin.no_troop:                         brak drużyny
 admin.participant:                      Uczestnik
 admin.participants:                     Uczestnicy
 admin.participants.counter:             (ostatnich %limit% z %totalNumber%)
 admin.patrol:                           Zastęp
+admin.patrols:                          Zastępy
+admin.patrols.counter:                  (ostatnie %limit% z %totalNumber%)
 admin.patrol_leader:                    zastępowy
 admin.patrol_members:                   Członkowie zastępu (%count%)
 admin.people_number:                    "%count% osoba|%count% osoby|%count% osób"
@@ -43,8 +46,8 @@ admin.troop_patrols:                    Zastępy (%count%)
 admin.troops:                           Drużyny
 admin.troops.counter:                   (ostatnie %limit% z %totalNumber%)
 
-confirmation.error:                     Twoja rejestracja została już potwierdzona lub posiadasz nieprawidłowy link potwierdzenia
-confirmation.success:                   Twoja rejestracja została prawidłowo potwierdzona
+confirmation.error:                     Twoja rejestracja została już potwierdzona lub posiadasz nieprawidłowy link potwierdzenia.
+confirmation.success:                   Twoja rejestracja została prawidłowo potwierdzona.
 confirmation.title:                     Potwierdzenie rejestracji
 
 email.participants.footer:              |

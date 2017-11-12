@@ -1,0 +1,8 @@
+admin_patrol_index:
+    defaults:
+        _controller:                    JamboBundle:Admin/Patrol:index
+        pageNo:                         1
+    methods:                            [GET]
+    path:                               /admin/patrols/{pageNo}
+    requirements:
+        pageNo:                         \d+

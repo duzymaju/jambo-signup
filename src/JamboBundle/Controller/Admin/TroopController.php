@@ -41,10 +41,12 @@ class TroopController extends AbstractController
         $criteria = $this->getCriteria($request->query, $criteriaSettings);
 
         /** @var Paginator $troops */
-        $troops = $this->getRepository()
+        $troops = $this
+            ->getRepository()
             ->getPackOrException($pageNo, $this->getParameter('jambo.admin.pack_size'), $criteria, [
                 'createdAt' => 'DESC',
-            ]);
+            ])
+        ;
 
         return $this->render('JamboBundle::admin/troop/index.html.twig', [
             'criteria' => $criteria,
@@ -63,10 +65,12 @@ class TroopController extends AbstractController
     public function showAction(Request $request, $id)
     {
         /** @var Troop $troop */
-        $troop = $this->getRepository()
+        $troop = $this
+            ->getRepository()
             ->findOneByOrException([
                 'id' => $id,
-            ]);
+            ])
+        ;
 
         $response = $this->sendReminderIfRequested($troop, $request);
 

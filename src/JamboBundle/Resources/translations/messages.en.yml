@@ -17,10 +17,13 @@ admin.login.title:                      Log in form
 admin.login.username:                   Username
 admin.logout.link:                      Logout <strong>%login%</strong>
 admin.name:                             Name
+admin.no_troop:                         no troop
 admin.participant:                      Participant
 admin.participants:                     Participants
 admin.participants.counter:             (last %limit% of %totalNumber%)
 admin.patrol:                           Patrol
+admin.patrols:                          Patrols
+admin.patrols.counter:                  (last %limit% of %totalNumber%)
 admin.patrol_leader:                    patrol leader
 admin.patrol_members:                   Patrol members (%count%)
 admin.people_number:                    "%count% person|%count% people"
@@ -43,8 +46,8 @@ admin.troop_patrols:                    Patrols (%count%)
 admin.troops:                           Troops
 admin.troops.counter:                   (last %limit% of %totalNumber%)
 
-confirmation.error:                     Your registration is already confirmed or you have wrong confirmation link
-confirmation.success:                   Your registration was successfully confirmed
+confirmation.error:                     Your registration is already confirmed or you have wrong confirmation link.
+confirmation.success:                   Your registration was successfully confirmed.
 confirmation.title:                     Registration confirmation
 
 email.participants.footer:              |

@@ -20,6 +20,9 @@ _admin_patrol_edit:
 _admin_patrol_show:
     resource:                           "@JamboBundle/Resources/config/routing/Admin/Patrol/show.yml"
 
+_admin_patrol_index:
+    resource:                           "@JamboBundle/Resources/config/routing/Admin/Patrol/index.yml"
+
 _admin_troop_edit:
     resource:                           "@JamboBundle/Resources/config/routing/Admin/Troop/edit.yml"
 

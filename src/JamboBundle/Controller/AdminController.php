@@ -24,6 +24,7 @@ class AdminController extends Controller
         $limit = 5;
 
         $participantRepository = $this->get('jambo_bundle.repository.participant');
+        $patrolRepository = $this->get('jambo_bundle.repository.patrol');
         $troopRepository = $this->get('jambo_bundle.repository.troop');
 
         return $this->render('JamboBundle::admin/index.html.twig', [
@@ -36,6 +37,14 @@ class AdminController extends Controller
                     'routeShow' => 'admin_participant_show',
                     'title' => 'admin.participants',
                     'totalNumber' => $participantRepository->getTotalNumber(false, true),
+                ],
+                'patrols' => [
+                    'counter' => 'admin.patrols.counter',
+                    'items' => $patrolRepository->findBy($criteria, $orderBy, $limit),
+                    'routeIndex' => 'admin_patrol_index',
+                    'routeShow' => 'admin_patrol_show',
+                    'title' => 'admin.patrols',
+                    'totalNumber' => $patrolRepository->getTotalNumber(true),
                 ],
                 'troops' => [
                     'counter' => 'admin.troops.counter',

@@ -2,6 +2,7 @@
 
 namespace JamboBundle\Form\Type;
 
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -19,6 +20,10 @@ class PatrolEditType extends AbstractType
         unset($options);
 
         $builder
+            ->add('status', ChoiceType::class, $this->mergeOptions('status', [
+                'choices' => $this->registrationLists->getStatusLabels(),
+                'label' => 'form.status',
+            ]))
             ->add('comments', TextType::class, $this->mergeOptions('comments', [
                 'label' => 'form.comments',
                 'required' => false,

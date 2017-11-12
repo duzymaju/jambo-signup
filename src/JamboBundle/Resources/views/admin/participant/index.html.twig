@@ -25,9 +25,15 @@
                 <tr>
                     <td>
                         <a href="{{ path('admin_participant_show', {id: participant.id}) }}">{{ participant.name }}</a>
-                        {% if participant.troop %}
+                        {% if participant.troop and participant.patrol %}
                             (<a href="{{ path('admin_troop_show', {id: participant.troop.id}) }}">
                                 {{- participant.troop.name -}}
+                            </a>, <a href="{{ path('admin_patrol_show', {id: participant.patrol.id}) }}">
+                                {{- participant.patrol.name -}}
+                            </a>)
+                        {% elseif participant.patrol %}
+                            ({{ 'admin.no_troop'|trans }}, <a href="{{ path('admin_patrol_show', {id: participant.patrol.id}) }}">
+                                {{- participant.patrol.name -}}
                             </a>)
                         {% endif %}
                     </td>
@@ -37,9 +43,15 @@
                         </a>
                     </td>
                     <td>
-                        <a href="{{ path('admin_troop_index', {status: participant.troop.status}) }}">
-                            {{ participant.troop.status|statusname }}
-                        </a>
+                        {% if participant.troop %}
+                            <a href="{{ path('admin_troop_index', {status: participant.troop.status}) }}">
+                                {{ participant.troop.status|statusname }}
+                            </a>
+                        {% elseif participant.patrol %}
+                            <a href="{{ path('admin_patrol_index', {status: participant.patrol.status}) }}">
+                                {{ participant.patrol.status|statusname }}
+                            </a>
+                        {% endif %}
                     </td>
                     <td>{{ participant.createdAt|date('Y-m-d') }}</td>
                     <td>
