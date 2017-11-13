@@ -69,6 +69,56 @@
             <p>{{ 'admin.search.no_query'|trans }}</p>
         {% endif %}
     {% endif %}
+    {% if results.patrol is defined %}
+        <h2>
+            {% if results.patrol is iterable %}
+                <a href="{{ path('admin_patrol_index') }}">{{ 'admin.patrols'|trans }}</a>
+                ({{ 'admin.search.query'|trans|lower }} "{{ query }}")
+                - {{ results.patrol|length }}
+            {% endif %}
+        </h2>
+        {% if results.patrol is iterable %}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>{{ 'admin.name'|trans }}</th>
+                        <th>{{ 'form.status'|trans }}</th>
+                        <th>{{ 'admin.created_at'|trans }}</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for patrol in results.patrol %}
+                        <tr>
+                            <td>
+                                <a href="{{ path('admin_patrol_show', {id: patrol.id}) }}">{{ patrol.name }}</a>
+                            </td>
+                            <td>
+                                <a href="{{ path('admin_patrol_index', {status: patrol.status}) }}">
+                                    {{ patrol.status|statusname }}
+                                </a>
+                            </td>
+                            <td>{{ patrol.createdAt|date('Y-m-d') }}</td>
+                            <td>
+                                <a href="{{ path('admin_patrol_show', {id: patrol.id}) }}"
+                                    class="btn btn-default btn-xs" title="{{ 'admin.show'|trans }}">
+                                    <i class="glyphicon glyphicon-file"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="4">
+                                {{ 'admin.list.empty'|trans }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>{{ 'admin.search.no_query'|trans }}</p>
+        {% endif %}
+    {% endif %}
     {% if results.troop is defined %}
         <h2>
             {% if results.troop is iterable %}

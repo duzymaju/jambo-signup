@@ -45,6 +45,8 @@ class SearchController extends AbstractController
                 $results = [
                     SearchType::CHOICE_PARTICIPANT => $this->getRepository(SearchType::CHOICE_PARTICIPANT)
                         ->searchBy($queries),
+                    SearchType::CHOICE_PATROL => $this->getRepository(SearchType::CHOICE_PATROL)
+                        ->searchBy($queries),
                     SearchType::CHOICE_TROOP => $this->getRepository(SearchType::CHOICE_TROOP)
                         ->searchBy($queries),
                 ];
@@ -80,6 +82,10 @@ class SearchController extends AbstractController
         switch ($type) {
             case SearchType::CHOICE_PARTICIPANT:
                 $serviceName = 'jambo_bundle.repository.participant';
+                break;
+
+            case SearchType::CHOICE_PATROL:
+                $serviceName = 'jambo_bundle.repository.patrol';
                 break;
 
             case SearchType::CHOICE_TROOP:

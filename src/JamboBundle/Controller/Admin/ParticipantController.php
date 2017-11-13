@@ -193,6 +193,7 @@ class ParticipantController extends AbstractController
             $translator->trans('form.guardian_name'),
             $translator->trans('form.guardian_phone'),
             $translator->trans('form.shirt_size'),
+            $translator->trans('form.special_diet'),
             $translator->trans('form.comments'),
             $translator->trans('form.troop_name'),
             $translator->trans('form.patrol_name'),

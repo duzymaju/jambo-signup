@@ -37,6 +37,8 @@
         <dd>{{ participant.pesel|peselmodify }}</dd>
         <dt>{{ 'form.shirt_size'|trans }}:</dt>
         <dd>{{ participant.shirtSize ? participant.shirtSize|shirtsizename : '-' }}</dd>
+        <dt>{{ 'form.special_diet'|trans }}:</dt>
+        <dd>{{ participant.specialDiet is empty ? '-' : participant.specialDiet }}</dd>
         <dt>{{ 'form.comments'|trans }}:</dt>
         <dd>{{ participant.comments is empty ? '-' : participant.comments }}</dd>
         <dt>{{ 'form.guardian_name'|trans }}:</dt>

@@ -19,6 +19,9 @@ class SearchType extends AbstractType
     const CHOICE_PARTICIPANT = 'participant';
 
     /** @const string */
+    const CHOICE_PATROL = 'patrol';
+
+    /** @const string */
     const CHOICE_TROOP = 'troop';
 
     /**
@@ -36,6 +39,7 @@ class SearchType extends AbstractType
                 'choices' => [
                     'admin.all' => self::CHOICE_ALL,
                     'admin.participant' => self::CHOICE_PARTICIPANT,
+                    'admin.patrol' => self::CHOICE_PATROL,
                     'admin.troop' => self::CHOICE_TROOP,
                 ],
                 'label' => 'admin.search.type',
