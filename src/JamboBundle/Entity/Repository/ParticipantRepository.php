@@ -45,8 +45,9 @@ class ParticipantRepository extends EntityRepository implements BaseRepositoryIn
     public function getFullInfoBy(array $criteria = [], array $orderBy = [])
     {
         $qb = $this->createQueryBuilder('p')
-            ->select('p, t')
-            ->leftJoin('p.troop', 't');
+            ->select('p, pt, t')
+            ->leftJoin('p.patrol', 'pt')
+            ->leftJoin('pt.troop', 't');
         foreach ($criteria as $column => $value) {
             $columnParts = explode('.', $column);
             $sign = count($columnParts) == 2 ? array_pop($columnParts) : null;
@@ -101,8 +102,9 @@ class ParticipantRepository extends EntityRepository implements BaseRepositoryIn
     public function getByTime(DateTime $timeFrom, DateTime $timeTo)
     {
         $qb = $this->createQueryBuilder('p')
-            ->select('p, t')
-            ->leftJoin('p.troop', 't')
+            ->select('p, pt, t')
+            ->leftJoin('p.patrol', 'pt')
+            ->leftJoin('pt.troop', 't')
             ->andWhere('p.createdAt BETWEEN :timeFrom AND :timeTo')
             ->orderBy('p.troop', 'ASC')
             ->setParameter('timeFrom', $timeFrom->format('Y-m-d'))
