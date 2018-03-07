@@ -17,3 +17,7 @@
         {{ translate ? message|trans : message }}
     </div>
 {% endmacro %}
+
+{% macro showMemberName(member) %}
+    {{ member.firstName }} {{ member.lastName }}
+{% endmacro %}

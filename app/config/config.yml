@@ -42,8 +42,10 @@ parameters:
             en:                         http://gdansk2018.krakowska.zhp.pl
             pl:                         http://gdansk2018.krakowska.zhp.pl
     jambo.region_id:                    12
-    jambo.participant_limit.max:        1
-    jambo.participant_limit.min:        1
+    jambo.participant_limit.max:        10
+    jambo.participant_limit.min:        10
     jambo.patrol_limit:                 4
-    jambo.time_limit.participants:      "2017-11-11 00:00:00"
+    jambo.time_limits:
+        registration:                   "2017-11-11 00:00:00"
+        patrol_participants:            "2018-04-01 00:00:00"
     jambo.troop_limit:                  10

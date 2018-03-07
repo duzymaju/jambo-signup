@@ -16,6 +16,9 @@ admin_participant_show: '/admin/participant/{id}'
 # Desc: /admin/patrol/{id}/edit
 admin_patrol_edit: '/admin/patrol/{id}/edit'
 
+# Desc: /admin/patrols/{pageNo}
+admin_patrol_index: '/admin/patrols/{pageNo}'
+
 # Desc: /admin/patrol/{id}
 admin_patrol_show: '/admin/patrol/{id}'
 
@@ -49,8 +52,11 @@ registration_participant_confirm: '/participant/{hash}/confirm'
 # Desc: /patrol/{hash}/confirm
 registration_patrol_confirm: '/patrol/{hash}/confirm'
 
-# Desc: /patrol/{troopHash}
-registration_patrol_form: '/patrol/{troopHash}'
+# Desc: /troop/{troopHash}/patrol
+registration_patrol_form: '/troop/{troopHash}/patrol'
+
+# Desc: /patrol/{hash}
+registration_patrol_participants_form: '/patrol/{hash}'
 
 # Desc: /patrol
 registration_patrol_single_form: /patrol

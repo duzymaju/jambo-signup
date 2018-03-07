@@ -55,6 +55,9 @@ _registration_patrol_form:
 _registration_patrol_single_form:
     resource:                           "@JamboBundle/Resources/config/routing/Registration/patrol/single_form.yml"
 
+_registration_patrol_participants_form:
+    resource:                           "@JamboBundle/Resources/config/routing/Registration/patrol/participants_form.yml"
+
 _registration_troop_confirm:
     resource:                           "@JamboBundle/Resources/config/routing/Registration/troop/confirm.yml"
 

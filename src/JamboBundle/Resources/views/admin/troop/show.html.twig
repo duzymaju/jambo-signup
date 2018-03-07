@@ -42,7 +42,7 @@
             <dt>{{ 'admin.troop_members'|trans({'%count%': troop.members.count}) }}:</dt>
             <dd>
                 {% for member in troop.members %}
-                    <a href="{{ path('admin_participant_show', {id: member.id}) }}">{{ member.firstName }} {{ member.lastName }}</a>{% if member.troopLeader %} ({{ 'admin.troop_leader'|trans }}){% elseif member.patrolLeader %} ({{ 'admin.patrol_leader'|trans }}){% endif %}{{ not loop.last ? ',' : '' }}
+                    <a href="{{ path('admin_participant_show', {id: member.id}) }}">{{ globalMacro.showMemberName(member) }}</a>{% if member.troopLeader %} ({{ 'admin.troop_leader'|trans }}){% elseif member.patrolLeader %} ({{ 'admin.patrol_leader'|trans }}){% endif %}{{ not loop.last ? ',' : '' }}
                 {% endfor %}
             </dd>
         {% endif %}

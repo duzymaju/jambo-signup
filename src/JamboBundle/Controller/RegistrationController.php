@@ -10,6 +10,7 @@ use JamboBundle\Entity\Patrol;
 use JamboBundle\Entity\Troop;
 use JamboBundle\Exception\ExceptionInterface;
 use JamboBundle\Exception\RegistrationException;
+use JamboBundle\Form\Type\PatrolMembersType;
 use JamboBundle\Form\Type\PatrolType;
 use JamboBundle\Form\Type\TroopType;
 use Swift_Message;
@@ -19,6 +20,7 @@ use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
@@ -191,7 +193,7 @@ class RegistrationController extends Controller
                     }
 
                     if ($isLastPatrol) {
-                        $successMessage = $translator->trans('success.message', [
+                        $successMessage = $translator->trans('success.message.notification', [
                             '%email%' => $troopLeader->getEmail(),
                         ]);
                         $redirectLink = $this->generateUrl('registration_success');
@@ -275,15 +277,19 @@ class RegistrationController extends Controller
                         ]);
 
                     try {
-                        $this->get('jambo_bundle.repository.patrol')
-                            ->insert($patrol, true);
-                        $this->get('jambo_bundle.repository.participant')
-                            ->insert($leader, true);
+                        $this
+                            ->get('jambo_bundle.repository.patrol')
+                            ->insert($patrol, true)
+                        ;
+                        $this
+                            ->get('jambo_bundle.repository.participant')
+                            ->insert($leader, true)
+                        ;
                     } catch (Exception $e) {
                         throw new RegistrationException('form.exception.database', 0, $e);
                     }
 
-                    $this->addMessage($translator->trans('success.message', [
+                    $this->addMessage($translator->trans('success.message.notification', [
                         '%email%' => $leader->getEmail(),
                     ]), 'success');
                     $response = $this->redirectToRoute('registration_success');
@@ -301,6 +307,98 @@ class RegistrationController extends Controller
                 'max_size' => $this->getParameter('jambo.participant_limit.max'),
                 'min_age_member' => $this->getParameter('jambo.age_limit.min'),
                 'min_size' => $this->getParameter('jambo.participant_limit.min'),
+            ]);
+        }
+
+        return $response;
+    }
+
+    /**
+     * Patrol participants form action
+     *
+     * @param int     $hash    hash
+     * @param Request $request request
+     *
+     * @return Response
+     */
+    public function patrolParticipantsFormAction($hash, Request $request)
+    {
+        if ($this->patrolParticipantsLimitsExceeded()) {
+            return $this->render('JamboBundle::registration/troop/closed.html.twig', [
+                'participantsLimitsExceeded' => true,
+            ]);
+        }
+
+        /** @var Patrol $patrol */
+        $patrol = $this
+            ->get('jambo_bundle.repository.patrol')
+            ->findOneByOrException([
+                'activationHash' => $hash,
+                'status' => Patrol::STATUS_CONFIRMED,
+            ]);
+
+        /** @var TranslatorInterface $translator */
+        $translator = $this->get('translator');
+
+        $membersToLeave = $patrol
+            ->getMembers()
+            ->count()
+        ;
+        $maxParticipantsLimit = $this->getParameter('jambo.participant_limit.max');
+        if ($membersToLeave >= $maxParticipantsLimit) {
+            throw new NotFoundHttpException('There is no possibility to add new participants to this patrol.');
+        }
+
+        // Just a workaround to prevent from editing existing participants' data in a simpliest possible way
+        $surrogatePatrol = new Patrol();
+        $surrogatePatrol->setName('surrogate');
+        $this->addMembersToPatrol($surrogatePatrol, $membersToLeave);
+        $form = $this->createForm(PatrolMembersType::class, $surrogatePatrol, [
+            'action' => $this->generateUrl('registration_patrol_participants_form', [
+                'hash' => $patrol->getActivationHash(),
+            ]),
+            'method' => 'POST',
+        ]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->preparePatrolAndMembers($form, $surrogatePatrol);
+
+            if ($form->isValid()) {
+                foreach ($surrogatePatrol->getMembers() as $member) {
+                    $member->setPatrol($patrol);
+                    $patrol->addMember($member);
+                }
+                try {
+                    try {
+                        $this
+                            ->get('jambo_bundle.repository.patrol')
+                            ->update($patrol, true)
+                        ;
+                    } catch (Exception $e) {
+                        throw new RegistrationException('form.exception.database', 0, $e);
+                    }
+
+                    $this->addMessage($translator->trans('success.message.participants'), 'success');
+                    $response = $this->redirectToRoute('registration_success');
+                } catch (ExceptionInterface $e) {
+                    $this->addMessage($e->getMessage(), 'error');
+                } catch (Exception $e) {
+                    $this->addMessage('form.exception.database', 'error');
+                }
+            }
+        }
+        if (!isset($response)) {
+            $troop = $patrol->getTroop();
+            $this->addErrorMessage($form);
+            $response = $this->render('JamboBundle::registration/patrol/participants_form.html.twig', [
+                'added_items' => $membersToLeave,
+                'form' => $form->createView(),
+                'max_size' => $this->getParameter('jambo.participant_limit.max'),
+                'min_age_member' => $this->getParameter('jambo.age_limit.min'),
+                'min_size' => $this->getParameter('jambo.participant_limit.min'),
+                'patrol' => $patrol,
+                'troop' => $troop,
             ]);
         }
 
@@ -406,13 +504,15 @@ class RegistrationController extends Controller
     /**
      * Add members to patrol
      *
-     * @param Patrol $patrol patrol
+     * @param Patrol $patrol         patrol
+     * @param int    $membersToLeave number of members not to prepare
      *
      * @return self
      */
-    private function addMembersToPatrol(Patrol $patrol)
+    private function addMembersToPatrol(Patrol $patrol, $membersToLeave = 0)
     {
-        for ($i = 1; $i < $this->getParameter('jambo.participant_limit.min'); $i++) {
+        $membersToAdd = $this->getParameter('jambo.participant_limit.min') - $membersToLeave;
+        for ($i = 0; $i < $membersToAdd; $i++) {
             $member = new Participant();
             $member->setPatrol($patrol);
             $patrol->addMember($member);
@@ -683,7 +783,8 @@ class RegistrationController extends Controller
      */
     private function participantsLimitsExceeded($checkTroopLimit = true)
     {
-        $timeLimit = new DateTime($this->getParameter('jambo.time_limit.participants'));
+        $timeLimits = $this->getParameter('jambo.time_limits');
+        $timeLimit = new DateTime($timeLimits['registration']);
         if (new DateTime('now') > $timeLimit) {
             return true;
         }
@@ -694,6 +795,22 @@ class RegistrationController extends Controller
             if ($troopRepository->getTotalNumber() >= $troopLimit) {
                 return true;
             }
+        }
+
+        return false;
+    }
+
+    /**
+     * Patrol participants limits exceeded
+     *
+     * @return bool
+     */
+    private function patrolParticipantsLimitsExceeded()
+    {
+        $timeLimits = $this->getParameter('jambo.time_limits');
+        $timeLimit = new DateTime($timeLimits['patrol_participants']);
+        if (new DateTime('now') > $timeLimit) {
+            return true;
         }
 
         return false;

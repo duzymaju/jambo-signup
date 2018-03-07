@@ -38,8 +38,6 @@ class PatrolMemberType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        unset($options);
-
         $builder
             ->add('firstName', TextType::class, $this->mergeOptions('firstName', [
                 'label' => 'form.first_name',
@@ -72,7 +70,7 @@ class PatrolMemberType extends AbstractType
             ->add('districtId', ChoiceType::class, $this->mergeOptions('districtId', [
                 'choices' => array_flip($this->registrationLists->getDistricts($this->regionId, false)),
                 'label' => $this->translator->trans('form.district'),
-                'required' => false,
+                'required' => $options['districtRequired'],
                 'translation_domain' => false,
             ]))
             ->add('shirtSize', ChoiceType::class, $this->mergeOptions('shirtSize', [
@@ -93,6 +91,7 @@ class PatrolMemberType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Participant::class,
+            'districtRequired' => false,
         ]);
     }
 

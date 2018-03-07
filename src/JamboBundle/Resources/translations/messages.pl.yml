@@ -16,6 +16,7 @@ admin.login.submit:                     Zaloguj
 admin.login.title:                      Formularz logowania
 admin.login.username:                   Nazwa użytkownika
 admin.logout.link:                      Wyloguj <strong>%login%</strong>
+admin.members_number:                   Ilość członków
 admin.name:                             Nazwa
 admin.no_troop:                         brak drużyny
 admin.participant:                      Uczestnik
@@ -165,9 +166,11 @@ patrol.form.range:                      od %min_size% do %max_size%
 patrol.form.title:                      Formularz dla %no%. zastępu drużyny "%troopName%"
 patrol.form.troop_leader:               Drużynowy i zastępowy (pełnoletni)
 patrol.message.success:                 Pomyślnie dodano zastęp do drużyny "%troopName%". Dodaj kolejny zastęp.
+patrol.participants_form.title:         Formularz członków zastępu "%patrolName%" drużyny "%troopName%"
 patrol.single_form.title:               Formularz dla pojedynczego zastępu
 
-success.message:                        Twoje dane zostały pomyślnie zapisane. Aby dokończyć rejestrację odbierz wiadomość e-mail, którą wysłaliśmy Ci na adres %email% i kliknij w link potwierdzenia. Jeśli podany adres e-mail jest niepoprawny, skontaktuj się z nami w celu skorygowania błędu. Dane członków zastępów będzie można uzupełnić w późniejszym terminie, przed połową marca 2018.
+success.message.notification:           Twoje dane zostały pomyślnie zapisane. Aby dokończyć rejestrację odbierz wiadomość e-mail, którą wysłaliśmy Ci na adres %email% i kliknij w link potwierdzenia. Jeśli podany adres e-mail jest niepoprawny, skontaktuj się z nami w celu skorygowania błędu. Dane członków zastępów będzie można uzupełnić w późniejszym terminie, przed połową marca 2018.
+success.message.participants:           Dane członków zastępu zostały pomyślnie zapisane.
 success.title:                          Dziękujemy za rejestrację
 
 troop.closed.message:                   Rejestracja drużyn została zakończona.

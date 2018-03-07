@@ -1,0 +1,7 @@
+registration_patrol_participants_form:
+    defaults:
+        _controller:                    JamboBundle:Registration:patrolParticipantsForm
+    methods:                            [GET|POST]
+    path:                               /patrol/{hash}
+    requirements:
+        troopHash:                      "[0-9a-f]{32}$"

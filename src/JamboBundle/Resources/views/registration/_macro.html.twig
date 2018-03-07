@@ -42,6 +42,13 @@
     </div>
 {% endmacro %}
 
+{% macro infoRow(label, value) %}
+    <div class="form-group">
+        <label>{{ label|trans }}</label>:
+        <span>{{ value }}</span>
+    </div>
+{% endmacro %}
+
 {% macro troopMember(member, no = 1, isFirstPatrol, leaderData = null, forceEmailTip = false) %}
     {% import _self as macros %}
     {% set isLeader = leaderData and leaderData is same as (member.vars.data) %}

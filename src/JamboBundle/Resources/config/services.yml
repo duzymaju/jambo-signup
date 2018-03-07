@@ -32,6 +32,14 @@ services:
         tags:
             - name:                     form.type
 
+    jambo_bundle.form_type.patrol_members:
+        arguments:
+            -                           "@translator"
+            -                           "@jambo_bundle.registration.lists"
+        class:                          JamboBundle\Form\Type\PatrolMembersType
+        tags:
+            - name:                     form.type
+
     jambo_bundle.form_type.troop:
         arguments:
             -                           "@translator"

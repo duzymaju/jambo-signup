@@ -30,20 +30,22 @@
             var maxSize = collection.data('max-size');
             var prototype = collection.data('prototype');
             var items = collection.children();
+            var addedItems = collection.data('added-items') || 0;
 
-            if (items.length >= maxSize) {
+            if (items.length + addedItems >= maxSize) {
                 return;
             }
             form.find('#add-member').on('click', function () {
-                if (items.length < maxSize) {
-                    var newItem = $(prototype.replace(/__name__/g, items.length).replace(/__no__/g, items.length + 1));
+                if (items.length + addedItems < maxSize) {
+                    var newItem = $(prototype.replace(/__name__/g, items.length)
+                        .replace(/__no__/g, items.length + addedItems + 1));
                     collection.append(newItem);
                     items = collection.children();
                     form.trigger('enlarge');
                     if (typeof callback !== undefinedType) {
                         callback(newItem);
                     }
-                    if (items.length === maxSize) {
+                    if (items.length + addedItems === maxSize) {
                         $(this).parent().hide();
                     }
                 }

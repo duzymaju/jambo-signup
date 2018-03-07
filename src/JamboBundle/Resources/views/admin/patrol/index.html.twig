@@ -16,6 +16,7 @@
             <tr>
                 <th>{{ 'admin.name'|trans }}</th>
                 <th>{{ 'admin.district'|trans }}</th>
+                <th>{{ 'admin.members_number'|trans }}</th>
                 <th>{{ 'form.status'|trans }}</th>
                 <th>{{ 'admin.created_at'|trans }}</th>
                 <th></th>
@@ -39,6 +40,7 @@
                             {{ patrol.districtId|districtname }}
                         </a>
                     </td>
+                    <td>{{ patrol.members.count }}</td>
                     <td>
                         <a href="{{ path('admin_patrol_index', {status: patrol.status}) }}">
                             {{ patrol.status|statusname }}
@@ -54,7 +56,7 @@
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="5">
+                    <td colspan="6">
                         {{ 'admin.list.empty'|trans }}
                     </td>
                 </tr>
