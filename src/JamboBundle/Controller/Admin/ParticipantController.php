@@ -215,7 +215,8 @@ class ParticipantController extends AbstractController
                 $filters->sexNameFilter($participant->getSex()),
                 $participant->getGradeId() > 0 ? $filters->gradeNameFilter($participant->getGradeId()) : '-',
                 $participant->getDistrictId() > 0 ? $filters->districtNameFilter($participant->getDistrictId()) : '-',
-                $participant->getPesel() > 0 ? $filters->peselModifyFilter($participant->getPesel(), $showPesel) : '-',
+                $participant->getPesel() !== null ? $filters->peselModifyFilter($participant->getPesel(), $showPesel) :
+                    '-',
                 $participant->getGuardianName() ? $participant->getGuardianName() : '-',
                 $participant->getGuardianPhone() ? $participant->getGuardianPhone() : '-',
                 $participant->getShirtSize() > 0 ? $filters->shirtSizeNameFilter($participant->getShirtSize()) : '-',

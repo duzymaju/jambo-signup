@@ -60,8 +60,11 @@ JamboBundle\Entity\Participant:
                 unsigned:               true
             type:                       smallint
         pesel:
+            length:                     11
             nullable:                   true
-            type:                       bigint
+            options:
+                fixed:                  true
+            type:                       string
         specialDiet:
             length:                     255
             nullable:                   true

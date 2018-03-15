@@ -167,12 +167,9 @@ class ParticipantRepository extends EntityRepository implements BaseRepositoryIn
 
                 $qb->orWhere('p.lastName LIKE :lastName_' .$i)
                     ->setParameter('lastName_' .$i, '%' . $query . '%');
-            } else {
-                $queryInteger = (int) $query;
-                if ($queryInteger > 0) {
-                    $qb->orWhere('p.pesel LIKE :pesel_' .$i)
-                        ->setParameter('pesel_' .$i, (int) $query);
-                }
+            } elseif (!empty($query)) {
+                $qb->orWhere('p.pesel LIKE :pesel_' .$i)
+                    ->setParameter('pesel_' .$i, $query);
             }
 
             $qb->orWhere('p.address LIKE :address_' .$i)
