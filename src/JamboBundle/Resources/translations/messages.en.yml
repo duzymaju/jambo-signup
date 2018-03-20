@@ -114,12 +114,19 @@ form.sex.female:                        Female
 form.sex.male:                          Male
 form.shirt_size:                        Shirt size
 form.shirt_size.xs:                     XS
+form.shirt_size.xs_kids:                XS for kids
 form.shirt_size.s:                      S
+form.shirt_size.s_kids:                 S for kids
 form.shirt_size.m:                      M
+form.shirt_size.m_kids:                 M for kids
 form.shirt_size.l:                      L
+form.shirt_size.l_kids:                 L for kids
 form.shirt_size.xl:                     XL
+form.shirt_size.xl_kids:                XL for kids
 form.shirt_size.xxl:                    XXL
+form.shirt_size.xxl_kids:               XXL for kids
 form.shirt_size.xxxl:                   XXXL
+form.shirt_size.xxxl_kids:              XXXL for kids
 form.special_diet:                      Special diet
 form.status:                            Status
 form.status.completed:                  Completed

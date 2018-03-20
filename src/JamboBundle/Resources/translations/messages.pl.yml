@@ -124,12 +124,19 @@ form.sex.female:                        Kobieta
 form.sex.male:                          Mężczyzna
 form.shirt_size:                        Rozmiar koszulki
 form.shirt_size.xs:                     XS
+form.shirt_size.xs_kids:                XS dziecięca
 form.shirt_size.s:                      S
+form.shirt_size.s_kids:                 S dziecięca
 form.shirt_size.m:                      M
+form.shirt_size.m_kids:                 M dziecięca
 form.shirt_size.l:                      L
+form.shirt_size.l_kids:                 L dziecięca
 form.shirt_size.xl:                     XL
+form.shirt_size.xl_kids:                XL dziecięca
 form.shirt_size.xxl:                    XXL
+form.shirt_size.xxl_kids:               XXL dziecięca
 form.shirt_size.xxxl:                   XXXL
+form.shirt_size.xxxl_kids:              XXXL dziecięca
 form.special_diet:                      Specialna dieta
 form.status:                            Status
 form.status.completed:                  Kompletny

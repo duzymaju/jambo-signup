@@ -23,22 +23,43 @@ class Participant implements StatusAwareInterface
     const SHIRT_SIZE_XS = 1;
 
     /** @const int */
+    const SHIRT_SIZE_XS_KIDS = 11;
+
+    /** @const int */
     const SHIRT_SIZE_S = 2;
+
+    /** @const int */
+    const SHIRT_SIZE_S_KIDS = 12;
 
     /** @const int */
     const SHIRT_SIZE_M = 3;
 
     /** @const int */
+    const SHIRT_SIZE_M_KIDS = 13;
+
+    /** @const int */
     const SHIRT_SIZE_L = 4;
+
+    /** @const int */
+    const SHIRT_SIZE_L_KIDS = 14;
 
     /** @const int */
     const SHIRT_SIZE_XL = 5;
 
     /** @const int */
+    const SHIRT_SIZE_XL_KIDS = 15;
+
+    /** @const int */
     const SHIRT_SIZE_XXL = 6;
 
     /** @const int */
+    const SHIRT_SIZE_XXL_KIDS = 16;
+
+    /** @const int */
     const SHIRT_SIZE_XXXL = 7;
+
+    /** @const int */
+    const SHIRT_SIZE_XXXL_KIDS = 17;
 
     /** @var string */
     protected $firstName;

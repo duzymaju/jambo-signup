@@ -130,12 +130,19 @@ class RegistrationLists
     {
         $labels = [
             'form.shirt_size.xs' => Participant::SHIRT_SIZE_XS,
+            'form.shirt_size.xs_kids' => Participant::SHIRT_SIZE_XS_KIDS,
             'form.shirt_size.s' => Participant::SHIRT_SIZE_S,
+            'form.shirt_size.s_kids' => Participant::SHIRT_SIZE_S_KIDS,
             'form.shirt_size.m' => Participant::SHIRT_SIZE_M,
+            'form.shirt_size.m_kids' => Participant::SHIRT_SIZE_M_KIDS,
             'form.shirt_size.l' => Participant::SHIRT_SIZE_L,
+            'form.shirt_size.l_kids' => Participant::SHIRT_SIZE_L_KIDS,
             'form.shirt_size.xl' => Participant::SHIRT_SIZE_XL,
+            'form.shirt_size.xl_kids' => Participant::SHIRT_SIZE_XL_KIDS,
             'form.shirt_size.xxl' => Participant::SHIRT_SIZE_XXL,
+            'form.shirt_size.xxl_kids' => Participant::SHIRT_SIZE_XXL_KIDS,
             'form.shirt_size.xxxl' => Participant::SHIRT_SIZE_XXXL,
+            'form.shirt_size.xxxl_kids' => Participant::SHIRT_SIZE_XXXL_KIDS,
         ];
 
         return $labels;
