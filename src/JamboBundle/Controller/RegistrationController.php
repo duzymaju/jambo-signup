@@ -754,7 +754,38 @@ class RegistrationController extends Controller
     {
         if ($form->isSubmitted() && !$form->isValid()) {
             $this->addMessage('form.errors', 'error');
+
+            $errors = [];
+            foreach ($form->getErrors(true) as $error) {
+                $errors[] = $this->getFormName($error->getOrigin()) . ': ' . $error->getMessage();
+            }
+            $this
+                ->get('logger')
+                ->warning(sprintf('Errors in form "%s": %s', $form->getName(), json_encode($errors)))
+            ;
         }
+    }
+
+    /**
+     * Get form name
+     *
+     * @param FormInterface $form form
+     *
+     * @return string
+     */
+    private function getFormName(FormInterface $form)
+    {
+        $nameParts = [];
+        $parentForm = $form->getParent();
+        if ($parentForm) {
+            $nameParts[] = $this->getFormName($parentForm);
+        }
+        $nameParts[] = $form
+            ->getName()
+        ;
+        $name = implode('.', $nameParts);
+
+        return $name;
     }
 
     /**
