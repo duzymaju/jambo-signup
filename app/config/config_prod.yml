@@ -13,7 +13,7 @@ monolog:
             process_psr_3_messages:     false
             type:                       console
         main:
-            action_level:               error
+            action_level:               warning
             handler:                    nested
             type:                       fingers_crossed
         nested:
